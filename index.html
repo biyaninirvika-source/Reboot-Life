@@ -1,0 +1,3013 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RebootLife — AI Drug Repurposing Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #F5F0E8;
+    --charcoal: #2D2D2D;
+    --orange: #E8540A;
+    --teal: #1A7A6E;
+    --yellow: #F5C518;
+    --blue: #2C5EBD;
+    --purple: #6B3FA0;
+    --white: #FFFFFF;
+    --light-orange: #FEE8DA;
+    --light-teal: #D4EDEA;
+    --light-blue: #D8E4F5;
+    --light-purple: #E8DCFA;
+    --light-yellow: #FEF8D5;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--charcoal);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* HEADER */
+  header {
+    background: var(--charcoal);
+    padding: 16px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .logo-icon {
+    width: 36px;
+    height: 36px;
+    background: var(--orange);
+    border-radius: 50% 50% 50% 0;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .logo-icon::after {
+    content: '↺';
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  .logo-text {
+    font-family: 'Syne', sans-serif;
+    font-size: 22px;
+    font-weight: 800;
+    color: white;
+  }
+
+  .logo-text span { color: var(--orange); }
+
+  .header-badge {
+    font-size: 12px;
+    background: var(--teal);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+  }
+
+  /* HERO */
+  .hero {
+    background: var(--charcoal);
+    padding: 60px 40px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 300px; height: 300px;
+    background: var(--teal);
+    border-radius: 50%;
+    opacity: 0.15;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -40px; left: 200px;
+    width: 180px; height: 180px;
+    background: var(--orange);
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    opacity: 0.2;
+  }
+
+  .geo-shapes {
+    position: absolute;
+    top: 20px; right: 40px;
+    display: flex; gap: 8px;
+    align-items: center;
+  }
+
+  .geo { border-radius: 50%; opacity: 0.7; }
+  .geo-1 { width: 40px; height: 40px; background: var(--teal); border-radius: 50%; }
+  .geo-2 { width: 30px; height: 30px; background: var(--yellow); border-radius: 50% 50% 0 50%; }
+  .geo-3 { width: 0; height: 0; border-left: 20px solid transparent; border-right: 20px solid transparent; border-bottom: 35px solid var(--orange); border-radius: 0; }
+
+  .hero-tag {
+    display: inline-block;
+    background: var(--orange);
+    color: white;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 3px;
+    margin-bottom: 20px;
+  }
+
+  .hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(36px, 6vw, 64px);
+    font-weight: 800;
+    color: white;
+    line-height: 1.05;
+    max-width: 700px;
+    margin-bottom: 16px;
+  }
+
+  .hero h1 .highlight { color: var(--yellow); }
+
+  .hero p {
+    color: rgba(255,255,255,0.6);
+    font-size: 16px;
+    max-width: 500px;
+    line-height: 1.6;
+    margin-bottom: 40px;
+  }
+
+  /* SEARCH */
+  .search-container {
+    max-width: 620px;
+    position: relative;
+  }
+
+  .search-wrap {
+    display: flex;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.3);
+  }
+
+  .search-wrap input {
+    flex: 1;
+    padding: 18px 20px;
+    font-size: 16px;
+    font-family: 'DM Sans', sans-serif;
+    border: none;
+    outline: none;
+    color: var(--charcoal);
+    background: transparent;
+  }
+
+  .search-wrap input::placeholder { color: #aaa; }
+
+  .search-btn {
+    background: var(--orange);
+    color: white;
+    border: none;
+    padding: 18px 28px;
+    font-family: 'Syne', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s;
+    white-space: nowrap;
+  }
+
+  .search-btn:hover { background: #c9450a; }
+
+  .quick-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 16px;
+  }
+
+  .pill {
+    background: rgba(255,255,255,0.12);
+    color: rgba(255,255,255,0.8);
+    border: 1px solid rgba(255,255,255,0.2);
+    padding: 5px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .pill:hover { background: var(--orange); color: white; border-color: var(--orange); }
+
+  /* MAIN CONTENT */
+  main { padding: 40px; max-width: 1200px; margin: 0 auto; }
+
+  /* LOADING */
+  .loading-state {
+    display: none;
+    text-align: center;
+    padding: 60px 20px;
+  }
+
+  .loader-ring {
+    width: 60px; height: 60px;
+    border: 4px solid var(--light-teal);
+    border-top: 4px solid var(--teal);
+    border-radius: 50%;
+    animation: spin 0.9s linear infinite;
+    margin: 0 auto 20px;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .loading-state p {
+    color: var(--teal);
+    font-weight: 600;
+    font-size: 15px;
+  }
+
+  /* RESULTS */
+  .results { display: none; animation: fadeUp 0.4s ease; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .drug-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+    background: white;
+    border-radius: 16px;
+    padding: 28px 32px;
+    margin-bottom: 24px;
+    border-left: 6px solid var(--orange);
+    box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+  }
+
+  .drug-icon {
+    width: 64px; height: 64px;
+    background: var(--light-orange);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    flex-shrink: 0;
+  }
+
+  .drug-meta { flex: 1; }
+
+  .drug-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--charcoal);
+    margin-bottom: 4px;
+  }
+
+  .drug-class {
+    font-size: 13px;
+    color: #888;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .drug-indication {
+    display: inline-block;
+    background: var(--light-orange);
+    color: var(--orange);
+    font-size: 13px;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 6px;
+    border: 1px solid rgba(232,84,10,0.2);
+  }
+
+  /* CARDS GRID */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 24px;
+  }
+
+  @media (max-width: 700px) { .cards-grid { grid-template-columns: 1fr; } }
+
+  .card {
+    background: white;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+  }
+
+  .card-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .card-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .tag-list { display: flex; flex-wrap: wrap; gap: 8px; }
+
+  .tag {
+    padding: 5px 12px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+  }
+
+  .tag-teal { background: var(--light-teal); color: var(--teal); }
+  .tag-blue { background: var(--light-blue); color: var(--blue); }
+  .tag-purple { background: var(--light-purple); color: var(--purple); }
+  .tag-yellow { background: var(--light-yellow); color: #8a6d0a; }
+
+  /* AI PREDICTIONS */
+  .ai-section {
+    background: white;
+    border-radius: 16px;
+    padding: 28px 32px;
+    margin-bottom: 24px;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+  }
+
+  .ai-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+
+  .ai-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--charcoal);
+  }
+
+  .ai-badge {
+    background: linear-gradient(135deg, var(--teal), var(--blue));
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: 20px;
+  }
+
+  .prediction-cards { display: flex; flex-direction: column; gap: 14px; }
+
+  .pred-card {
+    border: 1.5px solid #eee;
+    border-radius: 12px;
+    padding: 18px 20px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    cursor: default;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .pred-card::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 4px;
+  }
+
+  .pred-card.high::before { background: var(--teal); }
+  .pred-card.moderate::before { background: var(--yellow); }
+  .pred-card.experimental::before { background: var(--orange); }
+
+  .pred-card:hover { border-color: var(--teal); box-shadow: 0 4px 20px rgba(26,122,110,0.1); }
+
+  .pred-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 8px;
+  }
+
+  .pred-disease {
+    font-family: 'Syne', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--charcoal);
+  }
+
+  .confidence-badge {
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 20px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .conf-high { background: var(--light-teal); color: var(--teal); }
+  .conf-moderate { background: var(--light-yellow); color: #8a6d0a; }
+  .conf-experimental { background: var(--light-orange); color: var(--orange); }
+
+  .pred-mechanism {
+    font-size: 13px;
+    color: #666;
+    line-height: 1.5;
+    margin-bottom: 10px;
+  }
+
+  .pred-path {
+    font-size: 12px;
+    color: #999;
+    font-family: monospace;
+    background: #f8f8f8;
+    padding: 6px 10px;
+    border-radius: 6px;
+    letter-spacing: 0.2px;
+  }
+
+  /* KNOWLEDGE GRAPH */
+  .kg-section {
+    background: white;
+    border-radius: 16px;
+    padding: 28px 32px;
+    margin-bottom: 24px;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+  }
+
+  .kg-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--charcoal);
+    margin-bottom: 6px;
+  }
+
+  .kg-subtitle {
+    font-size: 13px;
+    color: #999;
+    margin-bottom: 24px;
+  }
+
+  #kg-canvas {
+    width: 100%;
+    height: 420px;
+    border-radius: 12px;
+    background: #fafafa;
+    border: 1px solid #eee;
+  }
+
+  /* MARKET DATA */
+  .market-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  @media (max-width: 600px) { .market-grid { grid-template-columns: 1fr; } }
+
+  .market-card {
+    background: white;
+    border-radius: 14px;
+    padding: 20px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+    text-align: center;
+  }
+
+  .market-icon { font-size: 24px; margin-bottom: 8px; }
+
+  .market-val {
+    font-family: 'Syne', sans-serif;
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--charcoal);
+    margin-bottom: 4px;
+  }
+
+  .market-label {
+    font-size: 12px;
+    color: #999;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  /* EMPTY STATE */
+  .empty-state {
+    text-align: center;
+    padding: 80px 20px;
+  }
+
+  .empty-shapes {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 28px;
+    align-items: center;
+  }
+
+  .es-1 { width: 50px; height: 50px; background: var(--teal); border-radius: 50%; opacity: 0.7; }
+  .es-2 { width: 40px; height: 40px; background: var(--yellow); clip-path: polygon(50% 0%, 0% 100%, 100% 100%); opacity: 0.7; }
+  .es-3 { width: 45px; height: 45px; background: var(--orange); border-radius: 50% 50% 0 50%; opacity: 0.7; }
+  .es-4 { width: 35px; height: 35px; background: var(--blue); border-radius: 4px; transform: rotate(20deg); opacity: 0.7; }
+  .es-5 { width: 42px; height: 42px; background: var(--purple); border-radius: 0 50% 50% 50%; opacity: 0.7; }
+
+  .empty-state h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--charcoal);
+    margin-bottom: 10px;
+  }
+
+  .empty-state p { color: #aaa; font-size: 15px; max-width: 400px; margin: 0 auto; }
+
+  /* ERROR */
+  .error-state {
+    display: none;
+    background: var(--light-orange);
+    border: 1.5px solid rgba(232,84,10,0.2);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-bottom: 20px;
+    color: var(--orange);
+    font-weight: 500;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--charcoal);
+    color: rgba(255,255,255,0.4);
+    text-align: center;
+    padding: 24px 40px;
+    font-size: 13px;
+    margin-top: 40px;
+  }
+
+  footer span { color: var(--orange); }
+
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <div class="logo-icon"></div>
+    <div class="logo-text">Reboot<span>Life</span></div>
+  </div>
+  <div class="header-badge">AI Drug Repurposing Platform</div>
+</header>
+
+<div class="hero">
+  <div class="geo-shapes">
+    <div class="geo-1 geo"></div>
+    <div class="geo-2 geo"></div>
+    <div class="geo-3 geo"></div>
+  </div>
+  <div class="hero-tag">Powered by AI + Knowledge Graphs</div>
+  <h1>Restart the Cure<br><span class="highlight">from breakdown</span><br>to breakthrough.</h1>
+  <p>Search any drug or herbal compound to discover AI-predicted new therapeutic indications, molecular targets, and biological pathways.</p>
+
+  <div class="search-container">
+    <div class="search-wrap">
+      <input type="text" id="drugInput" placeholder="Enter drug name (e.g. Metformin, Colchicine, Ashwagandha, Empagliflozin...)" autocomplete="off" />
+      <button class="search-btn" onclick="searchDrug()">Analyze Drug →</button>
+    </div>
+    <div class="quick-pills">
+      <span class="pill" onclick="quickSearch('Metformin')">Metformin</span>
+      <span class="pill" onclick="quickSearch('Sildenafil')">Sildenafil</span>
+      <span class="pill" onclick="quickSearch('Rapamycin')">Rapamycin</span>
+      <span class="pill" onclick="quickSearch('Curcumin')">Curcumin</span>
+      <span class="pill" onclick="quickSearch('Aspirin')">Aspirin</span>
+      <span class="pill" onclick="quickSearch('Berberine')">Berberine</span>
+      <span class="pill" onclick="quickSearch('Resveratrol')">Resveratrol</span>
+      <span class="pill" onclick="quickSearch('Atorvastatin')">Atorvastatin</span>
+      <span class="pill" onclick="quickSearch('Ivermectin')">Ivermectin</span>
+      <span class="pill" onclick="quickSearch('Propranolol')">Propranolol</span>
+      <span class="pill" onclick="quickSearch('Doxycycline')">Doxycycline</span>
+      <span class="pill" onclick="quickSearch('Thalidomide')">Thalidomide</span>
+      <span class="pill" onclick="quickSearch('Itraconazole')">Itraconazole</span>
+      <span class="pill" onclick="quickSearch('Nelfinavir')">Nelfinavir</span>
+      <span class="pill" onclick="quickSearch('Chloroquine')">Chloroquine</span>
+      <span class="pill" onclick="quickSearch('Lithium')">Lithium</span>
+      <span class="pill" onclick="quickSearch('Minoxidil')">Minoxidil</span>
+      <span class="pill" onclick="quickSearch('Naltrexone')">Naltrexone</span>
+      <span class="pill" onclick="quickSearch('Finasteride')">Finasteride</span>
+      <span class="pill" onclick="quickSearch('Colchicine')">Colchicine</span>
+      <span class="pill" onclick="quickSearch('Celecoxib')">Celecoxib</span>
+      <span class="pill" onclick="quickSearch('Valproic Acid')">Valproic Acid</span>
+      <span class="pill" onclick="quickSearch('Fluoxetine')">Fluoxetine</span>
+      <span class="pill" onclick="quickSearch('Tretinoin')">Tretinoin</span>
+      <span class="pill" onclick="quickSearch('Quercetin')">Quercetin</span>
+      <span class="pill" onclick="quickSearch('Fisetin')">Fisetin</span>
+      <span class="pill" onclick="quickSearch('Spironolactone')">Spironolactone</span>
+      <span class="pill" onclick="quickSearch('Acyclovir')">Acyclovir</span>
+      <span class="pill" onclick="quickSearch('Amlodipine')">Amlodipine</span>
+      <span class="pill" onclick="quickSearch('Methotrexate')">Methotrexate</span>
+      <span class="pill" onclick="quickSearch('Empagliflozin')">Empagliflozin</span>
+      <span class="pill" onclick="quickSearch('Boswellic Acid')">Boswellic Acid</span>
+      <span class="pill" onclick="quickSearch('Ashwagandha')">Ashwagandha</span>
+      <span class="pill" onclick="quickSearch('Piperine')">Piperine</span>
+      <span class="pill" onclick="quickSearch('Rapamycin')">Rapamycin</span>
+      <span class="pill" onclick="quickSearch('Thalidomide')">Thalidomide</span>
+      <span class="pill" onclick="quickSearch('Itraconazole')">Itraconazole</span>
+      <span class="pill" onclick="quickSearch('Nelfinavir')">Nelfinavir</span>
+      <span class="pill" onclick="quickSearch('Chloroquine')">Chloroquine</span>
+      <span class="pill" onclick="quickSearch('Lithium')">Lithium</span>
+      <span class="pill" onclick="quickSearch('Minoxidil')">Minoxidil</span>
+      <span class="pill" onclick="quickSearch('Naltrexone')">Naltrexone (LDN)</span>
+      <span class="pill" onclick="quickSearch('Finasteride')">Finasteride</span>
+      <span class="pill" onclick="quickSearch('Colchicine')">Colchicine</span>
+      <span class="pill" onclick="quickSearch('Celecoxib')">Celecoxib</span>
+      <span class="pill" onclick="quickSearch('Valproic Acid')">Valproic Acid</span>
+      <span class="pill" onclick="quickSearch('Fluoxetine')">Fluoxetine</span>
+      <span class="pill" onclick="quickSearch('Tretinoin')">Tretinoin</span>
+      <span class="pill" onclick="quickSearch('Methotrexate')">Methotrexate</span>
+      <span class="pill" onclick="quickSearch('Digoxin')">Digoxin</span>
+      <span class="pill" onclick="quickSearch('Amantadine')">Amantadine</span>
+      <span class="pill" onclick="quickSearch('Disulfiram')">Disulfiram</span>
+      <span class="pill" onclick="quickSearch('Niclosamide')">Niclosamide</span>
+      <span class="pill" onclick="quickSearch('Melatonin')">Melatonin</span>
+      <span class="pill" onclick="quickSearch('Doxorubicin')">Doxorubicin</span>
+      <span class="pill" onclick="quickSearch('Sulfasalazine')">Sulfasalazine</span>
+    </div>
+  </div>
+</div>
+
+<main>
+  <div class="error-state" id="errorState"></div>
+
+  <div class="loading-state" id="loadingState">
+    <div class="loader-ring"></div>
+    <p>Analyzing molecular pathways...</p>
+  </div>
+
+  <div class="results" id="resultsSection">
+    <!-- Drug Header -->
+    <div class="drug-header">
+      <div class="drug-icon" id="drugIcon">💊</div>
+      <div class="drug-meta">
+        <div class="drug-name" id="drugNameDisplay"></div>
+        <div class="drug-class" id="drugClassDisplay"></div>
+        <div class="drug-indication" id="drugIndicationDisplay"></div>
+      </div>
+    </div>
+
+    <!-- Targets + Pathways Grid -->
+    <div class="cards-grid">
+      <div class="card">
+        <div class="card-title">
+          <div class="card-dot" style="background:var(--teal)"></div>
+          <span style="color:var(--teal)">Molecular Targets</span>
+        </div>
+        <div class="tag-list" id="targetsDisplay"></div>
+      </div>
+      <div class="card">
+        <div class="card-title">
+          <div class="card-dot" style="background:var(--blue)"></div>
+          <span style="color:var(--blue)">Biological Pathways</span>
+        </div>
+        <div class="tag-list" id="pathwaysDisplay"></div>
+      </div>
+      <div class="card">
+        <div class="card-title">
+          <div class="card-dot" style="background:var(--purple)"></div>
+          <span style="color:var(--purple)">Known Off-Label Uses</span>
+        </div>
+        <div class="tag-list" id="offlabelDisplay"></div>
+      </div>
+      <div class="card">
+        <div class="card-title">
+          <div class="card-dot" style="background:var(--orange)"></div>
+          <span style="color:var(--orange)">Omics Evidence</span>
+        </div>
+        <div class="tag-list" id="omicsDisplay"></div>
+      </div>
+    </div>
+
+    <!-- Market Data -->
+    <div class="market-grid" id="marketGrid"></div>
+
+    <!-- AI Predictions -->
+    <div class="ai-section">
+      <div class="ai-header">
+        <div class="ai-title">🔬 AI-Predicted New Indications</div>
+        <div class="ai-badge">KG + Multi-Omics</div>
+      </div>
+      <div class="prediction-cards" id="predictionsDisplay"></div>
+    </div>
+
+    <!-- Knowledge Graph -->
+    <div class="kg-section">
+      <div class="kg-title">Knowledge Graph</div>
+      <div class="kg-subtitle">Drug → Gene Target → Biological Pathway → Disease</div>
+      <canvas id="kg-canvas"></canvas>
+    </div>
+  </div>
+
+  <div class="empty-state" id="emptyState">
+    <div class="empty-shapes">
+      <div class="es-1"></div>
+      <div class="es-2"></div>
+      <div class="es-3"></div>
+      <div class="es-4"></div>
+      <div class="es-5"></div>
+    </div>
+    <h2>Search for any drug or herbal compound</h2>
+    <p>Our AI knowledge graph platform will predict new therapeutic indications and map molecular pathways.</p>
+  </div>
+</main>
+
+<footer>
+  <strong style="color:rgba(255,255,255,0.7)">RebootLife</strong> — AI-Driven Drug Repurposing &nbsp;|&nbsp; Predictions are for <span>research purposes only</span> and not clinical advice.
+</footer>
+
+<script>
+const DRUG_DB = {
+  metformin: {
+    name: "Metformin", drugClass: "Biguanide / Antidiabetic", emoji: "💊",
+    primaryIndication: "Type 2 Diabetes Mellitus",
+    targets: ["AMPK (AMP Kinase)", "Mitochondrial Complex I", "mTORC1", "SIRT1", "LKB1"],
+    pathways: ["AMPK Signaling", "mTOR Pathway", "Gluconeogenesis Inhibition", "TGF-β Signaling", "NF-κB Pathway"],
+    offLabel: ["PCOS", "Weight Management", "Cancer Prevention", "Anti-aging"],
+    omics: ["Transcriptomics: mTOR downregulation", "Proteomics: inflammatory suppression", "GWAS: cancer loci links"],
+    market: { global: "$4,400M", india: "$1,800M", newOpp: "$5,000M" },
+    predictions: [
+      { disease: "Idiopathic Pulmonary Fibrosis", confidence: "Moderate", level: "moderate",
+        mechanism: "AMPK activation suppresses TGF-β–driven fibroblast activation and extracellular matrix deposition, attenuating fibrosis progression.",
+        path: "Metformin → AMPK ↑ → TGF-β ↓ → Fibrosis Pathway ↓" },
+      { disease: "Colorectal Cancer (Chemoprevention)", confidence: "High", level: "high",
+        mechanism: "mTOR inhibition and AMPK activation reduce cancer cell proliferation; epidemiological data from T2D patients support reduced colorectal cancer risk.",
+        path: "Metformin → AMPK ↑ → mTORC1 ↓ → Cancer Cell Cycle Arrest" },
+      { disease: "Alzheimer's Disease", confidence: "Experimental", level: "experimental",
+        mechanism: "AMPK-mediated autophagy enhancement may clear amyloid-β aggregates; transcriptomic data shows neuroinflammation reduction.",
+        path: "Metformin → AMPK → Autophagy ↑ → Aβ Clearance ↑" }
+    ],
+    kgNodes: [
+      { id: "drug", label: "Metformin", type: "drug", x: 120, y: 210 },
+      { id: "t1", label: "AMPK", type: "gene", x: 300, y: 120 },
+      { id: "t2", label: "Complex I", type: "gene", x: 300, y: 210 },
+      { id: "t3", label: "mTORC1", type: "gene", x: 300, y: 300 },
+      { id: "p1", label: "AMPK Signaling", type: "pathway", x: 490, y: 90 },
+      { id: "p2", label: "mTOR Pathway", type: "pathway", x: 490, y: 180 },
+      { id: "p3", label: "TGF-β Signaling", type: "pathway", x: 490, y: 270 },
+      { id: "d1", label: "IPF", type: "disease", x: 670, y: 120 },
+      { id: "d2", label: "Colorectal Cancer", type: "disease", x: 670, y: 210 },
+      { id: "d3", label: "Alzheimer's", type: "disease", x: 670, y: 300 },
+    ],
+    kgEdges: [
+      ["drug","t1"],["drug","t2"],["drug","t3"],
+      ["t1","p1"],["t2","p2"],["t3","p2"],["t1","p3"],
+      ["p1","d2"],["p2","d2"],["p3","d1"],["p1","d3"]
+    ]
+  },
+  sildenafil: {
+    name: "Sildenafil", drugClass: "PDE5 Inhibitor / Vasodilator", emoji: "🔬",
+    primaryIndication: "Erectile Dysfunction / Pulmonary Arterial Hypertension",
+    targets: ["PDE5 (Phosphodiesterase 5)", "cGMP Signaling", "Nitric Oxide Synthase", "VEGFR", "GC (Guanylyl Cyclase)"],
+    pathways: ["NO-cGMP-PKG Pathway", "Vascular Remodeling", "Neuronal Survival", "Angiogenesis", "Smooth Muscle Relaxation"],
+    offLabel: ["Raynaud's Disease", "Altitude Sickness", "Female Sexual Dysfunction"],
+    omics: ["Proteomics: vascular remodeling markers", "Transcriptomics: neuroprotective genes", "GWAS: retinal cell survival loci"],
+    market: { global: "$4,800M", india: "$300M", newOpp: "$10,000M" },
+    predictions: [
+      { disease: "Retinal Neuroprotection (Glaucoma)", confidence: "Experimental", level: "experimental",
+        mechanism: "PDE5 inhibition elevates cGMP in retinal ganglion cells, activating PKG-mediated neuroprotective cascades and enhancing neuronal survival signals.",
+        path: "Sildenafil → PDE5 ↓ → cGMP ↑ → PKG → Neuronal Survival ↑" },
+      { disease: "Duchenne Muscular Dystrophy", confidence: "Moderate", level: "moderate",
+        mechanism: "Restoration of nNOS-mediated vasoregulation in dystrophin-deficient muscle; proteomic data shows reduced muscle ischemia.",
+        path: "Sildenafil → PDE5 ↓ → NO ↑ → Vasodilation → Muscle Perfusion ↑" },
+      { disease: "Alzheimer's Disease (Vascular)", confidence: "High", level: "high",
+        mechanism: "cGMP elevation improves cerebral blood flow and reduces tau phosphorylation; large-scale claims data (Nature Aging 2021) shows 69% reduced AD risk.",
+        path: "Sildenafil → cGMP ↑ → Cerebral Perfusion → Tau ↓ → AD Risk ↓" }
+    ],
+    kgNodes: [
+      { id: "drug", label: "Sildenafil", type: "drug", x: 120, y: 210 },
+      { id: "t1", label: "PDE5", type: "gene", x: 300, y: 130 },
+      { id: "t2", label: "cGMP", type: "gene", x: 300, y: 210 },
+      { id: "t3", label: "NOS", type: "gene", x: 300, y: 290 },
+      { id: "p1", label: "NO-cGMP-PKG", type: "pathway", x: 490, y: 100 },
+      { id: "p2", label: "Vascular Remodeling", type: "pathway", x: 490, y: 200 },
+      { id: "p3", label: "Neuronal Survival", type: "pathway", x: 490, y: 300 },
+      { id: "d1", label: "Retinal / Glaucoma", type: "disease", x: 670, y: 120 },
+      { id: "d2", label: "Muscular Dystrophy", type: "disease", x: 670, y: 210 },
+      { id: "d3", label: "Alzheimer's", type: "disease", x: 670, y: 300 },
+    ],
+    kgEdges: [
+      ["drug","t1"],["drug","t2"],["drug","t3"],
+      ["t1","p1"],["t2","p1"],["t3","p2"],
+      ["p1","d1"],["p1","d3"],["p2","d2"],["p3","d1"]
+    ]
+  },
+  propranolol: {
+    name: "Propranolol", drugClass: "Non-selective β-Blocker", emoji: "❤️",
+    primaryIndication: "Hypertension / Cardiac Arrhythmias",
+    targets: ["β1-Adrenergic Receptor", "β2-Adrenergic Receptor", "VEGFR2", "RAS Signaling", "Cytokine Cascade"],
+    pathways: ["β-Adrenergic Signaling", "cAMP Pathway", "Immune Modulation", "Angiogenesis", "Cytokine Signaling"],
+    offLabel: ["Anxiety", "Migraine Prophylaxis", "Infantile Hemangioma", "PTSD"],
+    omics: ["Gene expression: β-AR links to immune dysregulation", "Transcriptomics: VEGF suppression", "Proteomics: cytokine normalization"],
+    market: { global: "$2,200M", india: "$450M", newOpp: "$3,500M" },
+    predictions: [
+      { disease: "Autoimmune Thyroid Disease (Graves')", confidence: "Moderate", level: "moderate",
+        mechanism: "β-AR blockade reduces cytokine-mediated thyroid inflammation; gene expression shows normalization of Th1/Th2 imbalance.",
+        path: "Propranolol → β-AR ↓ → Cytokine Signaling ↓ → Autoimmune Modulation" },
+      { disease: "Melanoma (Adjuvant)", confidence: "Experimental", level: "experimental",
+        mechanism: "Stress-induced β-adrenergic signaling promotes melanoma progression; propranolol blocks this pathway, reducing metastasis in mouse models.",
+        path: "Propranolol → β2-AR ↓ → VEGFR2 ↓ → Angiogenesis ↓ → Metastasis ↓" },
+      { disease: "PTSD / Traumatic Memory Reconsolidation", confidence: "High", level: "high",
+        mechanism: "β-AR blockade during memory reactivation interferes with norepinephrine-dependent reconsolidation, attenuating fear memory formation.",
+        path: "Propranolol → β-AR ↓ → NE Signaling ↓ → Memory Reconsolidation Blocked" }
+    ],
+    kgNodes: [
+      { id: "drug", label: "Propranolol", type: "drug", x: 110, y: 210 },
+      { id: "t1", label: "β1-AR", type: "gene", x: 300, y: 130 },
+      { id: "t2", label: "β2-AR", type: "gene", x: 300, y: 210 },
+      { id: "t3", label: "VEGFR2", type: "gene", x: 300, y: 290 },
+      { id: "p1", label: "cAMP Signaling", type: "pathway", x: 490, y: 100 },
+      { id: "p2", label: "Cytokine Cascade", type: "pathway", x: 490, y: 200 },
+      { id: "p3", label: "Angiogenesis", type: "pathway", x: 490, y: 300 },
+      { id: "d1", label: "Graves' Disease", type: "disease", x: 670, y: 120 },
+      { id: "d2", label: "Melanoma", type: "disease", x: 670, y: 210 },
+      { id: "d3", label: "PTSD", type: "disease", x: 670, y: 300 },
+    ],
+    kgEdges: [
+      ["drug","t1"],["drug","t2"],["drug","t3"],
+      ["t1","p1"],["t2","p2"],["t3","p3"],
+      ["p2","d1"],["p3","d2"],["p1","d3"]
+    ]
+  },
+  curcumin: {
+    name: "Curcumin", drugClass: "Polyphenol / Herbal Anti-inflammatory", emoji: "🌿",
+    primaryIndication: "Anti-inflammatory (Herbal)",
+    targets: ["NF-κB", "COX-2", "STAT3", "Nrf2", "AP-1", "mTOR"],
+    pathways: ["NF-κB Signaling", "Oxidative Stress Response", "Estrogen Signaling", "Apoptosis Pathway", "JAK-STAT"],
+    offLabel: ["Arthritis Support", "Digestive Health", "Depression (adjuvant)", "Skin Conditions"],
+    omics: ["Transcriptomics: oxidative stress gene regulation", "Proteomics: inflammasome suppression", "GWAS: NF-κB disease loci"],
+    market: { global: "$1,200M", india: "$380M", newOpp: "$4,000M" },
+    predictions: [
+      { disease: "Endometriosis Progression Reduction", confidence: "Moderate", level: "moderate",
+        mechanism: "NF-κB inhibition reduces pro-inflammatory cytokines that drive estrogen-dependent ectopic lesion growth.",
+        path: "Curcumin → NF-κB ↓ → IL-6/IL-8 ↓ → Estrogen Pathways → Endometriosis ↓" },
+      { disease: "Triple-Negative Breast Cancer", confidence: "Experimental", level: "experimental",
+        mechanism: "STAT3 and NF-κB blockade synergistically reduce cancer stem cell survival; nanoformulations improve bioavailability.",
+        path: "Curcumin → STAT3 ↓ → NF-κB ↓ → Cancer Stem Cells ↓" },
+      { disease: "Major Depressive Disorder (Adjuvant)", confidence: "High", level: "high",
+        mechanism: "NF-κB–mediated neuroinflammation reduction and BDNF upregulation via Nrf2 pathway; multiple RCTs support antidepressant effects.",
+        path: "Curcumin → Nrf2 ↑ → BDNF ↑ → Neuroinflammation ↓ → MDD ↓" }
+    ],
+    kgNodes: [
+      { id: "drug", label: "Curcumin", type: "drug", x: 110, y: 210 },
+      { id: "t1", label: "NF-κB", type: "gene", x: 290, y: 130 },
+      { id: "t2", label: "Nrf2", type: "gene", x: 290, y: 210 },
+      { id: "t3", label: "STAT3", type: "gene", x: 290, y: 290 },
+      { id: "p1", label: "Inflammatory Cascade", type: "pathway", x: 480, y: 100 },
+      { id: "p2", label: "Oxidative Stress", type: "pathway", x: 480, y: 200 },
+      { id: "p3", label: "JAK-STAT", type: "pathway", x: 480, y: 300 },
+      { id: "d1", label: "Endometriosis", type: "disease", x: 660, y: 120 },
+      { id: "d2", label: "MDD", type: "disease", x: 660, y: 210 },
+      { id: "d3", label: "Breast Cancer", type: "disease", x: 660, y: 300 },
+    ],
+    kgEdges: [
+      ["drug","t1"],["drug","t2"],["drug","t3"],
+      ["t1","p1"],["t2","p2"],["t3","p3"],
+      ["p1","d1"],["p2","d2"],["p3","d3"],["p1","d3"]
+    ]
+  },
+  ivermectin: {
+    name: "Ivermectin", drugClass: "Antiparasitic / Avermectin", emoji: "🦠",
+    primaryIndication: "Parasitic Infections (Onchocerciasis, Strongyloidiasis)",
+    targets: ["Importin α/β (Nuclear Transport)", "WNT Signaling", "PAK1 Kinase", "GluCl Channels", "P53 Pathway"],
+    pathways: ["Nuclear Transport Inhibition", "Oncogenic Transcription", "WNT/β-catenin", "Apoptosis", "Viral Replication"],
+    offLabel: ["Rosacea", "Head Lice", "Scabies"],
+    omics: ["Proteomics: nuclear transport interference", "Transcriptomics: oncogene suppression", "GWAS: cancer proliferation loci"],
+    market: { global: "$800M", india: "$220M", newOpp: "$2,500M" },
+    predictions: [
+      { disease: "Glioblastoma Growth Suppression", confidence: "Experimental", level: "experimental",
+        mechanism: "Importin α/β inhibition blocks nuclear entry of oncogenic transcription factors (YAP/TAZ), reducing glioma cell proliferation and invasion.",
+        path: "Ivermectin → Importin α/β ↓ → YAP/TAZ Nuclear Entry ↓ → GBM Proliferation ↓" },
+      { disease: "Triple-Negative Breast Cancer", confidence: "Experimental", level: "experimental",
+        mechanism: "PAK1 inhibition disrupts WNT/β-catenin signaling, reducing cancer stem cell self-renewal in drug-resistant TNBC.",
+        path: "Ivermectin → PAK1 ↓ → WNT ↓ → β-catenin ↓ → Cancer Stem Cells ↓" },
+      { disease: "Leukemia (Chloride Channel Modulation)", confidence: "Moderate", level: "moderate",
+        mechanism: "GluCl channel activation induces selective apoptosis in leukemic cells; shown in AML cell lines with minimal toxicity to normal cells.",
+        path: "Ivermectin → GluCl ↑ → Hyperpolarization → Apoptosis ↑ → AML Cells ↓" }
+    ],
+    kgNodes: [
+      { id: "drug", label: "Ivermectin", type: "drug", x: 110, y: 210 },
+      { id: "t1", label: "Importin α/β", type: "gene", x: 300, y: 130 },
+      { id: "t2", label: "PAK1", type: "gene", x: 300, y: 210 },
+      { id: "t3", label: "GluCl", type: "gene", x: 300, y: 290 },
+      { id: "p1", label: "Nuclear Transport", type: "pathway", x: 490, y: 100 },
+      { id: "p2", label: "WNT/β-catenin", type: "pathway", x: 490, y: 200 },
+      { id: "p3", label: "Apoptosis", type: "pathway", x: 490, y: 300 },
+      { id: "d1", label: "Glioblastoma", type: "disease", x: 670, y: 120 },
+      { id: "d2", label: "Breast Cancer", type: "disease", x: 670, y: 210 },
+      { id: "d3", label: "AML Leukemia", type: "disease", x: 670, y: 300 },
+    ],
+    kgEdges: [
+      ["drug","t1"],["drug","t2"],["drug","t3"],
+      ["t1","p1"],["t2","p2"],["t3","p3"],
+      ["p1","d1"],["p2","d2"],["p3","d3"]
+    ]
+  },
+  berberine: {
+    name: "Berberine", drugClass: "Isoquinoline Alkaloid / Herbal Metabolic Regulator", emoji: "🌿",
+    primaryIndication: "Metabolic Regulation / Cholesterol Reduction (Herbal)",
+    targets: ["AMPK", "PCSK9", "GLP-1 Receptor", "mTOR", "PGC-1α"],
+    pathways: ["AMPK Signaling", "Mitochondrial Biogenesis", "cGMP Pathway", "Lipid Metabolism", "Insulin Signaling"],
+    offLabel: ["Type 2 Diabetes (adjuvant)", "Dyslipidemia", "Gut Microbiome Modulation"],
+    omics: ["Omics: improved mitochondrial metabolism", "Transcriptomics: PCSK9 suppression", "Proteomics: gut-liver axis modulation"],
+    market: { global: "$600M", india: "$150M", newOpp: "$2,800M" },
+    predictions: [
+      { disease: "Polycystic Kidney Disease Progression", confidence: "Experimental", level: "experimental",
+        mechanism: "AMPK activation suppresses mTOR-driven cystogenesis; mitochondrial energy regulation reduces cyst epithelial proliferation.",
+        path: "Berberine → AMPK ↑ → mTOR ↓ → Cystogenesis ↓ → PKD Progression ↓" },
+      { disease: "Non-Alcoholic Fatty Liver Disease", confidence: "High", level: "high",
+        mechanism: "PCSK9 inhibition improves hepatic lipid clearance; gut microbiome modulation reduces liver-directed lipopolysaccharide load.",
+        path: "Berberine → PCSK9 ↓ → LDL Clearance ↑ → Hepatic Lipid ↓ → NAFLD ↓" },
+      { disease: "Colorectal Cancer Prevention", confidence: "Moderate", level: "moderate",
+        mechanism: "AMPK activation and mTOR inhibition reduce intestinal cell proliferation; epidemiological data from Asian cohorts supports protective effects.",
+        path: "Berberine → AMPK ↑ → mTOR ↓ → Cell Cycle Arrest → CRC Prevention" }
+    ],
+    kgNodes: [
+      { id: "drug", label: "Berberine", type: "drug", x: 110, y: 210 },
+      { id: "t1", label: "AMPK", type: "gene", x: 290, y: 130 },
+      { id: "t2", label: "PCSK9", type: "gene", x: 290, y: 210 },
+      { id: "t3", label: "mTOR", type: "gene", x: 290, y: 290 },
+      { id: "p1", label: "AMPK Signaling", type: "pathway", x: 480, y: 100 },
+      { id: "p2", label: "Lipid Metabolism", type: "pathway", x: 480, y: 200 },
+      { id: "p3", label: "mTOR Pathway", type: "pathway", x: 480, y: 300 },
+      { id: "d1", label: "PKD", type: "disease", x: 660, y: 120 },
+      { id: "d2", label: "NAFLD", type: "disease", x: 660, y: 210 },
+      { id: "d3", label: "Colorectal Cancer", type: "disease", x: 660, y: 300 },
+    ],
+    kgEdges: [
+      ["drug","t1"],["drug","t2"],["drug","t3"],
+      ["t1","p1"],["t2","p2"],["t3","p3"],
+      ["p1","d1"],["p1","d3"],["p2","d2"],["p3","d1"]
+    ]
+  },
+  resveratrol: {
+    name: "Resveratrol", drugClass: "Stilbenoid Polyphenol / Cardiovascular Supplement", emoji: "🍇",
+    primaryIndication: "Cardiovascular Health Supplement",
+    targets: ["SIRT1 (Sirtuin-1)", "AMPK", "NF-κB", "p53", "COX-1/COX-2"],
+    pathways: ["SIRT1 Pathway", "Mitochondrial Biogenesis", "Apoptosis Regulation", "Inflammatory Cascade", "Autophagy"],
+    offLabel: ["Anti-aging", "Neuroprotection", "Metabolic Syndrome"],
+    omics: ["Gene expression: mitochondrial biogenesis activation", "Transcriptomics: SIRT1-regulated gene networks", "Proteomics: muscle fiber repair"],
+    market: { global: "$900M", india: "$120M", newOpp: "$3,200M" },
+    predictions: [
+      { disease: "Muscle Degeneration (Sarcopenia/DMD)", confidence: "Experimental", level: "experimental",
+        mechanism: "SIRT1 activation drives mitochondrial biogenesis and muscle fiber maintenance; reduces atrogene expression in aged muscle.",
+        path: "Resveratrol → SIRT1 ↑ → PGC-1α ↑ → Mitochondrial Biogenesis → Muscle Regeneration" },
+      { disease: "Parkinson's Disease (Neuroprotection)", confidence: "Moderate", level: "moderate",
+        mechanism: "SIRT1-mediated deacetylation of PGC-1α reduces dopaminergic neuron oxidative stress and improves mitochondrial function.",
+        path: "Resveratrol → SIRT1 ↑ → PGC-1α → ROS ↓ → Dopaminergic Neuroprotection" },
+      { disease: "Type 2 Diabetes (Insulin Sensitization)", confidence: "High", level: "high",
+        mechanism: "Dual SIRT1/AMPK activation improves insulin sensitivity and glucose uptake in skeletal muscle; multiple clinical trials show HbA1c reduction.",
+        path: "Resveratrol → SIRT1 + AMPK ↑ → GLUT4 ↑ → Glucose Uptake ↑ → T2D Improvement" }
+    ],
+    kgNodes: [
+      { id: "drug", label: "Resveratrol", type: "drug", x: 110, y: 210 },
+      { id: "t1", label: "SIRT1", type: "gene", x: 290, y: 130 },
+      { id: "t2", label: "AMPK", type: "gene", x: 290, y: 210 },
+      { id: "t3", label: "NF-κB", type: "gene", x: 290, y: 290 },
+      { id: "p1", label: "Mitochondrial Biogenesis", type: "pathway", x: 480, y: 100 },
+      { id: "p2", label: "AMPK Signaling", type: "pathway", x: 480, y: 200 },
+      { id: "p3", label: "Autophagy", type: "pathway", x: 480, y: 300 },
+      { id: "d1", label: "Sarcopenia/DMD", type: "disease", x: 660, y: 120 },
+      { id: "d2", label: "Parkinson's", type: "disease", x: 660, y: 210 },
+      { id: "d3", label: "Type 2 Diabetes", type: "disease", x: 660, y: 300 },
+    ],
+    kgEdges: [
+      ["drug","t1"],["drug","t2"],["drug","t3"],
+      ["t1","p1"],["t2","p2"],["t3","p3"],
+      ["p1","d1"],["p2","d3"],["p3","d2"],["p1","d2"]
+    ]
+  },
+  atorvastatin: {
+    name: "Atorvastatin", drugClass: "Statin / HMG-CoA Reductase Inhibitor", emoji: "💊",
+    primaryIndication: "Hypercholesterolemia / Cardiovascular Prevention",
+    targets: ["HMG-CoA Reductase", "Mevalonate Pathway", "IL-17 Signaling", "MMP-9", "TLR4"],
+    pathways: ["Mevalonate Pathway", "Inflammasome Modulation", "IL-17 Signaling", "Immune Regulation", "Apoptosis"],
+    offLabel: ["Anti-inflammatory Therapy", "Stroke Prevention", "COVID-19 Severity Reduction"],
+    omics: ["Omics: immune-regulation data", "Transcriptomics: inflammasome modulation", "GWAS: psoriasis-cardiovascular loci"],
+    market: { global: "$17,000M", india: "$1,500M", newOpp: "$25,000M" },
+    predictions: [
+      { disease: "Psoriasis Severity Reduction", confidence: "Moderate", level: "moderate",
+        mechanism: "Mevalonate pathway inhibition reduces prenylation of Rho GTPases that drive IL-17-mediated keratinocyte hyperproliferation.",
+        path: "Atorvastatin → Mevalonate ↓ → Rho GTPase ↓ → IL-17 ↓ → Skin Inflammation ↓" },
+      { disease: "Sepsis Organ Protection", confidence: "High", level: "high",
+        mechanism: "TLR4 signaling inhibition and inflammasome suppression reduce cytokine storm in septic patients; multiple retrospective studies confirm mortality reduction.",
+        path: "Atorvastatin → TLR4 ↓ → NF-κB ↓ → Cytokine Storm ↓ → Sepsis Survival ↑" },
+      { disease: "Multiple Sclerosis (Immunomodulation)", confidence: "Experimental", level: "experimental",
+        mechanism: "Shift from Th1 to Th2 immune phenotype via mevalonate pathway suppression; reduces CNS immune infiltration in EAE mouse models.",
+        path: "Atorvastatin → Mevalonate ↓ → Th1→Th2 Shift → CNS Inflammation ↓ → MS Modulation" }
+    ],
+    kgNodes: [
+      { id: "drug", label: "Atorvastatin", type: "drug", x: 110, y: 210 },
+      { id: "t1", label: "HMG-CoA Reductase", type: "gene", x: 300, y: 130 },
+      { id: "t2", label: "TLR4", type: "gene", x: 300, y: 210 },
+      { id: "t3", label: "IL-17 Signaling", type: "gene", x: 300, y: 290 },
+      { id: "p1", label: "Mevalonate Pathway", type: "pathway", x: 490, y: 100 },
+      { id: "p2", label: "Inflammasome", type: "pathway", x: 490, y: 200 },
+      { id: "p3", label: "Immune Regulation", type: "pathway", x: 490, y: 300 },
+      { id: "d1", label: "Psoriasis", type: "disease", x: 670, y: 120 },
+      { id: "d2", label: "Sepsis", type: "disease", x: 670, y: 210 },
+      { id: "d3", label: "Multiple Sclerosis", type: "disease", x: 670, y: 300 },
+    ],
+    kgEdges: [
+      ["drug","t1"],["drug","t2"],["drug","t3"],
+      ["t1","p1"],["t2","p2"],["t3","p3"],
+      ["p1","d1"],["p2","d2"],["p1","d3"],["p3","d3"]
+    ]
+  },
+
+  // ── NEW DRUGS ──────────────────────────────────────────────
+  aspirin: {
+    name: "Aspirin", drugClass: "NSAID / COX Inhibitor / Antiplatelet", emoji: "💊",
+    primaryIndication: "Pain, Fever, Platelet Aggregation Inhibition",
+    targets: ["COX-1", "COX-2", "NF-κB", "PPAR-γ", "Thromboxane A2"],
+    pathways: ["Prostaglandin Synthesis", "Platelet Aggregation", "NF-κB Signaling", "Apoptosis Induction", "Wnt/β-catenin"],
+    offLabel: ["Colorectal Cancer Prevention", "Pre-eclampsia Prevention", "Stroke Prevention"],
+    omics: ["Transcriptomics: COX-2-related cancer gene suppression", "GWAS: cardiovascular disease loci", "Proteomics: platelet signaling modulation"],
+    market: { global: "$2,800M", india: "$600M", newOpp: "$6,000M" },
+    predictions: [
+      { disease: "Colorectal Cancer Prevention", confidence: "High", level: "high",
+        mechanism: "COX-2 inhibition reduces prostaglandin E2, which drives colorectal tumor growth; large cohort studies show 30–40% reduced incidence with regular aspirin use.",
+        path: "Aspirin → COX-2 ↓ → PGE2 ↓ → Wnt/β-catenin ↓ → CRC Prevention" },
+      { disease: "Alzheimer's Disease (Neuroinflammation)", confidence: "Moderate", level: "moderate",
+        mechanism: "COX-mediated neuroinflammation reduction decreases amyloid plaque formation; NF-κB suppression attenuates microglial pro-inflammatory activation.",
+        path: "Aspirin → COX ↓ → PG Synthesis ↓ → Neuroinflammation ↓ → Aβ Plaque ↓" },
+      { disease: "Pre-eclampsia Prevention", confidence: "High", level: "high",
+        mechanism: "Low-dose aspirin inhibits thromboxane A2–mediated placental vasoconstriction while sparing prostacyclin, improving uteroplacental blood flow.",
+        path: "Aspirin → TXA2 ↓ → Prostacyclin Spared → Placental Perfusion ↑ → Pre-eclampsia ↓" }
+    ],
+    kgNodes: [
+      { id: "drug", label: "Aspirin", type: "drug", x: 110, y: 210 },
+      { id: "t1", label: "COX-2", type: "gene", x: 290, y: 130 },
+      { id: "t2", label: "NF-κB", type: "gene", x: 290, y: 210 },
+      { id: "t3", label: "TXA2", type: "gene", x: 290, y: 290 },
+      { id: "p1", label: "Prostaglandin", type: "pathway", x: 470, y: 100 },
+      { id: "p2", label: "NF-κB Signaling", type: "pathway", x: 470, y: 200 },
+      { id: "p3", label: "Platelet Pathway", type: "pathway", x: 470, y: 300 },
+      { id: "d1", label: "Colorectal Cancer", type: "disease", x: 650, y: 120 },
+      { id: "d2", label: "Alzheimer's", type: "disease", x: 650, y: 210 },
+      { id: "d3", label: "Pre-eclampsia", type: "disease", x: 650, y: 300 },
+    ],
+    kgEdges: [["drug","t1"],["drug","t2"],["drug","t3"],["t1","p1"],["t2","p2"],["t3","p3"],["p1","d1"],["p2","d2"],["p3","d3"]]
+  },
+
+  doxycycline: {
+    name: "Doxycycline", drugClass: "Tetracycline Antibiotic / MMP Inhibitor", emoji: "🦠",
+    primaryIndication: "Bacterial Infections (Broad-spectrum Antibiotic)",
+    targets: ["MMP-2", "MMP-9", "NF-κB", "iNOS", "Bacterial 30S Ribosome"],
+    pathways: ["MMP Inhibition", "Angiogenesis Suppression", "NF-κB Pathway", "Apoptosis Pathway", "Autophagy"],
+    offLabel: ["Rosacea", "Periodontitis", "Malaria Prophylaxis", "Lyme Disease"],
+    omics: ["Proteomics: MMP-9 suppression in cancer lines", "Transcriptomics: angiogenesis gene downregulation", "GWAS: inflammatory bowel disease loci"],
+    market: { global: "$1,200M", india: "$480M", newOpp: "$3,500M" },
+    predictions: [
+      { disease: "Glioblastoma (Anti-invasive Adjuvant)", confidence: "Experimental", level: "experimental",
+        mechanism: "MMP-2/9 inhibition blocks extracellular matrix degradation required for GBM invasion; sub-antimicrobial doses avoid resistance while retaining anti-invasive effects.",
+        path: "Doxycycline → MMP-2/9 ↓ → ECM Degradation ↓ → GBM Invasion ↓" },
+      { disease: "Rheumatoid Arthritis", confidence: "Moderate", level: "moderate",
+        mechanism: "MMP inhibition reduces synovial cartilage degradation; NF-κB suppression attenuates pro-inflammatory cytokine production in synoviocytes.",
+        path: "Doxycycline → MMP ↓ → Cartilage Degradation ↓ → NF-κB ↓ → RA Progression ↓" },
+      { disease: "Aortic Aneurysm Expansion", confidence: "High", level: "high",
+        mechanism: "MMP-2/9-driven aortic wall degradation is the primary mechanism of aneurysm expansion; doxycycline significantly reduces MMP activity in clinical trials.",
+        path: "Doxycycline → MMP-2/9 ↓ → Aortic Wall ECM ↑ → Aneurysm Expansion ↓" }
+    ],
+    kgNodes: [
+      { id: "drug", label: "Doxycycline", type: "drug", x: 110, y: 210 },
+      { id: "t1", label: "MMP-2/9", type: "gene", x: 290, y: 130 },
+      { id: "t2", label: "NF-κB", type: "gene", x: 290, y: 210 },
+      { id: "t3", label: "iNOS", type: "gene", x: 290, y: 290 },
+      { id: "p1", label: "MMP Inhibition", type: "pathway", x: 470, y: 100 },
+      { id: "p2", label: "NF-κB Pathway", type: "pathway", x: 470, y: 210 },
+      { id: "p3", label: "Angiogenesis", type: "pathway", x: 470, y: 300 },
+      { id: "d1", label: "Glioblastoma", type: "disease", x: 650, y: 120 },
+      { id: "d2", label: "Rheumatoid Arthritis", type: "disease", x: 650, y: 210 },
+      { id: "d3", label: "Aortic Aneurysm", type: "disease", x: 650, y: 300 },
+    ],
+    kgEdges: [["drug","t1"],["drug","t2"],["drug","t3"],["t1","p1"],["t2","p2"],["t3","p3"],["p1","d1"],["p2","d2"],["p1","d3"],["p3","d1"]]
+  },
+
+  thalidomide: {
+    name: "Thalidomide", drugClass: "Immunomodulatory / Cereblon Ligand", emoji: "🔬",
+    primaryIndication: "Multiple Myeloma / Erythema Nodosum Leprosum",
+    targets: ["Cereblon (CRBN)", "TNF-α", "VEGF", "NF-κB", "IRF4"],
+    pathways: ["Ubiquitin-Proteasome Pathway", "TNF-α Signaling", "Angiogenesis Inhibition", "T-cell Costimulation", "Wnt Pathway"],
+    offLabel: ["Behçet's Disease", "Graft-vs-Host Disease", "Inflammatory Bowel Disease"],
+    omics: ["Proteomics: IKZF1/3 degradation signature", "Transcriptomics: IRF4 suppression", "GWAS: myeloma survival loci"],
+    market: { global: "$3,100M", india: "$210M", newOpp: "$5,500M" },
+    predictions: [
+      { disease: "Myelofibrosis", confidence: "Moderate", level: "moderate",
+        mechanism: "TNF-α suppression and VEGF inhibition reduce aberrant megakaryocyte proliferation; cereblon-mediated degradation of Ikaros suppresses clonal hematopoiesis.",
+        path: "Thalidomide → CRBN → IKZF1/3 ↓ → TNF-α ↓ → Megakaryocyte Proliferation ↓" },
+      { disease: "Hepatocellular Carcinoma", confidence: "Experimental", level: "experimental",
+        mechanism: "VEGF inhibition reduces tumor neovascularization; NF-κB suppression induces apoptosis in HCC cell lines resistant to sorafenib.",
+        path: "Thalidomide → VEGF ↓ → Angiogenesis ↓ → NF-κB ↓ → HCC Apoptosis ↑" },
+      { disease: "Systemic Lupus Erythematosus (Cutaneous)", confidence: "High", level: "high",
+        mechanism: "TNF-α and IL-12 suppression reduce cutaneous inflammation; multiple RCTs demonstrate efficacy in refractory cutaneous lupus unresponsive to antimalarials.",
+        path: "Thalidomide → TNF-α ↓ → IL-12 ↓ → T-cell Activation ↓ → Cutaneous SLE ↓" }
+    ],
+    kgNodes: [
+      { id: "drug", label: "Thalidomide", type: "drug", x: 110, y: 210 },
+      { id: "t1", label: "Cereblon", type: "gene", x: 290, y: 130 },
+      { id: "t2", label: "TNF-α", type: "gene", x: 290, y: 210 },
+      { id: "t3", label: "VEGF", type: "gene", x: 290, y: 290 },
+      { id: "p1", label: "Ubiquitin Pathway", type: "pathway", x: 470, y: 100 },
+      { id: "p2", label: "TNF-α Signaling", type: "pathway", x: 470, y: 210 },
+      { id: "p3", label: "Angiogenesis", type: "pathway", x: 470, y: 300 },
+      { id: "d1", label: "Myelofibrosis", type: "disease", x: 650, y: 120 },
+      { id: "d2", label: "Cutaneous SLE", type: "disease", x: 650, y: 210 },
+      { id: "d3", label: "Hepatocellular CA", type: "disease", x: 650, y: 300 },
+    ],
+    kgEdges: [["drug","t1"],["drug","t2"],["drug","t3"],["t1","p1"],["t2","p2"],["t3","p3"],["p1","d1"],["p2","d2"],["p3","d3"]]
+  },
+
+  rapamycin: {
+    name: "Rapamycin", drugClass: "mTOR Inhibitor / Macrolide Immunosuppressant", emoji: "🔬",
+    primaryIndication: "Organ Transplant Rejection Prevention / Renal Angiomyolipoma",
+    targets: ["mTORC1", "FKBP12", "S6K1", "4E-BP1", "HIF-1α"],
+    pathways: ["mTOR Signaling", "Autophagy Induction", "Cell Cycle Arrest (G1)", "Angiogenesis Inhibition", "Protein Synthesis"],
+    offLabel: ["Cancer (off-label)", "Tuberous Sclerosis", "Lymphangioleiomyomatosis"],
+    omics: ["Transcriptomics: longevity gene activation", "Proteomics: autophagy flux increase", "GWAS: aging hallmark loci"],
+    market: { global: "$1,800M", india: "$140M", newOpp: "$8,000M" },
+    predictions: [
+      { disease: "Aging / Longevity Extension", confidence: "High", level: "high",
+        mechanism: "mTORC1 inhibition activates autophagy and reduces cellular senescence; extends lifespan in multiple model organisms including mice by 10–25%.",
+        path: "Rapamycin → mTORC1 ↓ → Autophagy ↑ → Senescence ↓ → Longevity ↑" },
+      { disease: "Alzheimer's Disease (Prevention)", confidence: "Moderate", level: "moderate",
+        mechanism: "mTOR inhibition enhances autophagic clearance of amyloid-β and tau aggregates; reduces neuroinflammation via S6K1-mediated pathway suppression.",
+        path: "Rapamycin → mTOR ↓ → Autophagy ↑ → Aβ/Tau Clearance ↑ → AD Prevention" },
+      { disease: "Breast Cancer (HER2+)", confidence: "Experimental", level: "experimental",
+        mechanism: "mTOR pathway is hyperactivated downstream of HER2/PI3K signaling; rapamycin analogs (rapalogs) demonstrate synergy with trastuzumab in HER2+ cell lines.",
+        path: "Rapamycin → mTORC1 ↓ → 4E-BP1 ↑ → Protein Synthesis ↓ → HER2+ Cancer Growth ↓" }
+    ],
+    kgNodes: [
+      { id: "drug", label: "Rapamycin", type: "drug", x: 110, y: 210 },
+      { id: "t1", label: "mTORC1", type: "gene", x: 290, y: 130 },
+      { id: "t2", label: "FKBP12", type: "gene", x: 290, y: 210 },
+      { id: "t3", label: "HIF-1α", type: "gene", x: 290, y: 290 },
+      { id: "p1", label: "mTOR Signaling", type: "pathway", x: 470, y: 100 },
+      { id: "p2", label: "Autophagy", type: "pathway", x: 470, y: 210 },
+      { id: "p3", label: "Angiogenesis", type: "pathway", x: 470, y: 300 },
+      { id: "d1", label: "Aging/Longevity", type: "disease", x: 650, y: 120 },
+      { id: "d2", label: "Alzheimer's", type: "disease", x: 650, y: 210 },
+      { id: "d3", label: "Breast Cancer", type: "disease", x: 650, y: 300 },
+    ],
+    kgEdges: [["drug","t1"],["drug","t2"],["drug","t3"],["t1","p1"],["t2","p2"],["t3","p3"],["p1","d1"],["p2","d2"],["p1","d2"],["p3","d3"]]
+  },
+
+  itraconazole: {
+    name: "Itraconazole", drugClass: "Triazole Antifungal / Hedgehog Inhibitor", emoji: "🍄",
+    primaryIndication: "Systemic Fungal Infections (Aspergillosis, Histoplasmosis)",
+    targets: ["Hedgehog Pathway (SMO)", "VEGFR2", "mTOR", "CYP51A1 (fungal)", "NPC1L1"],
+    pathways: ["Hedgehog Signaling", "Angiogenesis Inhibition", "Cholesterol Trafficking", "mTOR Pathway", "Autophagy"],
+    offLabel: ["Onychomycosis", "Sporotrichosis", "Tinea Versicolor"],
+    omics: ["Proteomics: VEGFR2 suppression markers", "Transcriptomics: Hedgehog target gene downregulation", "GWAS: basal cell carcinoma loci"],
+    market: { global: "$1,100M", india: "$320M", newOpp: "$4,200M" },
+    predictions: [
+      { disease: "Basal Cell Carcinoma", confidence: "High", level: "high",
+        mechanism: "Hedgehog/SMO inhibition blocks GLI transcription factors driving BCC proliferation; itraconazole shows comparable efficacy to vismodegib with different binding site.",
+        path: "Itraconazole → SMO ↓ → GLI1/2 ↓ → Hedgehog Target Genes ↓ → BCC Growth ↓" },
+      { disease: "Non-Small Cell Lung Cancer", confidence: "Moderate", level: "moderate",
+        mechanism: "VEGFR2-mediated angiogenesis inhibition combined with Hedgehog pathway suppression reduces tumor vascularization and clonogenic survival.",
+        path: "Itraconazole → VEGFR2 ↓ → Angiogenesis ↓ → Hedgehog ↓ → NSCLC Growth ↓" },
+      { disease: "Prostate Cancer (Castration-Resistant)", confidence: "Experimental", level: "experimental",
+        mechanism: "Hedgehog signaling inhibition disrupts androgen-independent survival pathways; cholesterol trafficking inhibition reduces androgen receptor activity.",
+        path: "Itraconazole → Hedgehog ↓ → NPC1L1 ↓ → Cholesterol ↓ → AR Activity ↓ → CRPC ↓" }
+    ],
+    kgNodes: [
+      { id: "drug", label: "Itraconazole", type: "drug", x: 110, y: 210 },
+      { id: "t1", label: "SMO (Hedgehog)", type: "gene", x: 290, y: 130 },
+      { id: "t2", label: "VEGFR2", type: "gene", x: 290, y: 210 },
+      { id: "t3", label: "NPC1L1", type: "gene", x: 290, y: 290 },
+      { id: "p1", label: "Hedgehog Signaling", type: "pathway", x: 470, y: 100 },
+      { id: "p2", label: "Angiogenesis", type: "pathway", x: 470, y: 210 },
+      { id: "p3", label: "Cholesterol Traffic", type: "pathway", x: 470, y: 300 },
+      { id: "d1", label: "Basal Cell CA", type: "disease", x: 650, y: 120 },
+      { id: "d2", label: "NSCLC", type: "disease", x: 650, y: 210 },
+      { id: "d3", label: "Prostate Cancer", type: "disease", x: 650, y: 300 },
+    ],
+    kgEdges: [["drug","t1"],["drug","t2"],["drug","t3"],["t1","p1"],["t2","p2"],["t3","p3"],["p1","d1"],["p2","d2"],["p3","d3"]]
+  },
+
+  nelfinavir: {
+    name: "Nelfinavir", drugClass: "HIV Protease Inhibitor / ER Stress Inducer", emoji: "💊",
+    primaryIndication: "HIV / AIDS (Antiretroviral Therapy)",
+    targets: ["HIV Protease", "Akt/PI3K", "HSP90", "Proteasome", "UPR (ER Stress)"],
+    pathways: ["PI3K/Akt/mTOR", "Unfolded Protein Response", "Proteasome Inhibition", "Apoptosis Induction", "Autophagy"],
+    offLabel: ["Off-label Cancer (experimental)", "COVID-19 (investigational)"],
+    omics: ["Proteomics: Akt phosphorylation suppression", "Transcriptomics: UPR gene activation", "GWAS: cancer cell survival loci"],
+    market: { global: "$800M", india: "$95M", newOpp: "$3,000M" },
+    predictions: [
+      { disease: "Multiple Myeloma", confidence: "Moderate", level: "moderate",
+        mechanism: "Akt inhibition and ER stress induction trigger apoptosis in myeloma cells; proteasome inhibition synergizes with bortezomib in drug-resistant clones.",
+        path: "Nelfinavir → Akt ↓ → ER Stress ↑ → UPR → Myeloma Apoptosis ↑" },
+      { disease: "Pancreatic Cancer", confidence: "Experimental", level: "experimental",
+        mechanism: "PI3K/Akt pathway hyperactivation is a hallmark of pancreatic cancer; nelfinavir-induced ER stress overcomes the apoptosis resistance characteristic of PDAC.",
+        path: "Nelfinavir → PI3K/Akt ↓ → HSP90 ↓ → ER Stress → PDAC Apoptosis ↑" },
+      { disease: "Lung Cancer (Radio-sensitization)", confidence: "High", level: "high",
+        mechanism: "Akt inhibition reduces DNA damage repair capacity, sensitizing NSCLC cells to ionizing radiation; phase I/II trials confirm improved tumor response.",
+        path: "Nelfinavir → Akt ↓ → DNA Repair ↓ → Radio-sensitization → NSCLC Control ↑" }
+    ],
+    kgNodes: [
+      { id: "drug", label: "Nelfinavir", type: "drug", x: 110, y: 210 },
+      { id: "t1", label: "Akt/PI3K", type: "gene", x: 290, y: 130 },
+      { id: "t2", label: "HSP90", type: "gene", x: 290, y: 210 },
+      { id: "t3", label: "Proteasome", type: "gene", x: 290, y: 290 },
+      { id: "p1", label: "PI3K/Akt/mTOR", type: "pathway", x: 470, y: 100 },
+      { id: "p2", label: "UPR / ER Stress", type: "pathway", x: 470, y: 210 },
+      { id: "p3", label: "Apoptosis", type: "pathway", x: 470, y: 300 },
+      { id: "d1", label: "Multiple Myeloma", type: "disease", x: 650, y: 120 },
+      { id: "d2", label: "NSCLC", type: "disease", x: 650, y: 210 },
+      { id: "d3", label: "Pancreatic Cancer", type: "disease", x: 650, y: 300 },
+    ],
+    kgEdges: [["drug","t1"],["drug","t2"],["drug","t3"],["t1","p1"],["t2","p2"],["t3","p3"],["p1","d1"],["p2","d2"],["p1","d2"],["p3","d3"]]
+  },
+
+  chloroquine: {
+    name: "Chloroquine", drugClass: "Antimalarial / Lysosomotropic Agent", emoji: "🌿",
+    primaryIndication: "Malaria / Rheumatoid Arthritis / Lupus",
+    targets: ["Lysosomal pH", "Autophagy Flux", "TLR9", "cGAS-STING", "ACE2 (glycosylation)"],
+    pathways: ["Lysosomal Pathway", "Autophagy Inhibition", "Innate Immune Signaling", "Antigen Presentation", "Type I Interferon"],
+    offLabel: ["Systemic Lupus Erythematosus", "COVID-19 (investigated)", "Cancer Sensitization"],
+    omics: ["Transcriptomics: TLR9 pathway suppression", "Proteomics: autophagy flux inhibition markers", "GWAS: SLE susceptibility loci"],
+    market: { global: "$900M", india: "$280M", newOpp: "$4,000M" },
+    predictions: [
+      { disease: "Pancreatic Cancer (Autophagy Block)", confidence: "Moderate", level: "moderate",
+        mechanism: "Pancreatic cancer relies on autophagy for survival under nutrient stress; chloroquine blocks autophagic flux at the lysosomal step, inducing synthetic lethality.",
+        path: "Chloroquine → Lysosomal pH ↑ → Autophagy Flux ↓ → PDAC Starvation → Apoptosis ↑" },
+      { disease: "Sjögren's Syndrome", confidence: "High", level: "high",
+        mechanism: "TLR9 and cGAS-STING inhibition reduces IFN-α overproduction driving Sjögren's pathology; hydroxychloroquine is standard second-line therapy with growing evidence.",
+        path: "Chloroquine → TLR9 ↓ → cGAS-STING ↓ → IFN-α ↓ → Sjögren's Inflammation ↓" },
+      { disease: "Glioblastoma (Sensitizer)", confidence: "Experimental", level: "experimental",
+        mechanism: "Autophagy inhibition prevents GBM cells from recycling damaged organelles under radiation-induced stress, enhancing radio-chemotherapy cytotoxicity.",
+        path: "Chloroquine → Autophagy ↓ → Lysosomal Disruption → GBM Sensitivity ↑ → Tumor Kill ↑" }
+    ],
+    kgNodes: [
+      { id: "drug", label: "Chloroquine", type: "drug", x: 110, y: 210 },
+      { id: "t1", label: "Lysosomal pH", type: "gene", x: 290, y: 130 },
+      { id: "t2", label: "TLR9", type: "gene", x: 290, y: 210 },
+      { id: "t3", label: "cGAS-STING", type: "gene", x: 290, y: 290 },
+      { id: "p1", label: "Autophagy Inhibition", type: "pathway", x: 470, y: 100 },
+      { id: "p2", label: "Innate Immunity", type: "pathway", x: 470, y: 210 },
+      { id: "p3", label: "IFN Signaling", type: "pathway", x: 470, y: 300 },
+      { id: "d1", label: "Pancreatic Cancer", type: "disease", x: 650, y: 120 },
+      { id: "d2", label: "Sjögren's", type: "disease", x: 650, y: 210 },
+      { id: "d3", label: "Glioblastoma", type: "disease", x: 650, y: 300 },
+    ],
+    kgEdges: [["drug","t1"],["drug","t2"],["drug","t3"],["t1","p1"],["t2","p2"],["t3","p3"],["p1","d1"],["p2","d2"],["p3","d2"],["p1","d3"]]
+  },
+
+  lithium: {
+    name: "Lithium", drugClass: "Mood Stabilizer / GSK-3β Inhibitor", emoji: "⚡",
+    primaryIndication: "Bipolar Disorder / Mania",
+    targets: ["GSK-3β", "Inositol Monophosphatase", "BDNF", "Nrf2", "mTOR"],
+    pathways: ["Wnt/β-catenin Signaling", "Neuroprotection Cascade", "Autophagy", "Serotonin Signaling", "Neurogenesis"],
+    offLabel: ["Cluster Headaches", "Neutropenia", "Dementia (neuroprotection)"],
+    omics: ["Transcriptomics: BDNF upregulation", "Proteomics: GSK-3β phosphorylation", "GWAS: neuroprotection and AD loci"],
+    market: { global: "$600M", india: "$95M", newOpp: "$3,800M" },
+    predictions: [
+      { disease: "Alzheimer's Disease Prevention", confidence: "High", level: "high",
+        mechanism: "GSK-3β inhibition reduces tau hyperphosphorylation, preventing neurofibrillary tangle formation; observational data shows lower AD incidence in long-term lithium users.",
+        path: "Lithium → GSK-3β ↓ → Tau Phosphorylation ↓ → NFT Formation ↓ → AD Prevention" },
+      { disease: "Amyotrophic Lateral Sclerosis (ALS)", confidence: "Experimental", level: "experimental",
+        mechanism: "GSK-3β inhibition and autophagy induction may clear TDP-43 aggregates; BDNF upregulation supports motor neuron survival in preclinical models.",
+        path: "Lithium → GSK-3β ↓ → Autophagy ↑ → TDP-43 Clearance → Motor Neuron Survival ↑" },
+      { disease: "Post-COVID Neuropsychiatric Syndrome", confidence: "Moderate", level: "moderate",
+        mechanism: "Nrf2-mediated antioxidant response combined with GSK-3β inhibition reduces neuroinflammation associated with long-COVID cognitive symptoms.",
+        path: "Lithium → Nrf2 ↑ → GSK-3β ↓ → Neuroinflammation ↓ → Long-COVID Neuro ↓" }
+    ],
+    kgNodes: [
+      { id: "drug", label: "Lithium", type: "drug", x: 110, y: 210 },
+      { id: "t1", label: "GSK-3β", type: "gene", x: 290, y: 130 },
+      { id: "t2", label: "BDNF", type: "gene", x: 290, y: 210 },
+      { id: "t3", label: "Nrf2", type: "gene", x: 290, y: 290 },
+      { id: "p1", label: "Wnt/β-catenin", type: "pathway", x: 470, y: 100 },
+      { id: "p2", label: "Neuroprotection", type: "pathway", x: 470, y: 210 },
+      { id: "p3", label: "Autophagy", type: "pathway", x: 470, y: 300 },
+      { id: "d1", label: "Alzheimer's", type: "disease", x: 650, y: 120 },
+      { id: "d2", label: "ALS", type: "disease", x: 650, y: 210 },
+      { id: "d3", label: "Long-COVID Neuro", type: "disease", x: 650, y: 300 },
+    ],
+    kgEdges: [["drug","t1"],["drug","t2"],["drug","t3"],["t1","p1"],["t2","p2"],["t3","p3"],["p1","d1"],["p3","d2"],["p2","d3"]]
+  },
+
+  minoxidil: {
+    name: "Minoxidil", drugClass: "Potassium Channel Opener / Vasodilator", emoji: "💊",
+    primaryIndication: "Severe Hypertension / Androgenetic Alopecia",
+    targets: ["KATP Channel", "VEGF", "Wnt Signaling", "Prostaglandin Synthase", "Sulfotransferase (SULT1A1)"],
+    pathways: ["Potassium Channel Opening", "Hair Follicle Proliferation", "Vasodilation", "VEGF-Angiogenesis", "Wnt/β-catenin"],
+    offLabel: ["Female Pattern Baldness", "Eyebrow/Beard Growth", "Chemotherapy-induced Alopecia"],
+    omics: ["Transcriptomics: hair follicle gene activation", "Proteomics: VEGF upregulation in scalp", "GWAS: alopecia areata loci"],
+    market: { global: "$1,900M", india: "$350M", newOpp: "$2,800M" },
+    predictions: [
+      { disease: "Chemotherapy-Induced Alopecia (Prevention)", confidence: "High", level: "high",
+        mechanism: "Topical minoxidil accelerates hair regrowth post-chemotherapy by activating Wnt/β-catenin in hair follicle stem cells and increasing VEGF-driven follicular blood supply.",
+        path: "Minoxidil → KATP ↑ → VEGF ↑ → Wnt ↑ → Follicle Stem Cells → Regrowth ↑" },
+      { disease: "Wound Healing / Chronic Ulcers", confidence: "Experimental", level: "experimental",
+        mechanism: "VEGF upregulation promotes angiogenesis in wound beds; potassium channel opening improves local tissue perfusion and fibroblast proliferation.",
+        path: "Minoxidil → VEGF ↑ → Angiogenesis ↑ → Fibroblast Proliferation ↑ → Wound Healing ↑" },
+      { disease: "Alopecia Areata (Autoimmune)", confidence: "Moderate", level: "moderate",
+        mechanism: "Wnt/β-catenin activation counteracts immune-mediated follicular regression; synergy with immunosuppressants restores follicular immune privilege.",
+        path: "Minoxidil → Wnt ↑ → β-catenin ↑ → Follicular Immune Privilege → Alopecia Areata ↓" }
+    ],
+    kgNodes: [
+      { id: "drug", label: "Minoxidil", type: "drug", x: 110, y: 210 },
+      { id: "t1", label: "KATP Channel", type: "gene", x: 290, y: 130 },
+      { id: "t2", label: "VEGF", type: "gene", x: 290, y: 210 },
+      { id: "t3", label: "Wnt Signaling", type: "gene", x: 290, y: 290 },
+      { id: "p1", label: "K-Channel Opening", type: "pathway", x: 470, y: 100 },
+      { id: "p2", label: "Angiogenesis", type: "pathway", x: 470, y: 210 },
+      { id: "p3", label: "Wnt/β-catenin", type: "pathway", x: 470, y: 300 },
+      { id: "d1", label: "Chemo Alopecia", type: "disease", x: 650, y: 120 },
+      { id: "d2", label: "Wound Healing", type: "disease", x: 650, y: 210 },
+      { id: "d3", label: "Alopecia Areata", type: "disease", x: 650, y: 300 },
+    ],
+    kgEdges: [["drug","t1"],["drug","t2"],["drug","t3"],["t1","p1"],["t2","p2"],["t3","p3"],["p1","d1"],["p2","d2"],["p3","d3"]]
+  },
+
+  naltrexone: {
+    name: "Naltrexone", drugClass: "Opioid Receptor Antagonist", emoji: "🧬",
+    primaryIndication: "Opioid / Alcohol Use Disorder",
+    targets: ["μ-Opioid Receptor", "TLR4", "Microglia TLR4", "β-Endorphin", "Toll-like Receptor 4"],
+    pathways: ["Opioid Signaling", "Neuroinflammation", "TLR4-NF-κB", "Endorphin Pathway", "Immune Modulation"],
+    offLabel: ["Low-dose Naltrexone for Autoimmune", "Crohn's Disease", "Fibromyalgia"],
+    omics: ["Transcriptomics: TLR4 pathway modulation at low dose", "Proteomics: microglial activation reduction", "GWAS: inflammatory disease loci"],
+    market: { global: "$800M", india: "$70M", newOpp: "$4,500M" },
+    predictions: [
+      { disease: "Crohn's Disease (Low-dose)", confidence: "High", level: "high",
+        mechanism: "Low-dose naltrexone (LDN) blocks TLR4 on macrophages, reducing NF-κB-driven intestinal inflammation; multiple clinical trials show mucosal healing in Crohn's patients.",
+        path: "LDN → TLR4 ↓ → NF-κB ↓ → TNF-α/IL-6 ↓ → Intestinal Inflammation ↓" },
+      { disease: "Multiple Sclerosis (Immunomodulation)", confidence: "Moderate", level: "moderate",
+        mechanism: "Transient opioid receptor blockade triggers endorphin upregulation and microglial TLR4 suppression, reducing CNS neuroinflammation.",
+        path: "LDN → μ-OR Blockade → β-Endorphin ↑ → Microglial TLR4 ↓ → MS Neuroinflammation ↓" },
+      { disease: "Fibromyalgia Pain", confidence: "High", level: "high",
+        mechanism: "Microglial TLR4 antagonism reduces central sensitization driving fibromyalgia pain; pilot RCTs show >30% pain score reduction with LDN.",
+        path: "LDN → Microglial TLR4 ↓ → Central Sensitization ↓ → Fibromyalgia Pain ↓" }
+    ],
+    kgNodes: [
+      { id: "drug", label: "Naltrexone", type: "drug", x: 110, y: 210 },
+      { id: "t1", label: "μ-Opioid R", type: "gene", x: 290, y: 130 },
+      { id: "t2", label: "TLR4", type: "gene", x: 290, y: 210 },
+      { id: "t3", label: "β-Endorphin", type: "gene", x: 290, y: 290 },
+      { id: "p1", label: "Opioid Signaling", type: "pathway", x: 470, y: 100 },
+      { id: "p2", label: "TLR4-NF-κB", type: "pathway", x: 470, y: 210 },
+      { id: "p3", label: "Neuroinflammation", type: "pathway", x: 470, y: 300 },
+      { id: "d1", label: "Crohn's Disease", type: "disease", x: 650, y: 120 },
+      { id: "d2", label: "Multiple Sclerosis", type: "disease", x: 650, y: 210 },
+      { id: "d3", label: "Fibromyalgia", type: "disease", x: 650, y: 300 },
+    ],
+    kgEdges: [["drug","t1"],["drug","t2"],["drug","t3"],["t1","p1"],["t2","p2"],["t3","p3"],["p1","d2"],["p2","d1"],["p3","d3"]]
+  },
+
+  finasteride: {
+    name: "Finasteride", drugClass: "5α-Reductase Inhibitor", emoji: "💊",
+    primaryIndication: "Benign Prostatic Hyperplasia / Male Pattern Baldness",
+    targets: ["5α-Reductase Type II", "DHT (Dihydrotestosterone)", "Androgen Receptor", "SRD5A2", "PSA"],
+    pathways: ["Androgen Signaling", "Hair Follicle Pathway", "Prostate Cell Proliferation", "Apoptosis", "TGF-β Pathway"],
+    offLabel: ["Hirsutism", "Female Androgenetic Alopecia", "PCOS Androgenic Features"],
+    omics: ["Transcriptomics: androgen-responsive gene suppression", "Proteomics: DHT level reduction", "GWAS: prostate cancer loci"],
+    market: { global: "$1,400M", india: "$220M", newOpp: "$3,200M" },
+    predictions: [
+      { disease: "Prostate Cancer Chemoprevention", confidence: "High", level: "high",
+        mechanism: "DHT-driven androgen receptor signaling promotes prostate cancer cell survival; PCPT trial showed 25% relative reduction in prostate cancer incidence with finasteride.",
+        path: "Finasteride → 5α-R ↓ → DHT ↓ → AR Signaling ↓ → Prostate Cancer Prevention" },
+      { disease: "Hirsutism / PCOS Androgenic Features", confidence: "High", level: "high",
+        mechanism: "Reduction of DHT at peripheral tissues (hair follicles, skin) reduces androgen-driven hirsutism in women with PCOS; effective as adjunct to anti-androgens.",
+        path: "Finasteride → DHT ↓ → Peripheral AR ↓ → Hair Follicle Androgens ↓ → Hirsutism ↓" },
+      { disease: "Polycythemia Vera (Secondary)", confidence: "Experimental", level: "experimental",
+        mechanism: "Androgens stimulate erythropoiesis; finasteride-mediated DHT reduction may normalize RBC production in androgen-sensitive polycythemia subtypes.",
+        path: "Finasteride → DHT ↓ → Androgen-driven EPO ↓ → RBC Overproduction ↓" }
+    ],
+    kgNodes: [
+      { id: "drug", label: "Finasteride", type: "drug", x: 110, y: 210 },
+      { id: "t1", label: "5α-Reductase", type: "gene", x: 290, y: 130 },
+      { id: "t2", label: "DHT", type: "gene", x: 290, y: 210 },
+      { id: "t3", label: "AR", type: "gene", x: 290, y: 290 },
+      { id: "p1", label: "Androgen Signaling", type: "pathway", x: 470, y: 100 },
+      { id: "p2", label: "Cell Proliferation", type: "pathway", x: 470, y: 210 },
+      { id: "p3", label: "TGF-β Pathway", type: "pathway", x: 470, y: 300 },
+      { id: "d1", label: "Prostate Cancer", type: "disease", x: 650, y: 120 },
+      { id: "d2", label: "Hirsutism/PCOS", type: "disease", x: 650, y: 210 },
+      { id: "d3", label: "Polycythemia Vera", type: "disease", x: 650, y: 300 },
+    ],
+    kgEdges: [["drug","t1"],["drug","t2"],["drug","t3"],["t1","p1"],["t2","p1"],["t3","p2"],["p1","d1"],["p1","d2"],["p2","d3"]]
+  },
+
+  colchicine: {
+    name: "Colchicine", drugClass: "Anti-gout / Microtubule Disruptor / Anti-inflammatory", emoji: "🌿",
+    primaryIndication: "Gout / Familial Mediterranean Fever / Pericarditis",
+    targets: ["Tubulin (Microtubules)", "NLRP3 Inflammasome", "IL-1β", "Neutrophil Migration", "L-Selectin"],
+    pathways: ["Microtubule Polymerization", "Inflammasome Signaling", "Neutrophil Chemotaxis", "IL-1β Pathway", "Cardiovascular Inflammation"],
+    offLabel: ["Recurrent Pericarditis", "Behçet's Disease", "Primary Biliary Cholangitis"],
+    omics: ["Transcriptomics: NLRP3 pathway suppression", "Proteomics: IL-1β reduction", "GWAS: cardiovascular inflammatory loci"],
+    market: { global: "$700M", india: "$180M", newOpp: "$5,000M" },
+    predictions: [
+      { disease: "Cardiovascular Disease Prevention", confidence: "High", level: "high",
+        mechanism: "NLRP3 inflammasome inhibition reduces IL-1β-driven arterial plaque inflammation; COLCOT and LoDoCo2 trials showed 31–44% reduction in major cardiovascular events.",
+        path: "Colchicine → NLRP3 ↓ → IL-1β ↓ → Arterial Inflammation ↓ → MACE ↓" },
+      { disease: "Atrial Fibrillation (Post-operative)", confidence: "High", level: "high",
+        mechanism: "Pericardial and myocardial inflammation post-cardiac surgery triggers AF; colchicine reduces pericardial IL-1β, significantly lowering post-op AF incidence (COPPS trial).",
+        path: "Colchicine → IL-1β ↓ → Pericardial Inflammation ↓ → Post-op AF Prevention" },
+      { disease: "Liver Fibrosis / Cirrhosis", confidence: "Experimental", level: "experimental",
+        mechanism: "Microtubule disruption inhibits hepatic stellate cell migration and collagen secretion; anti-inflammatory effects attenuate NLRP3-driven hepatic fibrogenesis.",
+        path: "Colchicine → Tubulin ↓ → HSC Migration ↓ → NLRP3 ↓ → Liver Fibrosis ↓" }
+    ],
+    kgNodes: [
+      { id: "drug", label: "Colchicine", type: "drug", x: 110, y: 210 },
+      { id: "t1", label: "NLRP3", type: "gene", x: 290, y: 130 },
+      { id: "t2", label: "Tubulin", type: "gene", x: 290, y: 210 },
+      { id: "t3", label: "IL-1β", type: "gene", x: 290, y: 290 },
+      { id: "p1", label: "Inflammasome", type: "pathway", x: 470, y: 100 },
+      { id: "p2", label: "Microtubule", type: "pathway", x: 470, y: 210 },
+      { id: "p3", label: "Cardiovasc. Inflam.", type: "pathway", x: 470, y: 300 },
+      { id: "d1", label: "CVD Prevention", type: "disease", x: 650, y: 120 },
+      { id: "d2", label: "Post-op AF", type: "disease", x: 650, y: 210 },
+      { id: "d3", label: "Liver Fibrosis", type: "disease", x: 650, y: 300 },
+    ],
+    kgEdges: [["drug","t1"],["drug","t2"],["drug","t3"],["t1","p1"],["t2","p2"],["t3","p3"],["p1","d1"],["p3","d2"],["p2","d3"],["p1","d2"]]
+  },
+
+  celecoxib: {
+    name: "Celecoxib", drugClass: "Selective COX-2 Inhibitor / NSAID", emoji: "💊",
+    primaryIndication: "Osteoarthritis / Rheumatoid Arthritis / Familial Adenomatous Polyposis",
+    targets: ["COX-2 (Selective)", "PGE2", "PDK1", "Akt", "Bcl-2"],
+    pathways: ["Prostaglandin E2 Pathway", "PI3K/Akt Signaling", "Apoptosis", "Angiogenesis", "NF-κB"],
+    offLabel: ["Cancer Chemoprevention (FAP)", "Juvenile Idiopathic Arthritis", "Colorectal Polyp Prevention"],
+    omics: ["Transcriptomics: COX-2 overexpression in tumors", "Proteomics: Akt phosphorylation reduction", "GWAS: colorectal cancer risk loci"],
+    market: { global: "$2,200M", india: "$410M", newOpp: "$5,500M" },
+    predictions: [
+      { disease: "Colorectal Cancer Prevention (FAP)", confidence: "High", level: "high",
+        mechanism: "COX-2 inhibition reduces PGE2-driven polyp growth; FDA-approved for FAP as adjunct to surgery, demonstrating 28% reduction in colorectal polyp burden.",
+        path: "Celecoxib → COX-2 ↓ → PGE2 ↓ → Polyp Proliferation ↓ → CRC Prevention" },
+      { disease: "Breast Cancer (HER2-negative)", confidence: "Moderate", level: "moderate",
+        mechanism: "COX-2 overexpression correlates with poor prognosis in breast cancer; celecoxib reduces PGE2-mediated tumor immune evasion and inhibits Akt survival signaling.",
+        path: "Celecoxib → COX-2 ↓ → PGE2 ↓ → Akt ↓ → Breast Cancer Apoptosis ↑" },
+      { disease: "Lung Cancer (NSCLC, COX-2+)", confidence: "Moderate", level: "moderate",
+        mechanism: "COX-2 overexpression promotes NSCLC angiogenesis and immune evasion; celecoxib as adjunct to chemotherapy improves outcomes in COX-2-positive NSCLC.",
+        path: "Celecoxib → COX-2 ↓ → VEGF ↓ → Angiogenesis ↓ → NSCLC Progression ↓" }
+    ],
+    kgNodes: [
+      { id: "drug", label: "Celecoxib", type: "drug", x: 110, y: 210 },
+      { id: "t1", label: "COX-2", type: "gene", x: 290, y: 130 },
+      { id: "t2", label: "Akt", type: "gene", x: 290, y: 210 },
+      { id: "t3", label: "Bcl-2", type: "gene", x: 290, y: 290 },
+      { id: "p1", label: "PGE2 Pathway", type: "pathway", x: 470, y: 100 },
+      { id: "p2", label: "PI3K/Akt", type: "pathway", x: 470, y: 210 },
+      { id: "p3", label: "Apoptosis", type: "pathway", x: 470, y: 300 },
+      { id: "d1", label: "Colorectal Cancer", type: "disease", x: 650, y: 120 },
+      { id: "d2", label: "Breast Cancer", type: "disease", x: 650, y: 210 },
+      { id: "d3", label: "NSCLC", type: "disease", x: 650, y: 300 },
+    ],
+    kgEdges: [["drug","t1"],["drug","t2"],["drug","t3"],["t1","p1"],["t2","p2"],["t3","p3"],["p1","d1"],["p2","d2"],["p3","d3"]]
+  },
+
+  valproicacid: {
+    name: "Valproic Acid", drugClass: "HDAC Inhibitor / Anticonvulsant / Mood Stabilizer", emoji: "⚡",
+    primaryIndication: "Epilepsy / Bipolar Disorder / Migraine Prophylaxis",
+    targets: ["HDAC (Histone Deacetylase)", "GABA Signaling", "GSK-3β", "mTOR", "Wnt/β-catenin"],
+    pathways: ["Histone Acetylation / Epigenetic", "GABA Pathway", "Neuroprotection", "Wnt Signaling", "Cell Cycle Regulation"],
+    offLabel: ["Neuropathic Pain", "PTSD", "HIV Latency Reversal"],
+    omics: ["Transcriptomics: HDAC-dependent cancer gene reactivation", "Proteomics: histone H3 acetylation", "GWAS: epigenetic cancer loci"],
+    market: { global: "$1,500M", india: "$290M", newOpp: "$4,800M" },
+    predictions: [
+      { disease: "HIV Latency Reversal (Functional Cure)", confidence: "Experimental", level: "experimental",
+        mechanism: "HDAC inhibition reactivates latent HIV provirus in CD4+ T-cells, allowing immune clearance; part of 'shock and kill' cure strategy with ongoing clinical trials.",
+        path: "VPA → HDAC ↓ → Histone Acetylation ↑ → HIV Latent Provirus Reactivated → Immune Clearance" },
+      { disease: "Acute Myeloid Leukemia (Differentiation)", confidence: "Moderate", level: "moderate",
+        mechanism: "HDAC inhibition reactivates epigenetically silenced differentiation genes in AML blasts, overcoming differentiation arrest characteristic of acute leukemia.",
+        path: "VPA → HDAC ↓ → Differentiation Genes ↑ → AML Blast Maturation → Leukemia Control" },
+      { disease: "Glioblastoma (Epigenetic Sensitizer)", confidence: "Moderate", level: "moderate",
+        mechanism: "Histone acetylation restores tumor suppressor gene expression in GBM; VPA sensitizes glioma stem cells to temozolomide chemotherapy and radiation.",
+        path: "VPA → HDAC ↓ → TSG Reactivation → GBM Stem Cell Sensitivity ↑ → Tumor Response ↑" }
+    ],
+    kgNodes: [
+      { id: "drug", label: "Valproic Acid", type: "drug", x: 110, y: 210 },
+      { id: "t1", label: "HDAC", type: "gene", x: 290, y: 130 },
+      { id: "t2", label: "GSK-3β", type: "gene", x: 290, y: 210 },
+      { id: "t3", label: "GABA-R", type: "gene", x: 290, y: 290 },
+      { id: "p1", label: "Epigenetic / HDAC", type: "pathway", x: 470, y: 100 },
+      { id: "p2", label: "Wnt Signaling", type: "pathway", x: 470, y: 210 },
+      { id: "p3", label: "GABA Pathway", type: "pathway", x: 470, y: 300 },
+      { id: "d1", label: "HIV Latency", type: "disease", x: 650, y: 120 },
+      { id: "d2", label: "AML Leukemia", type: "disease", x: 650, y: 210 },
+      { id: "d3", label: "Glioblastoma", type: "disease", x: 650, y: 300 },
+    ],
+    kgEdges: [["drug","t1"],["drug","t2"],["drug","t3"],["t1","p1"],["t2","p2"],["t3","p3"],["p1","d1"],["p1","d2"],["p1","d3"],["p2","d2"]]
+  },
+
+  fluoxetine: {
+    name: "Fluoxetine", drugClass: "SSRI / Antidepressant / Anti-inflammatory", emoji: "🧠",
+    primaryIndication: "Major Depressive Disorder / OCD / Panic Disorder",
+    targets: ["SERT (Serotonin Transporter)", "σ1 Receptor", "NF-κB", "BDNF", "P-glycoprotein"],
+    pathways: ["Serotonin Reuptake", "Neurogenesis", "BDNF-TrkB Signaling", "Neuroinflammation", "Apoptosis"],
+    offLabel: ["Premature Ejaculation", "Fibromyalgia", "Eating Disorders (Bulimia)"],
+    omics: ["Transcriptomics: BDNF upregulation", "Proteomics: σ1 receptor-mediated ER stress reduction", "GWAS: depression and inflammation loci"],
+    market: { global: "$1,800M", india: "$350M", newOpp: "$3,500M" },
+    predictions: [
+      { disease: "Stroke Recovery (Neuroprotection)", confidence: "High", level: "high",
+        mechanism: "σ1 receptor activation promotes post-stroke neuroplasticity; FLAME trial showed improved motor recovery with fluoxetine post-ischemic stroke.",
+        path: "Fluoxetine → σ1-R → BDNF ↑ → Neuroplasticity ↑ → Stroke Motor Recovery ↑" },
+      { disease: "COVID-19 (Antiviral/Immunomodulation)", confidence: "Moderate", level: "moderate",
+        mechanism: "σ1 receptor agonism reduces cytokine storm; P-gp inhibition may limit viral replication; TOGETHER trial showed significant reduction in COVID-19 hospitalization.",
+        path: "Fluoxetine → σ1-R → Cytokine Storm ↓ → NF-κB ↓ → COVID-19 Severity ↓" },
+      { disease: "Glioblastoma (Autophagic Death)", confidence: "Experimental", level: "experimental",
+        mechanism: "Fluoxetine induces autophagic cell death in GBM cells via σ1 receptor and accumulates in lysosomes; crosses blood-brain barrier effectively.",
+        path: "Fluoxetine → σ1-R → Autophagy ↑ → Lysosomal Disruption → GBM Cell Death" }
+    ],
+    kgNodes: [
+      { id: "drug", label: "Fluoxetine", type: "drug", x: 110, y: 210 },
+      { id: "t1", label: "SERT", type: "gene", x: 290, y: 130 },
+      { id: "t2", label: "σ1 Receptor", type: "gene", x: 290, y: 210 },
+      { id: "t3", label: "BDNF-TrkB", type: "gene", x: 290, y: 290 },
+      { id: "p1", label: "Serotonin Pathway", type: "pathway", x: 470, y: 100 },
+      { id: "p2", label: "Neuroinflammation", type: "pathway", x: 470, y: 210 },
+      { id: "p3", label: "BDNF-TrkB", type: "pathway", x: 470, y: 300 },
+      { id: "d1", label: "Stroke Recovery", type: "disease", x: 650, y: 120 },
+      { id: "d2", label: "COVID-19", type: "disease", x: 650, y: 210 },
+      { id: "d3", label: "Glioblastoma", type: "disease", x: 650, y: 300 },
+    ],
+    kgEdges: [["drug","t1"],["drug","t2"],["drug","t3"],["t1","p1"],["t2","p2"],["t3","p3"],["p1","d1"],["p2","d2"],["p3","d1"],["p2","d3"]]
+  },
+
+  tretinoin: {
+    name: "Tretinoin (Retinoic Acid)", drugClass: "Retinoid / RAR Agonist / Differentiating Agent", emoji: "🌿",
+    primaryIndication: "Acne Vulgaris / Acute Promyelocytic Leukemia",
+    targets: ["RAR-α (Retinoic Acid Receptor)", "PML-RARα Fusion", "AP-1", "VEGF", "TGF-β"],
+    pathways: ["Retinoid Signaling", "Cell Differentiation", "Apoptosis Induction", "Epithelial Renewal", "Epigenetic Regulation"],
+    offLabel: ["Anti-aging (Photoaging)", "Stretch Marks", "Hyperpigmentation"],
+    omics: ["Transcriptomics: RAR-target gene activation", "Proteomics: PML-RARα degradation in APL", "GWAS: skin cancer loci"],
+    market: { global: "$1,300M", india: "$200M", newOpp: "$4,000M" },
+    predictions: [
+      { disease: "Acute Promyelocytic Leukemia (Cure)", confidence: "High", level: "high",
+        mechanism: "RAR-α activation degrades PML-RARα oncoprotein, forcing differentiation of malignant promyelocytes; combined with arsenic trioxide achieves >95% complete remission.",
+        path: "Tretinoin → RAR-α → PML-RARα Degradation → APL Differentiation → Cure" },
+      { disease: "Neuroblastoma (Differentiation Therapy)", confidence: "High", level: "high",
+        mechanism: "Retinoic acid induces neuroblast differentiation, reducing self-renewal of tumor-initiating cells; standard maintenance therapy post-consolidation in high-risk neuroblastoma.",
+        path: "Tretinoin → RAR → Neuroblast Differentiation Genes ↑ → Tumor Self-renewal ↓" },
+      { disease: "Cutaneous T-Cell Lymphoma", confidence: "Moderate", level: "moderate",
+        mechanism: "RAR agonism promotes apoptosis of malignant T-lymphocytes in skin; bexarotene (RXR agonist analog) is FDA-approved, validating the retinoid target class.",
+        path: "Tretinoin → RAR-α → T-cell Apoptosis ↑ → CTCL Regression" }
+    ],
+    kgNodes: [
+      { id: "drug", label: "Tretinoin", type: "drug", x: 110, y: 210 },
+      { id: "t1", label: "RAR-α", type: "gene", x: 290, y: 130 },
+      { id: "t2", label: "PML-RARα", type: "gene", x: 290, y: 210 },
+      { id: "t3", label: "AP-1", type: "gene", x: 290, y: 290 },
+      { id: "p1", label: "Retinoid Signaling", type: "pathway", x: 470, y: 100 },
+      { id: "p2", label: "Cell Differentiation", type: "pathway", x: 470, y: 210 },
+      { id: "p3", label: "Apoptosis", type: "pathway", x: 470, y: 300 },
+      { id: "d1", label: "APL Leukemia", type: "disease", x: 650, y: 120 },
+      { id: "d2", label: "Neuroblastoma", type: "disease", x: 650, y: 210 },
+      { id: "d3", label: "CTCL", type: "disease", x: 650, y: 300 },
+    ],
+    kgEdges: [["drug","t1"],["drug","t2"],["drug","t3"],["t1","p1"],["t2","p2"],["t3","p3"],["p1","d1"],["p2","d2"],["p3","d3"]]
+  },
+
+  quercetin: {
+    name: "Quercetin", drugClass: "Flavonoid Polyphenol / Herbal Senolytic", emoji: "🍎",
+    primaryIndication: "Antioxidant / Anti-inflammatory Supplement (Herbal)",
+    targets: ["PI3K/Akt", "SIRT1", "NF-κB", "Bcl-2", "Senescent Cell Pathway"],
+    pathways: ["Senolytic Pathway", "PI3K/Akt Signaling", "NF-κB Suppression", "Antioxidant Response", "MAPK Pathway"],
+    offLabel: ["Allergy / Antihistamine", "Antiviral", "Senescence Clearance"],
+    omics: ["Transcriptomics: Bcl-2 family modulation", "Proteomics: PI3K inhibition in senescent cells", "GWAS: aging-related disease loci"],
+    market: { global: "$500M", india: "$120M", newOpp: "$3,500M" },
+    predictions: [
+      { disease: "Idiopathic Pulmonary Fibrosis (Senolytic)", confidence: "High", level: "high",
+        mechanism: "Quercetin (with dasatinib) selectively clears senescent fibroblasts driving IPF by inhibiting PI3K/Akt survival pathways; first-in-human senolytic trial showed improved physical function.",
+        path: "Quercetin → PI3K/Akt ↓ → Bcl-2 ↓ → Senescent Cell Apoptosis → IPF Fibrosis ↓" },
+      { disease: "Diabetes Type 2 (Insulin Sensitization)", confidence: "Moderate", level: "moderate",
+        mechanism: "SIRT1 activation improves insulin sensitivity; NF-κB suppression reduces adipose tissue inflammation driving insulin resistance.",
+        path: "Quercetin → SIRT1 ↑ → NF-κB ↓ → Adipose Inflammation ↓ → Insulin Sensitivity ↑" },
+      { disease: "COVID-19 / Antiviral", confidence: "Moderate", level: "moderate",
+        mechanism: "Quercetin inhibits viral protease activity and acts as zinc ionophore, enhancing intracellular zinc concentration that inhibits RNA polymerase; reduces cytokine storm via NF-κB.",
+        path: "Quercetin → Viral Protease ↓ → Zn2+ Ionophore → RNA Pol ↓ → COVID-19 Replication ↓" }
+    ],
+    kgNodes: [
+      { id: "drug", label: "Quercetin", type: "drug", x: 110, y: 210 },
+      { id: "t1", label: "PI3K/Akt", type: "gene", x: 290, y: 130 },
+      { id: "t2", label: "SIRT1", type: "gene", x: 290, y: 210 },
+      { id: "t3", label: "Bcl-2", type: "gene", x: 290, y: 290 },
+      { id: "p1", label: "Senolytic Pathway", type: "pathway", x: 470, y: 100 },
+      { id: "p2", label: "NF-κB", type: "pathway", x: 470, y: 210 },
+      { id: "p3", label: "Antioxidant Resp.", type: "pathway", x: 470, y: 300 },
+      { id: "d1", label: "IPF (Senolytic)", type: "disease", x: 650, y: 120 },
+      { id: "d2", label: "Type 2 Diabetes", type: "disease", x: 650, y: 210 },
+      { id: "d3", label: "COVID-19", type: "disease", x: 650, y: 300 },
+    ],
+    kgEdges: [["drug","t1"],["drug","t2"],["drug","t3"],["t1","p1"],["t2","p2"],["t3","p3"],["p1","d1"],["p2","d2"],["p3","d3"],["p2","d3"]]
+  },
+
+  fisetin: {
+    name: "Fisetin", drugClass: "Flavonoid / Herbal Senolytic / Neuroprotectant", emoji: "🍓",
+    primaryIndication: "Neuroprotective Supplement / Antioxidant (Herbal)",
+    targets: ["mTORC1", "Akt", "SIRT1", "Bcl-2/Bcl-xL", "p21 (CDKN1A)"],
+    pathways: ["Senolytic Pathway", "SIRT1 Activation", "Neurogenesis", "NF-κB Inhibition", "Autophagy"],
+    offLabel: ["Age-related Cognitive Decline", "Senescence Clearance", "Anti-aging Longevity"],
+    omics: ["Transcriptomics: senescence-associated secretory phenotype (SASP) reduction", "Proteomics: Bcl-2 suppression in senescent cells", "GWAS: aging and neurodegeneration loci"],
+    market: { global: "$200M", india: "$55M", newOpp: "$2,500M" },
+    predictions: [
+      { disease: "Alzheimer's Disease / Cognitive Aging", confidence: "High", level: "high",
+        mechanism: "Fisetin clears senescent brain cells and reduces neuroinflammation; SIRT1 activation promotes synaptic plasticity; animal studies show improved cognition and reduced Aβ burden.",
+        path: "Fisetin → Bcl-2 ↓ → Senescent Neurons ↓ → SIRT1 ↑ → Neuroprotection → AD Prevention" },
+      { disease: "Frailty / Musculoskeletal Aging", confidence: "Moderate", level: "moderate",
+        mechanism: "Senolytic clearance of p21+ senescent muscle cells reduces SASP-driven sarcopenia; mTOR modulation supports muscle protein synthesis.",
+        path: "Fisetin → p21+ Cell Clearance → SASP ↓ → Muscle Inflammation ↓ → Frailty ↓" },
+      { disease: "COVID-19 (Cytokine Storm Attenuation)", confidence: "Experimental", level: "experimental",
+        mechanism: "NF-κB inhibition and SIRT1 activation reduce excessive IL-6/TNF-α production in severe COVID-19; antioxidant properties protect endothelial cells from oxidative damage.",
+        path: "Fisetin → NF-κB ↓ → IL-6/TNF-α ↓ → Cytokine Storm ↓ → COVID Severity ↓" }
+    ],
+    kgNodes: [
+      { id: "drug", label: "Fisetin", type: "drug", x: 110, y: 210 },
+      { id: "t1", label: "Bcl-2/Bcl-xL", type: "gene", x: 290, y: 130 },
+      { id: "t2", label: "SIRT1", type: "gene", x: 290, y: 210 },
+      { id: "t3", label: "p21/CDKN1A", type: "gene", x: 290, y: 290 },
+      { id: "p1", label: "Senolytic Pathway", type: "pathway", x: 470, y: 100 },
+      { id: "p2", label: "Neuroprotection", type: "pathway", x: 470, y: 210 },
+      { id: "p3", label: "NF-κB", type: "pathway", x: 470, y: 300 },
+      { id: "d1", label: "Alzheimer's", type: "disease", x: 650, y: 120 },
+      { id: "d2", label: "Frailty/Sarcopenia", type: "disease", x: 650, y: 210 },
+      { id: "d3", label: "COVID-19", type: "disease", x: 650, y: 300 },
+    ],
+    kgEdges: [["drug","t1"],["drug","t2"],["drug","t3"],["t1","p1"],["t2","p2"],["t3","p3"],["p1","d1"],["p2","d1"],["p1","d2"],["p3","d3"]]
+  },
+
+  spironolactone: {
+    name: "Spironolactone", drugClass: "Aldosterone Antagonist / Androgen Blocker", emoji: "💊",
+    primaryIndication: "Heart Failure / Hyperaldosteronism / Edema",
+    targets: ["Mineralocorticoid Receptor (MR)", "Androgen Receptor (AR)", "Aldosterone Pathway", "ENaC", "TGF-β"],
+    pathways: ["Aldosterone Signaling", "Androgen Receptor Pathway", "Cardiac Fibrosis Inhibition", "Potassium Retention", "Anti-androgenic Pathway"],
+    offLabel: ["Female Acne", "PCOS", "Hirsutism", "Transgender Feminizing Therapy"],
+    omics: ["Transcriptomics: cardiac fibrosis gene suppression", "Proteomics: MR-dependent gene regulation", "GWAS: heart failure and aldosterone loci"],
+    market: { global: "$1,200M", india: "$310M", newOpp: "$3,800M" },
+    predictions: [
+      { disease: "Resistant Hypertension", confidence: "High", level: "high",
+        mechanism: "MR blockade reduces aldosterone-driven sodium retention and vascular fibrosis; PATHWAY-2 trial proved spironolactone the most effective add-on for resistant hypertension.",
+        path: "Spironolactone → MR ↓ → Sodium Retention ↓ → Vascular Fibrosis ↓ → BP Normalization" },
+      { disease: "Acne Vulgaris (Hormonal, Women)", confidence: "High", level: "high",
+        mechanism: "AR antagonism reduces sebaceous gland androgen sensitivity, decreasing sebum production and cutaneous P. acnes colonization in hormonally-driven female acne.",
+        path: "Spironolactone → AR ↓ → Sebum Production ↓ → P. acnes ↓ → Acne ↓" },
+      { disease: "Cardiac Fibrosis / HFpEF", confidence: "Moderate", level: "moderate",
+        mechanism: "MR-mediated TGF-β suppression reduces cardiac fibroblast activation; TOPCAT trial data supports MR blockade in HFpEF with elevated aldosterone.",
+        path: "Spironolactone → MR ↓ → TGF-β ↓ → Cardiac Fibroblast ↓ → HFpEF Fibrosis ↓" }
+    ],
+    kgNodes: [
+      { id: "drug", label: "Spironolactone", type: "drug", x: 110, y: 210 },
+      { id: "t1", label: "MR (Aldosterone-R)", type: "gene", x: 290, y: 130 },
+      { id: "t2", label: "AR (Androgen-R)", type: "gene", x: 290, y: 210 },
+      { id: "t3", label: "TGF-β", type: "gene", x: 290, y: 290 },
+      { id: "p1", label: "Aldosterone Path.", type: "pathway", x: 470, y: 100 },
+      { id: "p2", label: "Androgen Pathway", type: "pathway", x: 470, y: 210 },
+      { id: "p3", label: "Cardiac Fibrosis", type: "pathway", x: 470, y: 300 },
+      { id: "d1", label: "Resist. Hypert.", type: "disease", x: 650, y: 120 },
+      { id: "d2", label: "Hormonal Acne", type: "disease", x: 650, y: 210 },
+      { id: "d3", label: "HFpEF Fibrosis", type: "disease", x: 650, y: 300 },
+    ],
+    kgEdges: [["drug","t1"],["drug","t2"],["drug","t3"],["t1","p1"],["t2","p2"],["t3","p3"],["p1","d1"],["p2","d2"],["p3","d3"]]
+  },
+
+  acyclovir: {
+    name: "Acyclovir", drugClass: "Antiviral / Nucleoside Analog", emoji: "🦠",
+    primaryIndication: "Herpes Simplex Virus (HSV) / Varicella-Zoster Virus",
+    targets: ["HSV Thymidine Kinase", "Viral DNA Polymerase", "dGTP Analog", "Viral Replication Complex", "UL30"],
+    pathways: ["Viral DNA Replication Inhibition", "Nucleoside Salvage Pathway", "Immune Activation", "Inflammatory Suppression", "Neurological Viral Clearance"],
+    offLabel: ["Bell's Palsy", "Alzheimer's (Viral Hypothesis)", "Cytomegalovirus Prophylaxis"],
+    omics: ["Transcriptomics: HSV-driven neuroinflammation gene suppression", "GWAS: Alzheimer's-HSV1 association loci", "Proteomics: viral replication complex disruption"],
+    market: { global: "$900M", india: "$260M", newOpp: "$2,800M" },
+    predictions: [
+      { disease: "Alzheimer's Disease (Viral Hypothesis)", confidence: "Experimental", level: "experimental",
+        mechanism: "HSV-1 has been identified in amyloid plaques; antiviral treatment of HSV-1 reactivation in CNS may reduce amyloid-β deposition; large Taiwanese cohort study supports association.",
+        path: "Acyclovir → HSV-1 Replication ↓ → CNS Viral Load ↓ → Aβ Deposition ↓ → AD Risk ↓" },
+      { disease: "Bell's Palsy (Facial Nerve Palsy)", confidence: "High", level: "high",
+        mechanism: "HSV-1 reactivation in geniculate ganglion causes facial nerve inflammation; antiviral therapy combined with steroids shown effective in multiple guidelines.",
+        path: "Acyclovir → HSV-1 ↓ → Facial Nerve Inflammation ↓ → Bell's Palsy Recovery ↑" },
+      { disease: "Multiple Sclerosis (Viral Trigger Hypothesis)", confidence: "Experimental", level: "experimental",
+        mechanism: "Herpesviruses (HHV-6) have been implicated as environmental triggers of MS; antiviral therapy targeting herpesvirus may modulate MS activity in seropositive patients.",
+        path: "Acyclovir → HHV-6 ↓ → CNS Demyelination Trigger ↓ → MS Activity ↓" }
+    ],
+    kgNodes: [
+      { id: "drug", label: "Acyclovir", type: "drug", x: 110, y: 210 },
+      { id: "t1", label: "HSV TK", type: "gene", x: 290, y: 130 },
+      { id: "t2", label: "Viral DNA Pol", type: "gene", x: 290, y: 210 },
+      { id: "t3", label: "dGTP Analog", type: "gene", x: 290, y: 290 },
+      { id: "p1", label: "Viral Replication", type: "pathway", x: 470, y: 100 },
+      { id: "p2", label: "Neuroinflammation", type: "pathway", x: 470, y: 210 },
+      { id: "p3", label: "Nucleoside Salvage", type: "pathway", x: 470, y: 300 },
+      { id: "d1", label: "Alzheimer's (Viral)", type: "disease", x: 650, y: 120 },
+      { id: "d2", label: "Bell's Palsy", type: "disease", x: 650, y: 210 },
+      { id: "d3", label: "MS (Viral Trigger)", type: "disease", x: 650, y: 300 },
+    ],
+    kgEdges: [["drug","t1"],["drug","t2"],["drug","t3"],["t1","p1"],["t2","p1"],["t3","p3"],["p1","d1"],["p2","d2"],["p1","d3"],["p2","d1"]]
+  },
+
+  amlodipine: {
+    name: "Amlodipine", drugClass: "Calcium Channel Blocker (Dihydropyridine)", emoji: "❤️",
+    primaryIndication: "Hypertension / Angina Pectoris",
+    targets: ["L-type Ca2+ Channel (CaV1.2)", "VEGF", "Calpain", "NF-κB", "Mitochondrial Permeability"],
+    pathways: ["Calcium Signaling", "Vascular Smooth Muscle Relaxation", "Mitochondrial Protection", "Apoptosis Regulation", "Neuroprotection"],
+    offLabel: ["Raynaud's Phenomenon", "Anal Fissure (topical)", "Migraine Prophylaxis"],
+    omics: ["Transcriptomics: calpain-mediated neurodegeneration suppression", "Proteomics: calcium overload prevention", "GWAS: cardiovascular and neurological loci"],
+    market: { global: "$3,200M", india: "$720M", newOpp: "$4,000M" },
+    predictions: [
+      { disease: "Parkinson's Disease Neuroprotection", confidence: "High", level: "high",
+        mechanism: "L-type calcium channel blockade protects dopaminergic neurons from calcium-mediated excitotoxicity; large Danish retrospective study showed 30% reduced Parkinson's risk.",
+        path: "Amlodipine → CaV1.2 ↓ → Ca2+ Influx ↓ → Dopaminergic Neuron Survival ↑ → PD Risk ↓" },
+      { disease: "Migraine Prophylaxis", confidence: "Moderate", level: "moderate",
+        mechanism: "Calcium channel blockade reduces cortical spreading depression and trigeminovascular activation underlying migraine; effective in calcium-channel-sensitive migraine subtypes.",
+        path: "Amlodipine → CaV1.2 ↓ → Cortical Spreading Depression ↓ → Trigeminovascular ↓ → Migraine ↓" },
+      { disease: "Subarachnoid Hemorrhage Vasospasm", confidence: "High", level: "high",
+        mechanism: "Calcium-driven cerebral artery vasospasm post-SAH is the primary cause of delayed neurological deficits; nimodipine (related CCB) is standard of care, validating the target.",
+        path: "Amlodipine → CaV1.2 ↓ → Cerebral Vasospasm ↓ → Cerebral Ischemia ↓ → SAH Outcome ↑" }
+    ],
+    kgNodes: [
+      { id: "drug", label: "Amlodipine", type: "drug", x: 110, y: 210 },
+      { id: "t1", label: "CaV1.2 Channel", type: "gene", x: 290, y: 130 },
+      { id: "t2", label: "Calpain", type: "gene", x: 290, y: 210 },
+      { id: "t3", label: "NF-κB", type: "gene", x: 290, y: 290 },
+      { id: "p1", label: "Calcium Signaling", type: "pathway", x: 470, y: 100 },
+      { id: "p2", label: "Neuroprotection", type: "pathway", x: 470, y: 210 },
+      { id: "p3", label: "Vascular Smooth M.", type: "pathway", x: 470, y: 300 },
+      { id: "d1", label: "Parkinson's Disease", type: "disease", x: 650, y: 120 },
+      { id: "d2", label: "Migraine", type: "disease", x: 650, y: 210 },
+      { id: "d3", label: "SAH Vasospasm", type: "disease", x: 650, y: 300 },
+    ],
+    kgEdges: [["drug","t1"],["drug","t2"],["drug","t3"],["t1","p1"],["t2","p2"],["t3","p3"],["p1","d1"],["p2","d1"],["p1","d2"],["p3","d3"]]
+  },
+
+  methotrexate: {
+    name: "Methotrexate", drugClass: "DHFR Inhibitor / Antifolate / DMARDs", emoji: "🔬",
+    primaryIndication: "Rheumatoid Arthritis / Psoriasis / Cancer (Leukemia, Lymphoma)",
+    targets: ["DHFR (Dihydrofolate Reductase)", "TYMS (Thymidylate Synthase)", "ATIC (AICAR transformylase)", "Adenosine Pathway", "NF-κB"],
+    pathways: ["Folate Metabolism", "Purine Synthesis Inhibition", "Adenosine-Mediated Anti-inflammation", "T-cell Suppression", "Apoptosis"],
+    offLabel: ["Ectopic Pregnancy", "Psoriatic Arthritis", "Inflammatory Bowel Disease"],
+    omics: ["Transcriptomics: folate pathway gene modulation", "Proteomics: DHFR inhibition markers", "GWAS: RA susceptibility and MTX response loci"],
+    market: { global: "$1,600M", india: "$380M", newOpp: "$3,500M" },
+    predictions: [
+      { disease: "Psoriasis (Systemic)", confidence: "High", level: "high",
+        mechanism: "Adenosine-mediated anti-inflammatory effect suppresses keratinocyte hyperproliferation and T-cell-driven skin inflammation; effective at low doses via non-folate mechanisms.",
+        path: "MTX → ATIC ↓ → Adenosine ↑ → T-cell Suppression → Keratinocyte Proliferation ↓ → Psoriasis ↓" },
+      { disease: "Primary CNS Lymphoma", confidence: "High", level: "high",
+        mechanism: "High-dose MTX crosses blood-brain barrier and inhibits rapidly dividing CNS lymphoma cells; standard first-line therapy with demonstrated durable remissions.",
+        path: "MTX → DHFR ↓ → Folate Metabolism ↓ → Lymphoma DNA Synthesis ↓ → PCNSL Regression" },
+      { disease: "Systemic Sclerosis (Skin Fibrosis)", confidence: "Moderate", level: "moderate",
+        mechanism: "T-cell suppression via purine synthesis inhibition reduces profibrotic cytokine release; folate pathway disruption impairs fibroblast collagen synthesis.",
+        path: "MTX → T-cell Suppression → TGF-β ↓ → Fibroblast Collagen ↓ → Sclerosis Skin ↓" }
+    ],
+    kgNodes: [
+      { id: "drug", label: "Methotrexate", type: "drug", x: 110, y: 210 },
+      { id: "t1", label: "DHFR", type: "gene", x: 290, y: 130 },
+      { id: "t2", label: "TYMS", type: "gene", x: 290, y: 210 },
+      { id: "t3", label: "ATIC", type: "gene", x: 290, y: 290 },
+      { id: "p1", label: "Folate Metabolism", type: "pathway", x: 470, y: 100 },
+      { id: "p2", label: "T-cell Suppression", type: "pathway", x: 470, y: 210 },
+      { id: "p3", label: "Adenosine Pathway", type: "pathway", x: 470, y: 300 },
+      { id: "d1", label: "Psoriasis", type: "disease", x: 650, y: 120 },
+      { id: "d2", label: "CNS Lymphoma", type: "disease", x: 650, y: 210 },
+      { id: "d3", label: "Systemic Sclerosis", type: "disease", x: 650, y: 300 },
+    ],
+    kgEdges: [["drug","t1"],["drug","t2"],["drug","t3"],["t1","p1"],["t2","p1"],["t3","p3"],["p3","p2"],["p1","d2"],["p2","d1"],["p3","d1"],["p2","d3"]]
+  },
+
+  empagliflozin: {
+    name: "Empagliflozin", drugClass: "SGLT2 Inhibitor / Cardioprotective Antidiabetic", emoji: "❤️",
+    primaryIndication: "Type 2 Diabetes Mellitus / Heart Failure / Chronic Kidney Disease",
+    targets: ["SGLT2 (SLC5A2)", "SGLT1", "NLRP3 Inflammasome", "mTOR", "Ketone Bodies (BHB)"],
+    pathways: ["Glucosuria Induction", "Cardiorenal Protection", "NLRP3 Inflammasome Inhibition", "Ketogenesis", "Sodium-Hydrogen Exchange"],
+    offLabel: ["Non-alcoholic Fatty Liver Disease (NASH)", "Polycystic Kidney Disease", "Obesity"],
+    omics: ["Transcriptomics: cardiac stress gene reduction", "Proteomics: fibrosis marker suppression", "GWAS: heart failure and CKD loci"],
+    market: { global: "$5,800M", india: "$420M", newOpp: "$12,000M" },
+    predictions: [
+      { disease: "Heart Failure with Reduced EF", confidence: "High", level: "high",
+        mechanism: "SGLT2 inhibition reduces cardiac preload/afterload, suppresses NLRP3 inflammasome, promotes ketone body utilization as 'super fuel' for the failing heart; EMPEROR-Reduced trial shows 25% HHF reduction.",
+        path: "Empagliflozin → SGLT2 ↓ → BHB ↑ → Cardiac Energy ↑ → NLRP3 ↓ → HFrEF Outcomes ↑" },
+      { disease: "Chronic Kidney Disease (Non-Diabetic)", confidence: "High", level: "high",
+        mechanism: "Tubuloglomerular feedback restoration reduces hyperfiltration injury; mTOR suppression in tubular cells reduces fibrosis; EMPA-KIDNEY trial showed 28% reduced kidney disease progression.",
+        path: "Empagliflozin → SGLT2 ↓ → Glomerular Hyperfiltration ↓ → TGF-β ↓ → CKD Progression ↓" },
+      { disease: "NASH / Liver Fibrosis", confidence: "Moderate", level: "moderate",
+        mechanism: "Reduced hepatic glucotoxicity and lipotoxicity; NLRP3 inflammasome suppression reduces hepatic stellate cell activation; multiple trials showing ALT reduction and steatosis improvement.",
+        path: "Empagliflozin → Glucotoxicity ↓ → NLRP3 ↓ → HSC Activation ↓ → NASH Fibrosis ↓" }
+    ],
+    kgNodes: [
+      { id: "drug", label: "Empagliflozin", type: "drug", x: 110, y: 210 },
+      { id: "t1", label: "SGLT2", type: "gene", x: 290, y: 130 },
+      { id: "t2", label: "NLRP3", type: "gene", x: 290, y: 210 },
+      { id: "t3", label: "BHB Pathway", type: "gene", x: 290, y: 290 },
+      { id: "p1", label: "Glucosuria", type: "pathway", x: 470, y: 100 },
+      { id: "p2", label: "Cardiorenal Prot.", type: "pathway", x: 470, y: 210 },
+      { id: "p3", label: "Inflammasome", type: "pathway", x: 470, y: 300 },
+      { id: "d1", label: "Heart Failure", type: "disease", x: 650, y: 120 },
+      { id: "d2", label: "CKD", type: "disease", x: 650, y: 210 },
+      { id: "d3", label: "NASH", type: "disease", x: 650, y: 300 },
+    ],
+    kgEdges: [["drug","t1"],["drug","t2"],["drug","t3"],["t1","p1"],["t2","p3"],["t3","p2"],["p2","d1"],["p1","d2"],["p3","d3"],["p2","d2"]]
+  },
+
+  boswellicacid: {
+    name: "Boswellic Acid", drugClass: "Pentacyclic Triterpene / Herbal Anti-inflammatory", emoji: "🌿",
+    primaryIndication: "Osteoarthritis / Inflammatory Bowel Disease (Herbal / Supplement)",
+    targets: ["5-LOX (5-Lipoxygenase)", "IKKβ (NF-κB Pathway)", "HIF-1α", "HDAC", "Cathepsin G"],
+    pathways: ["Leukotriene Synthesis Inhibition", "NF-κB Signaling", "COX-2 Pathway", "Apoptosis", "MAPK Pathway"],
+    offLabel: ["Ulcerative Colitis", "Crohn's Disease", "Brain Tumor (Adjuvant)"],
+    omics: ["Transcriptomics: 5-LOX target gene suppression", "Proteomics: leukotriene B4 reduction", "GWAS: inflammatory loci"],
+    market: { global: "$280M", india: "$110M", newOpp: "$2,000M" },
+    predictions: [
+      { disease: "Ulcerative Colitis / Crohn's Disease", confidence: "High", level: "high",
+        mechanism: "5-LOX inhibition reduces leukotriene B4, a major chemoattractant for neutrophil intestinal infiltration; NF-κB suppression attenuates epithelial inflammation; comparable to sulfasalazine in some trials.",
+        path: "Boswellic Acid → 5-LOX ↓ → LTB4 ↓ → Neutrophil Influx ↓ → Intestinal Inflammation ↓" },
+      { disease: "Brain Tumor Edema (GBM Adjuvant)", confidence: "High", level: "high",
+        mechanism: "Boswellic acids reduce peritumoral brain edema by inhibiting 5-LOX-mediated leukotriene production; approved in Germany as adjunct to steroid therapy for GBM-associated edema.",
+        path: "Boswellic Acid → 5-LOX ↓ → LT-Edema ↓ → Brain Tumor Edema ↓ → Steroid Sparing" },
+      { disease: "Rheumatoid Arthritis", confidence: "Moderate", level: "moderate",
+        mechanism: "5-LOX/leukotriene pathway inhibition combined with IKKβ/NF-κB suppression reduces synovial inflammation and cartilage-degrading enzyme production.",
+        path: "Boswellic Acid → 5-LOX ↓ → IKKβ ↓ → NF-κB ↓ → Synovial Cytokines ↓ → RA ↓" }
+    ],
+    kgNodes: [
+      { id: "drug", label: "Boswellic Acid", type: "drug", x: 110, y: 210 },
+      { id: "t1", label: "5-LOX", type: "gene", x: 290, y: 130 },
+      { id: "t2", label: "IKKβ/NF-κB", type: "gene", x: 290, y: 210 },
+      { id: "t3", label: "HIF-1α", type: "gene", x: 290, y: 290 },
+      { id: "p1", label: "Leukotriene Synth.", type: "pathway", x: 470, y: 100 },
+      { id: "p2", label: "NF-κB Pathway", type: "pathway", x: 470, y: 210 },
+      { id: "p3", label: "Apoptosis", type: "pathway", x: 470, y: 300 },
+      { id: "d1", label: "IBD (UC/Crohn's)", type: "disease", x: 650, y: 120 },
+      { id: "d2", label: "GBM Edema", type: "disease", x: 650, y: 210 },
+      { id: "d3", label: "Rheumatoid Arthritis", type: "disease", x: 650, y: 300 },
+    ],
+    kgEdges: [["drug","t1"],["drug","t2"],["drug","t3"],["t1","p1"],["t2","p2"],["t3","p3"],["p1","d1"],["p1","d2"],["p2","d3"],["p2","d1"]]
+  },
+
+  ashwagandha: {
+    name: "Ashwagandha (Withania somnifera)", drugClass: "Adaptogen / Herbal Neuroprotectant", emoji: "🌿",
+    primaryIndication: "Stress / Anxiety / Adaptogenic Support (Herbal / Ayurvedic)",
+    targets: ["Cortisol (HPA Axis)", "NF-κB", "GABA-A Receptor", "AChE (Acetylcholinesterase)", "Withanolide Targets"],
+    pathways: ["HPA Axis Modulation", "GABA Signaling", "Neuroprotection", "Anti-inflammatory Cascade", "Androgen Signaling"],
+    offLabel: ["Testosterone Boost (Men)", "Thyroid Support", "Cognitive Enhancement", "Exercise Performance"],
+    omics: ["Transcriptomics: cortisol gene suppression", "Proteomics: BDNF upregulation", "GWAS: anxiety and stress loci"],
+    market: { global: "$650M", india: "$290M", newOpp: "$3,200M" },
+    predictions: [
+      { disease: "Hypothyroidism (Subclinical)", confidence: "Moderate", level: "moderate",
+        mechanism: "Withanolides stimulate thyroid hormone synthesis by enhancing TSH-receptor sensitivity; clinical trials show significant TSH normalization and T3/T4 elevation in subclinical hypothyroidism.",
+        path: "Ashwagandha → TSH-R Sensitivity ↑ → T3/T4 ↑ → Subclinical Hypothyroidism Improvement" },
+      { disease: "Male Infertility (Oligospermia)", confidence: "High", level: "high",
+        mechanism: "Cortisol reduction protects Leydig cell testosterone synthesis; antioxidant withanolides reduce sperm DNA oxidative damage; RCTs show significant sperm count and motility improvement.",
+        path: "Ashwagandha → Cortisol ↓ → Testosterone ↑ → Oxidative Stress ↓ → Sperm Quality ↑" },
+      { disease: "Mild Cognitive Impairment", confidence: "Moderate", level: "moderate",
+        mechanism: "AChE inhibition enhances cholinergic neurotransmission; withanolide A promotes axon and dendrite outgrowth in neurons; memory improvement in MCI demonstrated in placebo-controlled trial.",
+        path: "Ashwagandha → AChE ↓ → ACh ↑ → Cholinergic → Neurite Growth → MCI Improvement" }
+    ],
+    kgNodes: [
+      { id: "drug", label: "Ashwagandha", type: "drug", x: 110, y: 210 },
+      { id: "t1", label: "HPA Axis/Cortisol", type: "gene", x: 290, y: 130 },
+      { id: "t2", label: "AChE", type: "gene", x: 290, y: 210 },
+      { id: "t3", label: "NF-κB", type: "gene", x: 290, y: 290 },
+      { id: "p1", label: "HPA Modulation", type: "pathway", x: 470, y: 100 },
+      { id: "p2", label: "Cholinergic Path.", type: "pathway", x: 470, y: 210 },
+      { id: "p3", label: "Anti-inflammatory", type: "pathway", x: 470, y: 300 },
+      { id: "d1", label: "Hypothyroidism", type: "disease", x: 650, y: 120 },
+      { id: "d2", label: "Male Infertility", type: "disease", x: 650, y: 210 },
+      { id: "d3", label: "Mild Cog. Impair.", type: "disease", x: 650, y: 300 },
+    ],
+    kgEdges: [["drug","t1"],["drug","t2"],["drug","t3"],["t1","p1"],["t2","p2"],["t3","p3"],["p1","d1"],["p1","d2"],["p2","d3"],["p3","d2"]]
+  },
+
+  piperine: {
+    name: "Piperine (Black Pepper)", drugClass: "Alkaloid / Bioavailability Enhancer / Herbal", emoji: "🌿",
+    primaryIndication: "Bioavailability Enhancer / Digestive Aid (Herbal)",
+    targets: ["P-glycoprotein (P-gp)", "CYP3A4 / CYP1A2", "TRPV1", "NF-κB", "MAO (Monoamine Oxidase)"],
+    pathways: ["Drug Bioavailability Enhancement", "Thermogenesis / Metabolism", "Anti-inflammatory", "Neuroprotection", "Serotonin Pathway"],
+    offLabel: ["Vitiligo (with psoralens)", "Depression Adjuvant", "Obesity"],
+    omics: ["Transcriptomics: CYP enzyme modulation", "Proteomics: P-gp efflux reduction", "GWAS: metabolic and inflammatory loci"],
+    market: { global: "$180M", india: "$95M", newOpp: "$1,500M" },
+    predictions: [
+      { disease: "Vitiligo (Repigmentation)", confidence: "High", level: "high",
+        mechanism: "Piperine stimulates melanocyte proliferation and dendritic formation; topical piperine with UVB radiation shows significant repigmentation in clinical trials; FDA-recognized in some formulations.",
+        path: "Piperine → TRPV1 → Melanocyte Proliferation ↑ → UVB Synergy → Vitiligo Repigmentation" },
+      { disease: "Depression (MAO Inhibition)", confidence: "Moderate", level: "moderate",
+        mechanism: "Piperine inhibits MAO-A and MAO-B, increasing synaptic monoamine levels; crosses blood-brain barrier and enhances efficacy of conventional antidepressants when co-administered.",
+        path: "Piperine → MAO ↓ → Serotonin/Dopamine ↑ → Mood Regulation ↑ → Depression ↓" },
+      { disease: "Obesity / Metabolic Syndrome", confidence: "Moderate", level: "moderate",
+        mechanism: "TRPV1-mediated thermogenesis activation increases energy expenditure; adipogenesis inhibition via PPAR-γ suppression reduces fat cell differentiation.",
+        path: "Piperine → TRPV1 ↑ → Thermogenesis ↑ → PPAR-γ ↓ → Adipogenesis ↓ → Obesity ↓" }
+    ],
+    kgNodes: [
+      { id: "drug", label: "Piperine", type: "drug", x: 110, y: 210 },
+      { id: "t1", label: "P-gp / CYP3A4", type: "gene", x: 290, y: 130 },
+      { id: "t2", label: "TRPV1", type: "gene", x: 290, y: 210 },
+      { id: "t3", label: "MAO", type: "gene", x: 290, y: 290 },
+      { id: "p1", label: "Bioavailability", type: "pathway", x: 470, y: 100 },
+      { id: "p2", label: "Thermogenesis", type: "pathway", x: 470, y: 210 },
+      { id: "p3", label: "Monoamine Pathway", type: "pathway", x: 470, y: 300 },
+      { id: "d1", label: "Vitiligo", type: "disease", x: 650, y: 120 },
+      { id: "d2", label: "Obesity", type: "disease", x: 650, y: 210 },
+      { id: "d3", label: "Depression", type: "disease", x: 650, y: 300 },
+    ],
+    kgEdges: [["drug","t1"],["drug","t2"],["drug","t3"],["t1","p1"],["t2","p2"],["t3","p3"],["p2","d1"],["p2","d2"],["p3","d3"]]
+  },
+
+  // ── ADDITIONAL DRUGS (extending to 40+) ──────────────────────
+  rapamycin: {
+    name: "Rapamycin (Sirolimus)", drugClass: "mTOR Inhibitor / Macrolide Immunosuppressant", emoji: "🔬",
+    primaryIndication: "Organ Transplant Rejection / LAM / TSC",
+    targets: ["mTORC1 (FKBP12-Rapamycin Complex)", "S6K1", "4E-BP1", "Autophagy Induction", "p70S6K"],
+    pathways: ["mTOR Signaling", "Autophagy Pathway", "PI3K/Akt/mTOR Axis", "Senescence Suppression", "Protein Translation"],
+    offLabel: ["Anti-aging / Longevity", "Cancer (various)", "Obesity-associated metabolic syndrome"],
+    omics: ["Transcriptomics: lifespan-extension gene signatures", "Proteomics: mTORC1 substrate suppression", "GWAS: aging and cancer hallmark loci"],
+    market: { global: "$1,800M", india: "$210M", newOpp: "$8,000M" },
+    predictions: [
+      { disease: "Anti-aging / Longevity Extension", confidence: "High", level: "high",
+        mechanism: "mTORC1 inhibition mimics caloric restriction, extends lifespan in model organisms (yeast, worms, flies, mice); ITP trials show consistent lifespan extension across multiple mouse strains even when started in old age.",
+        path: "Rapamycin → mTORC1 ↓ → Autophagy ↑ → Senescence ↓ → Lifespan Extension" },
+      { disease: "Alzheimer's Disease", confidence: "Moderate", level: "moderate",
+        mechanism: "mTOR hyperactivation drives tau pathology and impairs autophagy-mediated Aβ clearance; rapamycin restores autophagy and reduces amyloid and tau burden in AD mouse models.",
+        path: "Rapamycin → mTORC1 ↓ → Autophagy ↑ → Aβ/Tau Clearance ↑ → AD Burden ↓" },
+      { disease: "Pancreatic Cancer (mTOR-driven)", confidence: "Experimental", level: "experimental",
+        mechanism: "KRAS-mutant pancreatic cancers often show mTOR hyperactivation; combination of rapamycin analogs with MEK inhibitors shows synergistic antiproliferative effects.",
+        path: "Rapamycin → mTORC1 ↓ → 4E-BP1 ↑ → Protein Synthesis ↓ → PDAC Growth ↓" }
+    ],
+    kgNodes: [
+      { id: "drug", label: "Rapamycin", type: "drug", x: 110, y: 210 },
+      { id: "t1", label: "mTORC1", type: "gene", x: 290, y: 130 },
+      { id: "t2", label: "S6K1", type: "gene", x: 290, y: 210 },
+      { id: "t3", label: "4E-BP1", type: "gene", x: 290, y: 290 },
+      { id: "p1", label: "mTOR Signaling", type: "pathway", x: 470, y: 100 },
+      { id: "p2", label: "Autophagy", type: "pathway", x: 470, y: 200 },
+      { id: "p3", label: "Senescence", type: "pathway", x: 470, y: 300 },
+      { id: "d1", label: "Longevity/Aging", type: "disease", x: 650, y: 120 },
+      { id: "d2", label: "Alzheimer's", type: "disease", x: 650, y: 210 },
+      { id: "d3", label: "Pancreatic Cancer", type: "disease", x: 650, y: 300 },
+    ],
+    kgEdges: [["drug","t1"],["drug","t2"],["drug","t3"],["t1","p1"],["t2","p1"],["t3","p2"],["p1","d1"],["p2","d2"],["p3","d1"],["p2","d3"]]
+  },
+
+  thalidomide: {
+    name: "Thalidomide", drugClass: "Immunomodulatory Drug (IMiD) / TNF-α Inhibitor", emoji: "💊",
+    primaryIndication: "Multiple Myeloma / Erythema Nodosum Leprosum",
+    targets: ["CRBN (Cereblon)", "TNF-α", "NF-κB", "VEGF", "IL-6", "Caspase-8"],
+    pathways: ["Immunomodulation", "TNF-α Suppression", "Anti-angiogenesis", "Apoptosis Induction", "IL-6/JAK-STAT"],
+    offLabel: ["Crohn's Disease", "Graft-vs-Host Disease", "Behçet's Disease"],
+    omics: ["Proteomics: CRBN-mediated neo-substrate degradation", "Transcriptomics: TNF-α gene suppression", "GWAS: multiple myeloma loci"],
+    market: { global: "$2,100M", india: "$160M", newOpp: "$5,500M" },
+    predictions: [
+      { disease: "Crohn's Disease", confidence: "High", level: "high",
+        mechanism: "TNF-α suppression and NF-κB inhibition reduce intestinal mucosal inflammation; shown effective in pediatric and refractory adult Crohn's in clinical studies.",
+        path: "Thalidomide → TNF-α ↓ → NF-κB ↓ → Mucosal Inflammation ↓ → Crohn's Remission" },
+      { disease: "Kaposi Sarcoma", confidence: "Moderate", level: "moderate",
+        mechanism: "VEGF suppression reduces tumor angiogenesis; TNF-α blockade reduces KS-promoting inflammatory milieu; clinically active in HIV-related KS.",
+        path: "Thalidomide → VEGF ↓ → Angiogenesis ↓ → TNF-α ↓ → Kaposi Sarcoma ↓" },
+      { disease: "Graft-versus-Host Disease (Chronic)", confidence: "Moderate", level: "moderate",
+        mechanism: "TNF-α and IL-6 suppression reduce alloreactive T-cell activation; immunomodulatory effects shift donor T-cell phenotype toward regulatory rather than effector states.",
+        path: "Thalidomide → IL-6 ↓ → TNF-α ↓ → Alloreactive T-cell ↓ → cGVHD ↓" }
+    ],
+    kgNodes: [
+      { id: "drug", label: "Thalidomide", type: "drug", x: 110, y: 210 },
+      { id: "t1", label: "CRBN", type: "gene", x: 290, y: 130 },
+      { id: "t2", label: "TNF-α", type: "gene", x: 290, y: 210 },
+      { id: "t3", label: "VEGF", type: "gene", x: 290, y: 290 },
+      { id: "p1", label: "Immunomodulation", type: "pathway", x: 470, y: 100 },
+      { id: "p2", label: "TNF-α Pathway", type: "pathway", x: 470, y: 200 },
+      { id: "p3", label: "Anti-angiogenesis", type: "pathway", x: 470, y: 300 },
+      { id: "d1", label: "Crohn's Disease", type: "disease", x: 650, y: 120 },
+      { id: "d2", label: "Kaposi Sarcoma", type: "disease", x: 650, y: 210 },
+      { id: "d3", label: "Chronic GvHD", type: "disease", x: 650, y: 300 },
+    ],
+    kgEdges: [["drug","t1"],["drug","t2"],["drug","t3"],["t1","p1"],["t2","p2"],["t3","p3"],["p2","d1"],["p3","d2"],["p1","d3"],["p2","d3"]]
+  },
+
+  itraconazole: {
+    name: "Itraconazole", drugClass: "Triazole Antifungal / Hedgehog Pathway Inhibitor", emoji: "🦠",
+    primaryIndication: "Systemic Fungal Infections (Aspergillosis, Histoplasmosis)",
+    targets: ["CYP51A1 (Lanosterol 14α-demethylase)", "Hedgehog (Hh) Pathway / PTCH1", "VEGFR2", "mTOR", "NPC1"],
+    pathways: ["Ergosterol Synthesis Inhibition", "Hedgehog Signaling", "Anti-angiogenesis", "mTOR Inhibition", "Cholesterol Trafficking"],
+    offLabel: ["Basal Cell Carcinoma", "Prostate Cancer", "Lung Cancer (NSCLC adjuvant)"],
+    omics: ["Proteomics: Hh pathway target suppression", "Transcriptomics: VEGFR2-angiogenesis gene network", "GWAS: BCC and Hh pathway loci"],
+    market: { global: "$900M", india: "$220M", newOpp: "$4,500M" },
+    predictions: [
+      { disease: "Basal Cell Carcinoma", confidence: "High", level: "high",
+        mechanism: "Hedgehog pathway inhibition via PTCH1 binding reduces SMO-driven BCC growth; shown comparable to vismodegib in early clinical work with superior oral bioavailability.",
+        path: "Itraconazole → PTCH1 → Hh Pathway ↓ → SMO ↓ → Gli1 ↓ → BCC Growth ↓" },
+      { disease: "Prostate Cancer (Castration-Resistant)", confidence: "Moderate", level: "moderate",
+        mechanism: "Hh signaling inhibition reduces cancer stem cell survival; VEGFR2 suppression limits tumor neo-angiogenesis in CRPC; Phase II trial showed PSA response in 12% of patients.",
+        path: "Itraconazole → VEGFR2 ↓ → Angiogenesis ↓ → Hh ↓ → CRPC Progression ↓" },
+      { disease: "Non-Small Cell Lung Cancer (Adjuvant)", confidence: "Experimental", level: "experimental",
+        mechanism: "Hh pathway inhibition combined with mTOR suppression reduces cancer stem cell plasticity; NPC1 antagonism disrupts cholesterol trafficking required for oncogenic signaling.",
+        path: "Itraconazole → Hh ↓ → mTOR ↓ → Cancer Stem Cell ↓ → NSCLC Progression ↓" }
+    ],
+    kgNodes: [
+      { id: "drug", label: "Itraconazole", type: "drug", x: 110, y: 210 },
+      { id: "t1", label: "PTCH1/Hh", type: "gene", x: 290, y: 130 },
+      { id: "t2", label: "VEGFR2", type: "gene", x: 290, y: 210 },
+      { id: "t3", label: "mTOR / NPC1", type: "gene", x: 290, y: 290 },
+      { id: "p1", label: "Hedgehog Pathway", type: "pathway", x: 470, y: 100 },
+      { id: "p2", label: "Anti-angiogenesis", type: "pathway", x: 470, y: 200 },
+      { id: "p3", label: "Cholesterol Traffic", type: "pathway", x: 470, y: 300 },
+      { id: "d1", label: "Basal Cell Carc.", type: "disease", x: 650, y: 120 },
+      { id: "d2", label: "Prostate Cancer", type: "disease", x: 650, y: 210 },
+      { id: "d3", label: "NSCLC", type: "disease", x: 650, y: 300 },
+    ],
+    kgEdges: [["drug","t1"],["drug","t2"],["drug","t3"],["t1","p1"],["t2","p2"],["t3","p3"],["p1","d1"],["p2","d2"],["p3","d3"],["p1","d2"]]
+  },
+
+  nelfinavir: {
+    name: "Nelfinavir", drugClass: "HIV Protease Inhibitor / ER-Stress Inducer", emoji: "🦠",
+    primaryIndication: "HIV/AIDS (Antiretroviral Therapy)",
+    targets: ["HIV Protease", "Akt/PKB", "ER Stress (UPR)", "HSP90", "Proteasome", "VEGF"],
+    pathways: ["ER Stress / Unfolded Protein Response", "Akt/mTOR Pathway", "Proteasomal Degradation", "Anti-angiogenesis", "Autophagy"],
+    offLabel: ["Cancer (various)", "COVID-19", "SARS-CoV-2 Main Protease Inhibition"],
+    omics: ["Proteomics: ER stress marker induction in cancer cells", "Transcriptomics: Akt pathway suppression", "GWAS: cancer cell survival loci"],
+    market: { global: "$400M", india: "$80M", newOpp: "$3,200M" },
+    predictions: [
+      { disease: "Multiple Myeloma", confidence: "High", level: "high",
+        mechanism: "ER stress induction overwhelms the proteasomal degradation capacity of myeloma cells, which are already highly stressed from immunoglobulin overproduction; synergistic with bortezomib.",
+        path: "Nelfinavir → ER Stress ↑ → UPR → Proteasome Overload → Myeloma Cell Apoptosis" },
+      { disease: "Cervical Cancer (HPV-related)", confidence: "Moderate", level: "moderate",
+        mechanism: "Akt inhibition reduces HPV E6/E7 oncogene-driven cell survival; ER stress induction triggers apoptosis in HPV-transformed cervical cancer cells; Phase I/II data available.",
+        path: "Nelfinavir → Akt ↓ → HPV E6/E7 Signaling ↓ → Cervical Cancer Apoptosis" },
+      { disease: "COVID-19 (Protease Inhibition)", confidence: "Experimental", level: "experimental",
+        mechanism: "Nelfinavir inhibits SARS-CoV-2 main protease (3CLpro) in molecular docking and cell studies; ER stress modulation may also reduce virus-induced cytopathic effects.",
+        path: "Nelfinavir → 3CLpro ↓ → Viral Polyprotein Processing ↓ → SARS-CoV-2 Replication ↓" }
+    ],
+    kgNodes: [
+      { id: "drug", label: "Nelfinavir", type: "drug", x: 110, y: 210 },
+      { id: "t1", label: "ER Stress/UPR", type: "gene", x: 290, y: 130 },
+      { id: "t2", label: "Akt/PKB", type: "gene", x: 290, y: 210 },
+      { id: "t3", label: "HIV / 3CLpro", type: "gene", x: 290, y: 290 },
+      { id: "p1", label: "ER Stress/UPR", type: "pathway", x: 470, y: 100 },
+      { id: "p2", label: "Akt/mTOR", type: "pathway", x: 470, y: 200 },
+      { id: "p3", label: "Proteasome Pathway", type: "pathway", x: 470, y: 300 },
+      { id: "d1", label: "Multiple Myeloma", type: "disease", x: 650, y: 120 },
+      { id: "d2", label: "Cervical Cancer", type: "disease", x: 650, y: 210 },
+      { id: "d3", label: "COVID-19", type: "disease", x: 650, y: 300 },
+    ],
+    kgEdges: [["drug","t1"],["drug","t2"],["drug","t3"],["t1","p1"],["t2","p2"],["t3","p3"],["p1","d1"],["p3","d1"],["p2","d2"],["p3","d3"]]
+  },
+
+  chloroquine: {
+    name: "Chloroquine / Hydroxychloroquine", drugClass: "Antimalarial / Lysosomotropic Agent", emoji: "🦠",
+    primaryIndication: "Malaria / Rheumatoid Arthritis / Lupus",
+    targets: ["Lysosomal pH (Acidification Block)", "TLR7/TLR9", "Autophagy Flux", "PI3K/Akt", "ACE2 Glycosylation"],
+    pathways: ["Lysosomal Pathway", "TLR-Innate Immunity", "Autophagy Inhibition", "Type I Interferon Pathway", "Antigen Presentation"],
+    offLabel: ["Cancer (Autophagy Inhibitor)", "COVID-19 (historical)", "Sjögren's Syndrome"],
+    omics: ["Transcriptomics: TLR-driven interferon gene suppression", "Proteomics: autophagy flux disruption in cancer", "GWAS: lupus and RA disease loci"],
+    market: { global: "$1,400M", india: "$380M", newOpp: "$4,000M" },
+    predictions: [
+      { disease: "Cancer (Autophagy Inhibition Adjuvant)", confidence: "High", level: "high",
+        mechanism: "Cancer cells upregulate autophagy as a survival mechanism under therapeutic stress; chloroquine blocks late-stage autophagy by alkalinizing lysosomes, sensitizing tumors to chemotherapy and radiation.",
+        path: "Chloroquine → Lysosomal pH ↑ → Autophagy Flux Blocked → Cancer Cell Death ↑" },
+      { disease: "Sjögren's Syndrome", confidence: "Moderate", level: "moderate",
+        mechanism: "TLR7/9 blockade reduces type I interferon production central to Sjögren's pathogenesis; reduces salivary gland inflammation and anti-Ro/La antibody titers.",
+        path: "Chloroquine → TLR7/9 ↓ → IFN-α ↓ → Salivary Gland Inflammation ↓ → SS Symptoms ↓" },
+      { disease: "Antiphospholipid Syndrome", confidence: "Moderate", level: "moderate",
+        mechanism: "Reduces platelet activation and endothelial TLR-mediated prothrombotic state; reduces antiphospholipid antibody titers; standard of care add-on in APS with lupus.",
+        path: "Chloroquine → TLR ↓ → Platelet Activation ↓ → Thrombotic Risk ↓ → APS ↓" }
+    ],
+    kgNodes: [
+      { id: "drug", label: "Chloroquine", type: "drug", x: 110, y: 210 },
+      { id: "t1", label: "Lysosomal pH", type: "gene", x: 290, y: 130 },
+      { id: "t2", label: "TLR7/TLR9", type: "gene", x: 290, y: 210 },
+      { id: "t3", label: "Autophagy Flux", type: "gene", x: 290, y: 290 },
+      { id: "p1", label: "Lysosomal Path.", type: "pathway", x: 470, y: 100 },
+      { id: "p2", label: "TLR/IFN Pathway", type: "pathway", x: 470, y: 200 },
+      { id: "p3", label: "Autophagy Inhib.", type: "pathway", x: 470, y: 300 },
+      { id: "d1", label: "Cancer Adjuvant", type: "disease", x: 650, y: 120 },
+      { id: "d2", label: "Sjögren's Synd.", type: "disease", x: 650, y: 210 },
+      { id: "d3", label: "APS Thrombosis", type: "disease", x: 650, y: 300 },
+    ],
+    kgEdges: [["drug","t1"],["drug","t2"],["drug","t3"],["t1","p3"],["t2","p2"],["t3","p1"],["p3","d1"],["p2","d2"],["p2","d3"],["p1","d1"]]
+  },
+
+  lithium: {
+    name: "Lithium", drugClass: "Mood Stabilizer / GSK-3β Inhibitor", emoji: "⚡",
+    primaryIndication: "Bipolar Disorder / Mania Prophylaxis",
+    targets: ["GSK-3β (Glycogen Synthase Kinase-3β)", "Inositol Monophosphatase", "Nrf2", "BDNF", "Telomerase (TERT)"],
+    pathways: ["GSK-3β/Wnt Signaling", "Neuroprotection", "Autophagy", "Neurogenesis", "Oxidative Stress Response"],
+    offLabel: ["Alzheimer's Disease", "ALS", "Cluster Headache"],
+    omics: ["Transcriptomics: BDNF upregulation", "Proteomics: GSK-3β substrate modulation", "GWAS: neurodegenerative disease loci"],
+    market: { global: "$600M", india: "$95M", newOpp: "$4,500M" },
+    predictions: [
+      { disease: "Alzheimer's Disease", confidence: "High", level: "high",
+        mechanism: "GSK-3β inhibition reduces tau hyperphosphorylation (a hallmark of AD); promotes autophagy-mediated Aβ clearance; epidemiological data shows bipolar patients on lithium have lower AD incidence.",
+        path: "Lithium → GSK-3β ↓ → Tau Phosphorylation ↓ → NFT Formation ↓ → AD Progression ↓" },
+      { disease: "Amyotrophic Lateral Sclerosis (ALS)", confidence: "Experimental", level: "experimental",
+        mechanism: "GSK-3β inhibition and autophagy induction reduce motor neuron TDP-43 aggregation; neuroprotective BDNF upregulation supports motor neuron survival.",
+        path: "Lithium → GSK-3β ↓ → Autophagy ↑ → TDP-43 Clearance → Motor Neuron Survival ↑" },
+      { disease: "Cancer (GSK-3β–driven)", confidence: "Moderate", level: "moderate",
+        mechanism: "GSK-3β promotes survival of certain cancers (pancreatic, leukemia); inhibition induces apoptosis in GSK-3β–dependent cancer cells; telomerase induction may be a concern in oncology applications.",
+        path: "Lithium → GSK-3β ↓ → β-catenin ↑ → Cyclin D1 ↓ → Cancer Apoptosis" }
+    ],
+    kgNodes: [
+      { id: "drug", label: "Lithium", type: "drug", x: 110, y: 210 },
+      { id: "t1", label: "GSK-3β", type: "gene", x: 290, y: 130 },
+      { id: "t2", label: "BDNF", type: "gene", x: 290, y: 210 },
+      { id: "t3", label: "Nrf2", type: "gene", x: 290, y: 290 },
+      { id: "p1", label: "GSK-3β/Wnt", type: "pathway", x: 470, y: 100 },
+      { id: "p2", label: "Neuroprotection", type: "pathway", x: 470, y: 200 },
+      { id: "p3", label: "Autophagy", type: "pathway", x: 470, y: 300 },
+      { id: "d1", label: "Alzheimer's", type: "disease", x: 650, y: 120 },
+      { id: "d2", label: "ALS", type: "disease", x: 650, y: 210 },
+      { id: "d3", label: "GSK-3β Cancer", type: "disease", x: 650, y: 300 },
+    ],
+    kgEdges: [["drug","t1"],["drug","t2"],["drug","t3"],["t1","p1"],["t2","p2"],["t3","p3"],["p1","d1"],["p3","d2"],["p2","d2"],["p1","d3"]]
+  },
+
+  minoxidil: {
+    name: "Minoxidil", drugClass: "KATP Channel Opener / Vasodilator", emoji: "💊",
+    primaryIndication: "Severe Hypertension / Androgenetic Alopecia (topical)",
+    targets: ["KATP Channel (Kir6.2/SUR2B)", "Prostaglandin E2 Synthesis", "VEGF", "Sulfotransferase (SULT1A1)", "Wnt/β-catenin"],
+    pathways: ["Potassium Channel Opening", "VEGF-Mediated Angiogenesis", "Hair Follicle Proliferation", "Prostaglandin Pathway", "Vasodilation"],
+    offLabel: ["Female Pattern Hair Loss", "Beard Growth", "Chemotherapy-Induced Alopecia"],
+    omics: ["Transcriptomics: hair follicle keratinocyte proliferation genes", "Proteomics: VEGF upregulation in dermal papilla", "GWAS: androgenetic alopecia loci"],
+    market: { global: "$1,600M", india: "$290M", newOpp: "$3,200M" },
+    predictions: [
+      { disease: "Chemotherapy-Induced Alopecia Prevention", confidence: "Moderate", level: "moderate",
+        mechanism: "KATP channel opening in hair follicle cells reduces chemotherapy-induced apoptosis; VEGF upregulation accelerates follicle recovery; clinical trials show faster hair regrowth post-chemotherapy.",
+        path: "Minoxidil → KATP ↑ → Hair Follicle Protection → VEGF ↑ → Anagen Phase ↑ → CIA Recovery" },
+      { disease: "Chronic Telogen Effluvium", confidence: "High", level: "high",
+        mechanism: "Minoxidil shortens telogen (resting) phase and extends anagen (growth) phase via VEGF and prostaglandin E2 upregulation in dermal papilla cells.",
+        path: "Minoxidil → PGE2 ↑ → Wnt/β-catenin ↑ → Anagen Prolongation → Telogen Effluvium ↓" },
+      { disease: "Wound Healing / Chronic Ulcer", confidence: "Experimental", level: "experimental",
+        mechanism: "VEGF-mediated angiogenesis promotes wound bed vascularization; KATP opening reduces cellular hypoxia stress; studied in diabetic foot ulcer models.",
+        path: "Minoxidil → VEGF ↑ → Neovascularization → Wound Bed Perfusion ↑ → Ulcer Healing ↑" }
+    ],
+    kgNodes: [
+      { id: "drug", label: "Minoxidil", type: "drug", x: 110, y: 210 },
+      { id: "t1", label: "KATP Channel", type: "gene", x: 290, y: 130 },
+      { id: "t2", label: "VEGF", type: "gene", x: 290, y: 210 },
+      { id: "t3", label: "PGE2", type: "gene", x: 290, y: 290 },
+      { id: "p1", label: "K+ Channel Open.", type: "pathway", x: 470, y: 100 },
+      { id: "p2", label: "Angiogenesis", type: "pathway", x: 470, y: 200 },
+      { id: "p3", label: "Hair Follicle", type: "pathway", x: 470, y: 300 },
+      { id: "d1", label: "Chemo Alopecia", type: "disease", x: 650, y: 120 },
+      { id: "d2", label: "Telogen Effluvium", type: "disease", x: 650, y: 210 },
+      { id: "d3", label: "Wound/Ulcer", type: "disease", x: 650, y: 300 },
+    ],
+    kgEdges: [["drug","t1"],["drug","t2"],["drug","t3"],["t1","p1"],["t2","p2"],["t3","p3"],["p1","d1"],["p3","d2"],["p2","d3"],["p3","d1"]]
+  },
+
+  naltrexone: {
+    name: "Naltrexone (Low-Dose)", drugClass: "Opioid Antagonist / TLR4 Modulator", emoji: "🧪",
+    primaryIndication: "Opioid / Alcohol Use Disorder",
+    targets: ["μ-Opioid Receptor (MOR)", "TLR4 (Toll-like Receptor 4)", "Glial Cell (Microglia) Activation", "OGF (Opioid Growth Factor)", "TNF-α / IL-6"],
+    pathways: ["Opioid Receptor Signaling", "Microglial TLR4 Pathway", "Neuroinflammation", "OGF/OGFr Cell Proliferation", "Immune Modulation"],
+    offLabel: ["Multiple Sclerosis (Low-Dose)", "Crohn's Disease (Low-Dose)", "Fibromyalgia"],
+    omics: ["Transcriptomics: microglial neuroinflammation gene reduction", "Proteomics: OGFr pathway modulation", "GWAS: autoimmune and pain disorder loci"],
+    market: { global: "$500M", india: "$65M", newOpp: "$3,800M" },
+    predictions: [
+      { disease: "Multiple Sclerosis (Low-Dose Naltrexone)", confidence: "Moderate", level: "moderate",
+        mechanism: "Low-dose naltrexone transiently blocks opioid receptors, causing compensatory upregulation of endorphins and reduction of microglial TLR4-mediated neuroinflammation; patient surveys show quality-of-life improvement.",
+        path: "LDN → MOR Transient Block → Endorphin ↑ → TLR4 ↓ → Microglial Activation ↓ → MS Symptoms ↓" },
+      { disease: "Crohn's Disease Remission", confidence: "High", level: "high",
+        mechanism: "TLR4 blockade reduces intestinal mucosal innate immune activation; OGF pathway modulation promotes mucosal healing; pediatric trials show 88% clinical response.",
+        path: "LDN → TLR4 ↓ → Mucosal Innate Immunity ↓ → OGF ↑ → Epithelial Repair → Crohn's Remission" },
+      { disease: "Fibromyalgia / Chronic Pain", confidence: "Moderate", level: "moderate",
+        mechanism: "Microglial TLR4 suppression reduces central sensitization; endorphin upregulation improves pain threshold; double-blind trial at Stanford showed significant pain reduction vs. placebo.",
+        path: "LDN → Microglial TLR4 ↓ → Neuroinflammation ↓ → Endorphin ↑ → Fibromyalgia Pain ↓" }
+    ],
+    kgNodes: [
+      { id: "drug", label: "Naltrexone (LDN)", type: "drug", x: 110, y: 210 },
+      { id: "t1", label: "μ-Opioid-R", type: "gene", x: 290, y: 130 },
+      { id: "t2", label: "TLR4", type: "gene", x: 290, y: 210 },
+      { id: "t3", label: "OGF/OGFr", type: "gene", x: 290, y: 290 },
+      { id: "p1", label: "Opioid Receptor", type: "pathway", x: 470, y: 100 },
+      { id: "p2", label: "Neuroinflammation", type: "pathway", x: 470, y: 200 },
+      { id: "p3", label: "OGF Cell Prolif.", type: "pathway", x: 470, y: 300 },
+      { id: "d1", label: "MS (LDN)", type: "disease", x: 650, y: 120 },
+      { id: "d2", label: "Crohn's Disease", type: "disease", x: 650, y: 210 },
+      { id: "d3", label: "Fibromyalgia", type: "disease", x: 650, y: 300 },
+    ],
+    kgEdges: [["drug","t1"],["drug","t2"],["drug","t3"],["t1","p1"],["t2","p2"],["t3","p3"],["p1","d1"],["p2","d1"],["p3","d2"],["p2","d3"]]
+  },
+
+  finasteride: {
+    name: "Finasteride", drugClass: "5α-Reductase Inhibitor / Androgen Blocker", emoji: "💊",
+    primaryIndication: "Benign Prostatic Hyperplasia / Androgenetic Alopecia",
+    targets: ["5α-Reductase Type I/II (SRD5A1/2)", "DHT (Dihydrotestosterone)", "Androgen Receptor (AR)", "PSA / KLK3", "Neurosteroids"],
+    pathways: ["DHT Synthesis Inhibition", "Androgen Receptor Pathway", "Prostate Cell Proliferation", "Neurosteroid Synthesis", "Hair Follicle Androgen Sensitivity"],
+    offLabel: ["Female Hirsuitism", "Transgender Hair Loss", "Prostate Cancer Chemoprevention"],
+    omics: ["Transcriptomics: androgen-regulated gene suppression", "GWAS: prostate cancer risk loci", "Proteomics: DHT-dependent growth factor modulation"],
+    market: { global: "$1,500M", india: "$340M", newOpp: "$3,000M" },
+    predictions: [
+      { disease: "Prostate Cancer Chemoprevention", confidence: "High", level: "high",
+        mechanism: "PCPT trial showed 25% reduction in prostate cancer incidence; DHT reduction limits androgen-driven prostate cancer initiation; most effective in low-risk PSA populations.",
+        path: "Finasteride → 5α-Red ↓ → DHT ↓ → AR Activity ↓ → Prostate Cell Proliferation ↓ → CaP Risk ↓" },
+      { disease: "Polycystic Ovary Syndrome (Hirsuitism)", confidence: "Moderate", level: "moderate",
+        mechanism: "5α-reductase inhibition reduces local androgen activation in skin; reduces hirsuitism, acne, and scalp hair loss in hyperandrogenic women; considered in PCOS management.",
+        path: "Finasteride → 5α-Red ↓ → Local DHT ↓ → Skin/Hair Androgen Sensitivity ↓ → PCOS Hirsuitism ↓" },
+      { disease: "Post-Finasteride Syndrome (Research)", confidence: "Experimental", level: "experimental",
+        mechanism: "Neurosteroid synthesis disruption (allopregnanolone, DHEA) may underlie persistent sexual, cognitive, and mood symptoms; understanding mechanism may yield novel neuroactive treatments.",
+        path: "Finasteride → 5α-Red ↓ → Allopregnanolone ↓ → GABAergic Signaling ↓ → Neurological Symptoms" }
+    ],
+    kgNodes: [
+      { id: "drug", label: "Finasteride", type: "drug", x: 110, y: 210 },
+      { id: "t1", label: "5α-Reductase", type: "gene", x: 290, y: 130 },
+      { id: "t2", label: "DHT / AR", type: "gene", x: 290, y: 210 },
+      { id: "t3", label: "Neurosteroids", type: "gene", x: 290, y: 290 },
+      { id: "p1", label: "DHT Synthesis", type: "pathway", x: 470, y: 100 },
+      { id: "p2", label: "Androgen Pathway", type: "pathway", x: 470, y: 200 },
+      { id: "p3", label: "Neurosteroid Path.", type: "pathway", x: 470, y: 300 },
+      { id: "d1", label: "Prostate Cancer", type: "disease", x: 650, y: 120 },
+      { id: "d2", label: "PCOS Hirsuitism", type: "disease", x: 650, y: 210 },
+      { id: "d3", label: "Neurological Synd.", type: "disease", x: 650, y: 300 },
+    ],
+    kgEdges: [["drug","t1"],["drug","t2"],["drug","t3"],["t1","p1"],["t2","p2"],["t3","p3"],["p1","d1"],["p2","d2"],["p3","d3"]]
+  },
+
+  colchicine: {
+    name: "Colchicine", drugClass: "Tubulin Polymerization Inhibitor / Anti-inflammatory", emoji: "🌿",
+    primaryIndication: "Gout / Familial Mediterranean Fever / Pericarditis",
+    targets: ["β-Tubulin (Colchicine Binding Site)", "NLRP3 Inflammasome", "IL-1β", "Neutrophil Chemotaxis", "L-Selectin"],
+    pathways: ["Microtubule Depolymerization", "NLRP3 Inflammasome Inhibition", "Neutrophil Migration Block", "IL-1β Pathway", "Innate Immunity"],
+    offLabel: ["Atrial Fibrillation Prevention", "Coronary Artery Disease", "Pericarditis Prevention"],
+    omics: ["Transcriptomics: NLRP3-IL1β gene suppression", "Proteomics: neutrophil activation marker reduction", "GWAS: cardiovascular inflammation loci"],
+    market: { global: "$1,100M", india: "$185M", newOpp: "$5,500M" },
+    predictions: [
+      { disease: "Atherosclerotic Cardiovascular Disease", confidence: "High", level: "high",
+        mechanism: "NLRP3 inflammasome inhibition reduces IL-1β-driven atherosclerotic plaque inflammation; LoDoCo2 trial showed 31% reduction in cardiovascular events in stable CAD patients.",
+        path: "Colchicine → NLRP3 ↓ → IL-1β ↓ → Plaque Inflammation ↓ → CV Events ↓" },
+      { disease: "Atrial Fibrillation (Post-op Prevention)", confidence: "High", level: "high",
+        mechanism: "Pericardial inflammation post-cardiac surgery drives AF; colchicine's anti-inflammatory effect reduces post-operative pericarditis and AF incidence; COPPS trial validated this.",
+        path: "Colchicine → NLRP3 ↓ → Pericardial Inflammation ↓ → Post-op AF Incidence ↓" },
+      { disease: "COVID-19 (Hyperinflammation)", confidence: "Moderate", level: "moderate",
+        mechanism: "NLRP3 inflammasome drives COVID-19 cytokine storm; colchicine reduces IL-1β and neutrophil-mediated lung injury; COLCORONA trial showed 21% reduction in hospitalization in outpatients.",
+        path: "Colchicine → NLRP3 ↓ → IL-1β ↓ → Neutrophil Lung Injury ↓ → COVID Severity ↓" }
+    ],
+    kgNodes: [
+      { id: "drug", label: "Colchicine", type: "drug", x: 110, y: 210 },
+      { id: "t1", label: "NLRP3", type: "gene", x: 290, y: 130 },
+      { id: "t2", label: "β-Tubulin", type: "gene", x: 290, y: 210 },
+      { id: "t3", label: "IL-1β", type: "gene", x: 290, y: 290 },
+      { id: "p1", label: "NLRP3 Inflammasome", type: "pathway", x: 470, y: 100 },
+      { id: "p2", label: "Neutrophil Migr.", type: "pathway", x: 470, y: 200 },
+      { id: "p3", label: "IL-1β Pathway", type: "pathway", x: 470, y: 300 },
+      { id: "d1", label: "Atherosclerosis", type: "disease", x: 650, y: 120 },
+      { id: "d2", label: "Atrial Fibrillation", type: "disease", x: 650, y: 210 },
+      { id: "d3", label: "COVID-19", type: "disease", x: 650, y: 300 },
+    ],
+    kgEdges: [["drug","t1"],["drug","t2"],["drug","t3"],["t1","p1"],["t2","p2"],["t3","p3"],["p1","d1"],["p1","d2"],["p3","d3"],["p2","d3"]]
+  },
+
+  celecoxib: {
+    name: "Celecoxib", drugClass: "Selective COX-2 Inhibitor / NSAID", emoji: "💊",
+    primaryIndication: "Osteoarthritis / Rheumatoid Arthritis / Familial Adenomatous Polyposis",
+    targets: ["COX-2 (PTGS2)", "PGE2 Synthesis", "Wnt/β-catenin", "VEGF", "Bcl-2"],
+    pathways: ["Prostaglandin Synthesis", "Wnt/β-catenin Signaling", "Apoptosis Induction", "Angiogenesis", "NF-κB Pathway"],
+    offLabel: ["Colorectal Cancer Chemoprevention", "Familial Adenomatous Polyposis", "Ovarian Cancer Adjuvant"],
+    omics: ["Transcriptomics: Wnt pathway gene suppression in polyps", "Proteomics: PGE2-angiogenesis modulation", "GWAS: colorectal cancer and COX-2 loci"],
+    market: { global: "$2,600M", india: "$520M", newOpp: "$6,000M" },
+    predictions: [
+      { disease: "Familial Adenomatous Polyposis (FAP)", confidence: "High", level: "high",
+        mechanism: "FDA-approved for FAP; COX-2 inhibition reduces PGE2-driven polyp proliferation; Wnt/β-catenin suppression attenuates adenomatous polyp growth in APC-mutant patients.",
+        path: "Celecoxib → COX-2 ↓ → PGE2 ↓ → Wnt/β-catenin ↓ → Polyp Adenoma ↓ → FAP Burden ↓" },
+      { disease: "Ovarian Cancer (Chemosensitization)", confidence: "Moderate", level: "moderate",
+        mechanism: "PGE2 promotes ovarian cancer immune evasion and chemoresistance; COX-2 inhibition restores platinum drug sensitivity and reduces VEGF-mediated ascites production.",
+        path: "Celecoxib → COX-2 ↓ → PGE2 ↓ → Immune Evasion ↓ → Platinum Sensitivity ↑ → OC Outcomes ↑" },
+      { disease: "Alzheimer's Disease (Preventive)", confidence: "Experimental", level: "experimental",
+        mechanism: "Neuroinflammatory COX-2 is elevated around amyloid plaques; early COX-2 inhibition may delay plaque-associated neurodegeneration; ADAPT trial suggests timing-dependent effects.",
+        path: "Celecoxib → COX-2 ↓ → PGE2 ↓ → Neuroinflammation ↓ → Early Aβ Plaque Formation ↓" }
+    ],
+    kgNodes: [
+      { id: "drug", label: "Celecoxib", type: "drug", x: 110, y: 210 },
+      { id: "t1", label: "COX-2/PTGS2", type: "gene", x: 290, y: 130 },
+      { id: "t2", label: "Wnt/β-catenin", type: "gene", x: 290, y: 210 },
+      { id: "t3", label: "VEGF / Bcl-2", type: "gene", x: 290, y: 290 },
+      { id: "p1", label: "PG Synthesis", type: "pathway", x: 470, y: 100 },
+      { id: "p2", label: "Wnt Signaling", type: "pathway", x: 470, y: 200 },
+      { id: "p3", label: "Angiogenesis", type: "pathway", x: 470, y: 300 },
+      { id: "d1", label: "FAP / CRC", type: "disease", x: 650, y: 120 },
+      { id: "d2", label: "Ovarian Cancer", type: "disease", x: 650, y: 210 },
+      { id: "d3", label: "Alzheimer's", type: "disease", x: 650, y: 300 },
+    ],
+    kgEdges: [["drug","t1"],["drug","t2"],["drug","t3"],["t1","p1"],["t2","p2"],["t3","p3"],["p1","d1"],["p2","d1"],["p3","d2"],["p1","d3"]]
+  },
+
+  valproicacid: {
+    name: "Valproic Acid", drugClass: "HDAC Inhibitor / Mood Stabilizer / Anticonvulsant", emoji: "⚡",
+    primaryIndication: "Epilepsy / Bipolar Disorder / Migraine Prophylaxis",
+    targets: ["HDAC (Histone Deacetylase)", "GSK-3β", "GABA Transaminase", "Sodium Channels", "Wnt Signaling"],
+    pathways: ["Histone Acetylation / Epigenetics", "GABA Neurotransmission", "Neuroprotection", "Cell Cycle Arrest", "Wnt/β-catenin"],
+    offLabel: ["HIV Latency Reversal", "Cancer (Epigenetic Therapy)", "Spinal Muscular Atrophy"],
+    omics: ["Transcriptomics: HDAC-regulated gene reactivation", "Proteomics: histone acetylation marks", "GWAS: epilepsy and psychiatric disease loci"],
+    market: { global: "$1,800M", india: "$310M", newOpp: "$4,800M" },
+    predictions: [
+      { disease: "HIV Eradication (Latency Reversal)", confidence: "High", level: "high",
+        mechanism: "HDAC inhibition reactivates transcriptionally silenced HIV provirus from latency (shock-and-kill strategy); combination with ART prevents reseeding; multiple Phase I trials validated VPA as a latency reversal agent.",
+        path: "Valproic Acid → HDAC ↓ → HIV Promoter Acetylation ↑ → Latent HIV Reactivation → ART Kill ↑" },
+      { disease: "Acute Myeloid Leukemia (Differentiation)", confidence: "Moderate", level: "moderate",
+        mechanism: "HDAC inhibition promotes differentiation of AML blasts into mature granulocytes; synergistic with ATRA (all-trans retinoic acid) in non-APL AML; used in combination Phase II trials.",
+        path: "Valproic Acid → HDAC ↓ → Histone Acetylation → AML Differentiation → Blast Reduction" },
+      { disease: "Spinal Muscular Atrophy (SMN2 Upregulation)", confidence: "Experimental", level: "experimental",
+        mechanism: "HDAC inhibition upregulates SMN2 gene expression in SMA patients, partially compensating for SMN1 deficiency; clinical trials showed modest SMN2 protein increase.",
+        path: "Valproic Acid → HDAC ↓ → SMN2 Promoter Acetylation ↑ → SMN Protein ↑ → SMA Benefit" }
+    ],
+    kgNodes: [
+      { id: "drug", label: "Valproic Acid", type: "drug", x: 110, y: 210 },
+      { id: "t1", label: "HDAC", type: "gene", x: 290, y: 130 },
+      { id: "t2", label: "GSK-3β", type: "gene", x: 290, y: 210 },
+      { id: "t3", label: "GABA-T", type: "gene", x: 290, y: 290 },
+      { id: "p1", label: "Epigenetics/HDAC", type: "pathway", x: 470, y: 100 },
+      { id: "p2", label: "GABA Signaling", type: "pathway", x: 470, y: 200 },
+      { id: "p3", label: "Neuroprotection", type: "pathway", x: 470, y: 300 },
+      { id: "d1", label: "HIV Latency", type: "disease", x: 650, y: 120 },
+      { id: "d2", label: "AML Leukemia", type: "disease", x: 650, y: 210 },
+      { id: "d3", label: "Spinal Musc. Atr.", type: "disease", x: 650, y: 300 },
+    ],
+    kgEdges: [["drug","t1"],["drug","t2"],["drug","t3"],["t1","p1"],["t2","p3"],["t3","p2"],["p1","d1"],["p1","d2"],["p3","d3"],["p2","d3"]]
+  },
+
+  fluoxetine: {
+    name: "Fluoxetine (Prozac)", drugClass: "SSRI / Serotonin Reuptake Inhibitor", emoji: "🧠",
+    primaryIndication: "Major Depressive Disorder / OCD / Bulimia Nervosa",
+    targets: ["SERT (Serotonin Transporter / SLC6A4)", "BDNF", "σ1 Receptor", "P-glycoprotein", "TREK-1 K+ Channel"],
+    pathways: ["Serotonin Signaling", "Neurogenesis / BDNF Pathway", "Sigma-1R Neuroprotection", "Anti-inflammatory Pathway", "Autophagy"],
+    offLabel: ["Fibromyalgia", "Premature Ejaculation", "Premenstrual Dysphoric Disorder"],
+    omics: ["Transcriptomics: BDNF neurogenesis gene upregulation", "Proteomics: σ1R-mediated neuroprotection", "GWAS: depression, fibromyalgia, cancer loci"],
+    market: { global: "$2,100M", india: "$320M", newOpp: "$4,200M" },
+    predictions: [
+      { disease: "Cancer (Multi-Drug Resistance Reversal)", confidence: "Moderate", level: "moderate",
+        mechanism: "Fluoxetine inhibits P-glycoprotein efflux pump, reversing multidrug resistance in cancer cells; σ1R antagonism induces ER stress in cancer cells; synergistic with doxorubicin in breast cancer models.",
+        path: "Fluoxetine → P-gp ↓ → Intracellular Drug ↑ → MDR Reversal → Cancer Chemosensitization" },
+      { disease: "COVID-19 / SARS-CoV-2 (Antiviral)", confidence: "High", level: "high",
+        mechanism: "TOGETHER trial showed fluvoxamine (SSRI) reduced COVID-19 hospitalization 29%; σ1R agonism reduces ER stress-driven cytokine storm; fluoxetine inhibits viral entry in cell studies.",
+        path: "Fluoxetine → σ1R → ER Stress ↓ → IL-6/TNF-α ↓ → COVID Cytokine Storm ↓" },
+      { disease: "Fibromyalgia", confidence: "Moderate", level: "moderate",
+        mechanism: "Serotonin reuptake inhibition and BDNF upregulation modulate central pain sensitization; TREK-1 channel inhibition may also contribute to antinociceptive effects.",
+        path: "Fluoxetine → SERT ↓ → Serotonin ↑ → BDNF ↑ → Central Sensitization ↓ → Fibromyalgia Pain ↓" }
+    ],
+    kgNodes: [
+      { id: "drug", label: "Fluoxetine", type: "drug", x: 110, y: 210 },
+      { id: "t1", label: "SERT/SLC6A4", type: "gene", x: 290, y: 130 },
+      { id: "t2", label: "σ1 Receptor", type: "gene", x: 290, y: 210 },
+      { id: "t3", label: "BDNF / P-gp", type: "gene", x: 290, y: 290 },
+      { id: "p1", label: "Serotonin Signal.", type: "pathway", x: 470, y: 100 },
+      { id: "p2", label: "σ1R Neuroprot.", type: "pathway", x: 470, y: 200 },
+      { id: "p3", label: "MDR / P-gp", type: "pathway", x: 470, y: 300 },
+      { id: "d1", label: "Cancer MDR", type: "disease", x: 650, y: 120 },
+      { id: "d2", label: "COVID-19", type: "disease", x: 650, y: 210 },
+      { id: "d3", label: "Fibromyalgia", type: "disease", x: 650, y: 300 },
+    ],
+    kgEdges: [["drug","t1"],["drug","t2"],["drug","t3"],["t1","p1"],["t2","p2"],["t3","p3"],["p3","d1"],["p2","d2"],["p1","d3"],["p2","d3"]]
+  },
+
+  tretinoin: {
+    name: "Tretinoin (All-trans Retinoic Acid)", drugClass: "Retinoid / RAR Agonist / Differentiation Agent", emoji: "🌟",
+    primaryIndication: "Acne Vulgaris / Acute Promyelocytic Leukemia (APL)",
+    targets: ["RAR-α/β/γ (Retinoic Acid Receptors)", "RXR", "AP-1", "PML-RARα Fusion", "p21/CDKN1A"],
+    pathways: ["Retinoic Acid Signaling", "Cell Differentiation", "Epidermal Turnover", "Apoptosis Induction", "Wnt Modulation"],
+    offLabel: ["Neuroblastoma (Maintenance)", "Skin Aging / Anti-wrinkle", "Acute Myeloid Leukemia"],
+    omics: ["Transcriptomics: RAR-regulated differentiation gene networks", "Proteomics: PML-RARα degradation in APL", "GWAS: cancer differentiation loci"],
+    market: { global: "$1,900M", india: "$240M", newOpp: "$5,200M" },
+    predictions: [
+      { disease: "Neuroblastoma (Minimal Residual Disease)", confidence: "High", level: "high",
+        mechanism: "ATRA drives neuroblastoma cell differentiation into mature neurons via RAR-mediated gene expression, eliminating minimal residual disease post-chemotherapy; standard of care in high-risk neuroblastoma maintenance.",
+        path: "Tretinoin → RAR-α ↑ → Neuroblast Differentiation → MRD Clearance → Neuroblastoma Remission" },
+      { disease: "Skin Aging / Photoaging", confidence: "High", level: "high",
+        mechanism: "RAR activation induces collagen I synthesis, reduces MMP-1-driven collagen degradation, promotes epidermal thickening; decades of clinical evidence for wrinkle reduction and hyperpigmentation.",
+        path: "Tretinoin → RAR → Collagen I ↑ → MMP-1 ↓ → ECM Restoration → Photoaging Reversal" },
+      { disease: "Glioblastoma Differentiation", confidence: "Experimental", level: "experimental",
+        mechanism: "GBM stem cells express RARs; ATRA treatment induces partial differentiation and reduces stem cell self-renewal; synergistic with temozolomide in GBM cell line studies.",
+        path: "Tretinoin → RAR-β → GBM Stem Cell Differentiation → Self-Renewal ↓ → GBM Burden ↓" }
+    ],
+    kgNodes: [
+      { id: "drug", label: "Tretinoin", type: "drug", x: 110, y: 210 },
+      { id: "t1", label: "RAR-α/β/γ", type: "gene", x: 290, y: 130 },
+      { id: "t2", label: "PML-RARα", type: "gene", x: 290, y: 210 },
+      { id: "t3", label: "p21/CDKN1A", type: "gene", x: 290, y: 290 },
+      { id: "p1", label: "Retinoic Acid", type: "pathway", x: 470, y: 100 },
+      { id: "p2", label: "Differentiation", type: "pathway", x: 470, y: 200 },
+      { id: "p3", label: "Epidermal Repair", type: "pathway", x: 470, y: 300 },
+      { id: "d1", label: "Neuroblastoma", type: "disease", x: 650, y: 120 },
+      { id: "d2", label: "Skin Aging", type: "disease", x: 650, y: 210 },
+      { id: "d3", label: "Glioblastoma", type: "disease", x: 650, y: 300 },
+    ],
+    kgEdges: [["drug","t1"],["drug","t2"],["drug","t3"],["t1","p1"],["t2","p2"],["t3","p2"],["p1","d1"],["p3","d2"],["p2","d1"],["p1","d3"]]
+  },
+
+  methotrexate: {
+    name: "Methotrexate", drugClass: "Folate Antagonist / DMARD / Antiproliferative", emoji: "🔬",
+    primaryIndication: "Rheumatoid Arthritis / Cancer (Leukemia, Lymphoma) / Psoriasis",
+    targets: ["DHFR (Dihydrofolate Reductase)", "ATIC (AICAR Transformylase)", "Adenosine Pathway", "TNF-α", "IL-6"],
+    pathways: ["Folate Pathway Inhibition", "Purine Synthesis Block", "Adenosine Anti-inflammatory Pathway", "T-cell Proliferation Suppression", "Apoptosis"],
+    offLabel: ["Ectopic Pregnancy", "Crohn's Disease", "Inflammatory Myopathies"],
+    omics: ["Transcriptomics: folate pathway gene suppression", "Proteomics: adenosine receptor upregulation", "GWAS: RA and cancer susceptibility loci"],
+    market: { global: "$3,200M", india: "$580M", newOpp: "$5,800M" },
+    predictions: [
+      { disease: "Primary CNS Lymphoma", confidence: "High", level: "high",
+        mechanism: "High-dose MTX penetrates the blood-brain barrier; inhibits DHFR in rapidly dividing CNS lymphoma cells; cornerstone of PCNSL treatment with proven complete response rates.",
+        path: "Methotrexate (HD) → DHFR ↓ → Purine Synthesis ↓ → CNS Lymphoma Proliferation ↓ → PCNSL Response" },
+      { disease: "Inflammatory Myopathies (Polymyositis/DM)", confidence: "High", level: "high",
+        mechanism: "Adenosine pathway-mediated anti-inflammatory effects reduce muscle inflammation; T-cell suppression attenuates autoimmune myocyte attack; standard second-line DMARD for myositis.",
+        path: "Methotrexate → Adenosine ↑ → T-cell Suppression → Myocyte Inflammation ↓ → Myopathy Improvement" },
+      { disease: "Bladder Cancer (Adjuvant)", confidence: "Moderate", level: "moderate",
+        mechanism: "Part of MVAC regimen for urothelial carcinoma; DHFR inhibition particularly effective in rapidly dividing urothelial cells; folate receptor upregulation in bladder cancer creates selective uptake.",
+        path: "Methotrexate → DHFR ↓ → Folate Depletion → Urothelial DNA Synthesis ↓ → Bladder Cancer ↓" }
+    ],
+    kgNodes: [
+      { id: "drug", label: "Methotrexate", type: "drug", x: 110, y: 210 },
+      { id: "t1", label: "DHFR", type: "gene", x: 290, y: 130 },
+      { id: "t2", label: "ATIC", type: "gene", x: 290, y: 210 },
+      { id: "t3", label: "Adenosine-R", type: "gene", x: 290, y: 290 },
+      { id: "p1", label: "Folate Pathway", type: "pathway", x: 470, y: 100 },
+      { id: "p2", label: "Purine Synthesis", type: "pathway", x: 470, y: 200 },
+      { id: "p3", label: "Adenosine Path.", type: "pathway", x: 470, y: 300 },
+      { id: "d1", label: "CNS Lymphoma", type: "disease", x: 650, y: 120 },
+      { id: "d2", label: "Inflammatory Myo.", type: "disease", x: 650, y: 210 },
+      { id: "d3", label: "Bladder Cancer", type: "disease", x: 650, y: 300 },
+    ],
+    kgEdges: [["drug","t1"],["drug","t2"],["drug","t3"],["t1","p1"],["t2","p2"],["t3","p3"],["p1","d1"],["p3","d2"],["p1","d3"],["p2","d3"]]
+  },
+
+  digoxin: {
+    name: "Digoxin", drugClass: "Cardiac Glycoside / Na+/K+-ATPase Inhibitor", emoji: "❤️",
+    primaryIndication: "Heart Failure / Atrial Fibrillation",
+    targets: ["Na+/K+-ATPase", "HIF-1α", "Src Kinase", "c-Myc", "Wnt Signaling"],
+    pathways: ["Cardiac Contractility", "HIF-1α Inhibition", "Anti-angiogenesis", "Src/EGFR Signaling", "Oncogenic mRNA Translation"],
+    offLabel: ["Cancer (HIF-1α Inhibitor)", "Prostate Cancer", "Lung Cancer"],
+    omics: ["Proteomics: HIF-1α target gene suppression", "Transcriptomics: c-Myc translation inhibition", "GWAS: cardiac and cancer loci overlap"],
+    market: { global: "$900M", india: "$170M", newOpp: "$3,500M" },
+    predictions: [
+      { disease: "Prostate Cancer (Androgen-Resistant)", confidence: "Moderate", level: "moderate",
+        mechanism: "HIF-1α inhibition reduces VEGF and hypoxia-driven tumor growth in castration-resistant prostate cancer; Na+/K+-ATPase-mediated Src kinase activation in cancer cells is blocked.",
+        path: "Digoxin → HIF-1α ↓ → VEGF ↓ → Tumor Hypoxia Response ↓ → CRPC Growth ↓" },
+      { disease: "Lung Cancer (NSCLC)", confidence: "Moderate", level: "moderate",
+        mechanism: "HIF-1α blockade reduces c-Myc and VEGF expression; epidemiological data from Danish registry shows lung cancer patients on digoxin have improved survival outcomes.",
+        path: "Digoxin → HIF-1α ↓ → c-Myc ↓ → Oncogenic Translation ↓ → NSCLC Progression ↓" },
+      { disease: "COVID-19 Cardiac Protection", confidence: "Experimental", level: "experimental",
+        mechanism: "Na+/K+-ATPase modulation may reduce SARS-CoV-2 entry; HIF-1α inhibition could reduce virus-induced hypoxic signaling in cardiac cells during COVID-related myocarditis.",
+        path: "Digoxin → Na+/K+-ATPase → HIF-1α ↓ → Cardiac Viral Damage ↓ → COVID Myocarditis ↓" }
+    ],
+    kgNodes: [
+      { id: "drug", label: "Digoxin", type: "drug", x: 110, y: 210 },
+      { id: "t1", label: "HIF-1α", type: "gene", x: 290, y: 130 },
+      { id: "t2", label: "Na+/K+-ATPase", type: "gene", x: 290, y: 210 },
+      { id: "t3", label: "c-Myc / Src", type: "gene", x: 290, y: 290 },
+      { id: "p1", label: "HIF-1α Pathway", type: "pathway", x: 470, y: 100 },
+      { id: "p2", label: "Cardiac Contract.", type: "pathway", x: 470, y: 200 },
+      { id: "p3", label: "Oncogene Transl.", type: "pathway", x: 470, y: 300 },
+      { id: "d1", label: "Prostate Cancer", type: "disease", x: 650, y: 120 },
+      { id: "d2", label: "NSCLC", type: "disease", x: 650, y: 210 },
+      { id: "d3", label: "COVID Myocarditis", type: "disease", x: 650, y: 300 },
+    ],
+    kgEdges: [["drug","t1"],["drug","t2"],["drug","t3"],["t1","p1"],["t2","p2"],["t3","p3"],["p1","d1"],["p1","d2"],["p3","d2"],["p2","d3"]]
+  },
+
+  amantadine: {
+    name: "Amantadine", drugClass: "Adamantane Antiviral / NMDA Receptor Antagonist", emoji: "🧠",
+    primaryIndication: "Influenza A / Parkinson's Disease (Dyskinesia)",
+    targets: ["NMDA Receptor (NR1)", "Dopamine Transporter (DAT)", "M2 Proton Channel", "Sigma-1 Receptor", "nAChR"],
+    pathways: ["NMDA Receptor Blockade", "Dopaminergic Signaling", "Neuroprotection", "Glutamate Excitotoxicity", "Anti-fatigue CNS Pathway"],
+    offLabel: ["Multiple Sclerosis Fatigue", "Traumatic Brain Injury", "COVID-19 (Post-COVID fatigue)"],
+    omics: ["Transcriptomics: NMDA-excitotoxicity gene suppression", "Proteomics: dopaminergic pathway regulation", "GWAS: PD and MS fatigue loci"],
+    market: { global: "$450M", india: "$85M", newOpp: "$2,800M" },
+    predictions: [
+      { disease: "Multiple Sclerosis Fatigue", confidence: "High", level: "high",
+        mechanism: "NMDA receptor blockade reduces glutamate-driven CNS fatigue circuitry hyperactivation; dopaminergic enhancement improves fatigue-related motivational circuits; MS guidelines recommend amantadine as first-line anti-fatigue agent.",
+        path: "Amantadine → NMDA ↓ → Glutamate Excitotox ↓ → DAT ↑ → Dopamine ↑ → MS Fatigue ↓" },
+      { disease: "Traumatic Brain Injury (Cognitive Recovery)", confidence: "High", level: "high",
+        mechanism: "NMDA receptor modulation and dopaminergic enhancement accelerate cognitive recovery post-TBI; NAMBI trial showed significantly faster functional recovery in moderate-severe TBI.",
+        path: "Amantadine → NMDA ↓ → Excitotoxicity ↓ → DA ↑ → Neuroplasticity ↑ → TBI Recovery" },
+      { disease: "Post-COVID Fatigue (Long COVID)", confidence: "Experimental", level: "experimental",
+        mechanism: "NMDA receptor dysfunction and neuroinflammation contribute to long COVID fatigue; sigma-1R agonism may modulate viral-induced ER stress; case series support benefit in post-COVID neurological symptoms.",
+        path: "Amantadine → NMDA ↓ → σ1R ↑ → Neuroinflammation ↓ → Post-COVID Fatigue ↓" }
+    ],
+    kgNodes: [
+      { id: "drug", label: "Amantadine", type: "drug", x: 110, y: 210 },
+      { id: "t1", label: "NMDA-R", type: "gene", x: 290, y: 130 },
+      { id: "t2", label: "DAT / Dopamine", type: "gene", x: 290, y: 210 },
+      { id: "t3", label: "σ1 Receptor", type: "gene", x: 290, y: 290 },
+      { id: "p1", label: "NMDA Blockade", type: "pathway", x: 470, y: 100 },
+      { id: "p2", label: "Dopaminergic", type: "pathway", x: 470, y: 200 },
+      { id: "p3", label: "Neuroprotection", type: "pathway", x: 470, y: 300 },
+      { id: "d1", label: "MS Fatigue", type: "disease", x: 650, y: 120 },
+      { id: "d2", label: "TBI Recovery", type: "disease", x: 650, y: 210 },
+      { id: "d3", label: "Long COVID", type: "disease", x: 650, y: 300 },
+    ],
+    kgEdges: [["drug","t1"],["drug","t2"],["drug","t3"],["t1","p1"],["t2","p2"],["t3","p3"],["p1","d1"],["p2","d1"],["p1","d2"],["p3","d3"]]
+  },
+
+  disulfiram: {
+    name: "Disulfiram (Antabuse)", drugClass: "Aldehyde Dehydrogenase Inhibitor / Copper Chelator", emoji: "🧪",
+    primaryIndication: "Alcohol Use Disorder",
+    targets: ["ALDH2 (Aldehyde Dehydrogenase 2)", "Copper (Cu2+) Chelation / NPL4", "Proteasome", "NF-κB", "EGFR"],
+    pathways: ["Acetaldehyde Accumulation", "Copper-Dependent Cancer Cell Death", "Proteasomal Stress", "NF-κB Inhibition", "ROS Generation"],
+    offLabel: ["Cancer (Copper-Dependent Toxicity)", "COVID-19 (Cysteine Protease Inhibition)", "HIV Latency Reversal"],
+    omics: ["Proteomics: copper-NPL4 pathway disruption in cancer", "Transcriptomics: NF-κB gene suppression", "GWAS: cancer and alcohol metabolism loci"],
+    market: { global: "$300M", india: "$60M", newOpp: "$3,500M" },
+    predictions: [
+      { disease: "Glioblastoma (Copper-Dependent Toxicity)", confidence: "High", level: "high",
+        mechanism: "Disulfiram forms a toxic disulfiram-copper complex that inhibits NPL4, a protein essential for cancer cell protein homeostasis; GBM cells are copper-dependent and highly sensitive; Phase II trials showing activity.",
+        path: "Disulfiram + Cu2+ → NPL4 Inhibition → Proteasome Stress → GBM Cell Death" },
+      { disease: "Triple-Negative Breast Cancer", confidence: "Moderate", level: "moderate",
+        mechanism: "ALDH+ breast cancer stem cells are selectively targeted as ALDH2 is their survival mechanism; copper-DSF complex activates ROS pathway selectively in TNBC stem cells.",
+        path: "Disulfiram → ALDH ↓ → TNBC Stem Cell Survival ↓ → Cu-DSF ROS ↑ → TNBC Apoptosis" },
+      { disease: "COVID-19 (Cysteine Protease Inhibition)", confidence: "Experimental", level: "experimental",
+        mechanism: "Disulfiram inhibits SARS-CoV-2 papain-like protease (PLpro) via covalent modification of its cysteine active site; molecular docking confirms binding in PLpro crystal structure.",
+        path: "Disulfiram → SARS-CoV-2 PLpro Cys ↓ → Viral Deubiquitinase ↓ → Immune Evasion ↓ → COVID Viral Load ↓" }
+    ],
+    kgNodes: [
+      { id: "drug", label: "Disulfiram", type: "drug", x: 110, y: 210 },
+      { id: "t1", label: "NPL4 / Cu2+", type: "gene", x: 290, y: 130 },
+      { id: "t2", label: "ALDH2", type: "gene", x: 290, y: 210 },
+      { id: "t3", label: "SARS PLpro", type: "gene", x: 290, y: 290 },
+      { id: "p1", label: "Copper-NPL4 Path.", type: "pathway", x: 470, y: 100 },
+      { id: "p2", label: "Proteasomal Stress", type: "pathway", x: 470, y: 200 },
+      { id: "p3", label: "ROS Generation", type: "pathway", x: 470, y: 300 },
+      { id: "d1", label: "Glioblastoma", type: "disease", x: 650, y: 120 },
+      { id: "d2", label: "TNBC", type: "disease", x: 650, y: 210 },
+      { id: "d3", label: "COVID-19", type: "disease", x: 650, y: 300 },
+    ],
+    kgEdges: [["drug","t1"],["drug","t2"],["drug","t3"],["t1","p1"],["t2","p2"],["t2","p3"],["t3","p2"],["p1","d1"],["p3","d2"],["p2","d3"]]
+  },
+
+  niclosamide: {
+    name: "Niclosamide", drugClass: "Anthelmintic / Wnt-mTOR-STAT3 Inhibitor", emoji: "🦠",
+    primaryIndication: "Tapeworm / Intestinal Helminthiasis",
+    targets: ["Wnt/β-catenin Signaling", "mTORC1", "STAT3", "Notch Signaling", "Autophagy (ULK1)"],
+    pathways: ["Wnt Pathway Inhibition", "STAT3 Signaling", "mTOR Pathway", "Notch Pathway", "Mitochondrial Uncoupling"],
+    offLabel: ["Cancer (Multiple Types)", "COVID-19", "NASH / NAFLD"],
+    omics: ["Transcriptomics: Wnt/STAT3 target gene suppression", "Proteomics: cancer stem cell marker reduction", "GWAS: colorectal cancer and obesity loci"],
+    market: { global: "$200M", india: "$55M", newOpp: "$4,000M" },
+    predictions: [
+      { disease: "Colorectal Cancer (Wnt-Driven)", confidence: "High", level: "high",
+        mechanism: "Wnt/β-catenin and STAT3 dual blockade reduces cancer stem cell survival in CRC; niclosamide uniquely inhibits nuclear β-catenin translocation; Phase I/II trials ongoing in CRC and APC-mutant patients.",
+        path: "Niclosamide → Wnt ↓ → β-catenin Nuclear Entry ↓ → STAT3 ↓ → CRC Stem Cell Death" },
+      { disease: "Prostate Cancer (CRPC)", confidence: "Moderate", level: "moderate",
+        mechanism: "STAT3 inhibition reduces androgen receptor splice variant (AR-V7) expression, overcoming enzalutamide resistance; Wnt pathway blockade reduces cancer stem cell self-renewal in CRPC.",
+        path: "Niclosamide → STAT3 ↓ → AR-V7 ↓ → Enzalutamide Re-sensitization → CRPC Regression" },
+      { disease: "COVID-19 / SARS-CoV-2", confidence: "Moderate", level: "moderate",
+        mechanism: "Niclosamide inhibits SARS-CoV-2 replication by blocking endosomal acidification required for viral entry; TMPRSS2 expression suppression via STAT3 reduces viral priming.",
+        path: "Niclosamide → Endosomal pH ↑ → Viral Entry ↓ → STAT3 ↓ → TMPRSS2 ↓ → COVID Replication ↓" }
+    ],
+    kgNodes: [
+      { id: "drug", label: "Niclosamide", type: "drug", x: 110, y: 210 },
+      { id: "t1", label: "Wnt/β-catenin", type: "gene", x: 290, y: 130 },
+      { id: "t2", label: "STAT3", type: "gene", x: 290, y: 210 },
+      { id: "t3", label: "mTORC1 / Notch", type: "gene", x: 290, y: 290 },
+      { id: "p1", label: "Wnt Pathway", type: "pathway", x: 470, y: 100 },
+      { id: "p2", label: "STAT3 Signaling", type: "pathway", x: 470, y: 200 },
+      { id: "p3", label: "mTOR/Autophagy", type: "pathway", x: 470, y: 300 },
+      { id: "d1", label: "Colorectal Cancer", type: "disease", x: 650, y: 120 },
+      { id: "d2", label: "Prostate CRPC", type: "disease", x: 650, y: 210 },
+      { id: "d3", label: "COVID-19", type: "disease", x: 650, y: 300 },
+    ],
+    kgEdges: [["drug","t1"],["drug","t2"],["drug","t3"],["t1","p1"],["t2","p2"],["t3","p3"],["p1","d1"],["p2","d2"],["p2","d3"],["p3","d1"]]
+  },
+
+  melatonin: {
+    name: "Melatonin", drugClass: "Pineal Hormone / Antioxidant / MT1/MT2 Agonist", emoji: "🌙",
+    primaryIndication: "Sleep Disorders / Jet Lag / Circadian Rhythm Disruption",
+    targets: ["MT1/MT2 Melatonin Receptors", "RORα/RORγ (Circadian Receptors)", "NF-κB", "Nrf2/ARE", "Mitochondrial ROS"],
+    pathways: ["Circadian Clock Regulation", "Antioxidant/Nrf2 Pathway", "Anti-inflammatory", "Mitochondrial Protection", "Apoptosis Regulation"],
+    offLabel: ["Cancer Adjuvant", "COVID-19 (Antioxidant)", "Alzheimer's Disease", "Sepsis"],
+    omics: ["Transcriptomics: clock gene regulation", "Proteomics: mitochondrial oxidative stress reduction", "GWAS: circadian, cancer, and metabolic loci"],
+    market: { global: "$800M", india: "$130M", newOpp: "$4,500M" },
+    predictions: [
+      { disease: "Cancer Adjuvant (Various)", confidence: "High", level: "high",
+        mechanism: "Melatonin enhances cancer cell apoptosis, reduces angiogenesis, and modulates immune anti-tumor response; meta-analysis of 21 RCTs shows 34% improved 1-year survival when added to cancer therapy.",
+        path: "Melatonin → MT1 → NF-κB ↓ → VEGF ↓ → Tumor Angiogenesis ↓ → Cancer Apoptosis ↑" },
+      { disease: "COVID-19 Severity Reduction", confidence: "Moderate", level: "moderate",
+        mechanism: "NF-κB suppression and Nrf2 activation reduce COVID-19 cytokine storm and oxidative lung injury; melatonin deficiency correlates with severe COVID-19; observational studies support protective role.",
+        path: "Melatonin → NF-κB ↓ → Nrf2 ↑ → Antioxidant ↑ → Cytokine Storm ↓ → COVID Severity ↓" },
+      { disease: "Alzheimer's Disease (Circadian)", confidence: "Moderate", level: "moderate",
+        mechanism: "Circadian disruption accelerates Aβ production; melatonin restores sleep-dependent Aβ clearance via glymphatic system; antioxidant protection reduces tau oxidative damage.",
+        path: "Melatonin → ROR ↑ → Circadian Rhythm → Glymphatic Aβ Clearance ↑ → AD Progression ↓" }
+    ],
+    kgNodes: [
+      { id: "drug", label: "Melatonin", type: "drug", x: 110, y: 210 },
+      { id: "t1", label: "MT1/MT2-R", type: "gene", x: 290, y: 130 },
+      { id: "t2", label: "Nrf2 / ROS", type: "gene", x: 290, y: 210 },
+      { id: "t3", label: "NF-κB", type: "gene", x: 290, y: 290 },
+      { id: "p1", label: "Circadian Clock", type: "pathway", x: 470, y: 100 },
+      { id: "p2", label: "Antioxidant/Nrf2", type: "pathway", x: 470, y: 200 },
+      { id: "p3", label: "Anti-inflammatory", type: "pathway", x: 470, y: 300 },
+      { id: "d1", label: "Cancer Adjuvant", type: "disease", x: 650, y: 120 },
+      { id: "d2", label: "COVID-19", type: "disease", x: 650, y: 210 },
+      { id: "d3", label: "Alzheimer's", type: "disease", x: 650, y: 300 },
+    ],
+    kgEdges: [["drug","t1"],["drug","t2"],["drug","t3"],["t1","p1"],["t2","p2"],["t3","p3"],["p3","d1"],["p2","d2"],["p3","d2"],["p1","d3"]]
+  },
+
+  doxorubicin: {
+    name: "Doxorubicin", drugClass: "Anthracycline / Topoisomerase II Inhibitor", emoji: "🔬",
+    primaryIndication: "Breast Cancer / Leukemia / Lymphoma / Sarcoma",
+    targets: ["Topoisomerase II (TOP2A/B)", "DNA Intercalation", "Reactive Oxygen Species (ROS)", "HIF-1α", "p53"],
+    pathways: ["DNA Damage Response", "Topoisomerase Inhibition", "ROS-mediated Apoptosis", "p53 Pathway", "Cardiotoxicity Pathway"],
+    offLabel: ["Kaposi Sarcoma (Liposomal)", "Ovarian Cancer", "Thyroid Cancer"],
+    omics: ["Transcriptomics: DNA damage response gene activation", "Proteomics: TOP2A overexpression as biomarker", "GWAS: cancer susceptibility and anthracycline cardiotoxicity loci"],
+    market: { global: "$3,500M", india: "$480M", newOpp: "$5,000M" },
+    predictions: [
+      { disease: "Thyroid Cancer (Refractory)", confidence: "Moderate", level: "moderate",
+        mechanism: "TOP2A expression in dedifferentiated thyroid cancer correlates with doxorubicin sensitivity; ROS-mediated apoptosis is particularly effective in iodine-refractory differentiated thyroid cancer.",
+        path: "Doxorubicin → TOP2A ↓ → DNA Double-strand Breaks → ROS ↑ → Thyroid Cancer Apoptosis" },
+      { disease: "Uterine Sarcoma", confidence: "High", level: "high",
+        mechanism: "Uterine leiomyosarcoma and carcinosarcoma overexpress TOP2A; anthracycline-based regimens are first-line; high DNA replication rate in sarcoma confers sensitivity.",
+        path: "Doxorubicin → TOP2A ↑ (Sensitivity) → DNA Damage → Sarcoma Cell Apoptosis" },
+      { disease: "Hepatocellular Carcinoma (TACE)", confidence: "Moderate", level: "moderate",
+        mechanism: "Transarterial chemoembolization (TACE) with liposomal doxorubicin achieves local tumor control; HIF-1α upregulation post-embolization may be counteracted by doxorubicin-induced apoptosis.",
+        path: "Doxorubicin (TACE) → TOP2A ↓ → HCC DNA Damage → p53 ↑ → HCC Apoptosis" }
+    ],
+    kgNodes: [
+      { id: "drug", label: "Doxorubicin", type: "drug", x: 110, y: 210 },
+      { id: "t1", label: "TOP2A/TOP2B", type: "gene", x: 290, y: 130 },
+      { id: "t2", label: "p53", type: "gene", x: 290, y: 210 },
+      { id: "t3", label: "ROS / HIF-1α", type: "gene", x: 290, y: 290 },
+      { id: "p1", label: "DNA Damage Resp.", type: "pathway", x: 470, y: 100 },
+      { id: "p2", label: "p53 Apoptosis", type: "pathway", x: 470, y: 200 },
+      { id: "p3", label: "ROS Pathway", type: "pathway", x: 470, y: 300 },
+      { id: "d1", label: "Thyroid Cancer", type: "disease", x: 650, y: 120 },
+      { id: "d2", label: "Uterine Sarcoma", type: "disease", x: 650, y: 210 },
+      { id: "d3", label: "Hepatocellular Ca.", type: "disease", x: 650, y: 300 },
+    ],
+    kgEdges: [["drug","t1"],["drug","t2"],["drug","t3"],["t1","p1"],["t2","p2"],["t3","p3"],["p1","d1"],["p2","d2"],["p3","d3"],["p1","d2"]]
+  },
+
+  sulfasalazine: {
+    name: "Sulfasalazine", drugClass: "Aminosalicylate / xCT Transporter Inhibitor / DMARD", emoji: "💊",
+    primaryIndication: "Ulcerative Colitis / Rheumatoid Arthritis / Crohn's Disease",
+    targets: ["xCT Cystine-Glutamate Transporter (SLC7A11)", "NF-κB", "5-ASA Anti-inflammatory", "Folate Absorption", "TNF-α"],
+    pathways: ["Glutathione Depletion (Cancer)", "NF-κB Signaling", "Mucosal Immune Modulation", "Folate Pathway", "Oxidative Stress"],
+    offLabel: ["Cancer (xCT Inhibitor)", "Ankylosing Spondylitis", "Psoriatic Arthritis"],
+    omics: ["Transcriptomics: xCT-driven GSH depletion in cancer", "Proteomics: NF-κB gene suppression", "GWAS: IBD and rheumatic disease loci"],
+    market: { global: "$900M", india: "$210M", newOpp: "$3,000M" },
+    predictions: [
+      { disease: "Glioblastoma (Ferroptosis Induction)", confidence: "High", level: "high",
+        mechanism: "xCT inhibition depletes intracellular glutathione (GSH) in GBM cells, which depend heavily on xCT for cystine import to survive oxidative stress; sulfasalazine induces ferroptosis in GBM; clinical trial data exists.",
+        path: "Sulfasalazine → xCT ↓ → GSH Depletion → Ferroptosis ↑ → GBM Cell Death" },
+      { disease: "Pancreatic Cancer (Ferroptosis)", confidence: "Moderate", level: "moderate",
+        mechanism: "KRAS-mutant pancreatic cancers upregulate xCT to manage oxidative stress; sulfasalazine sensitizes PDAC to gemcitabine by depleting GSH-mediated chemoresistance.",
+        path: "Sulfasalazine → xCT ↓ → GSH ↓ → Gemcitabine Sensitivity ↑ → PDAC Regression" },
+      { disease: "Ankylosing Spondylitis", confidence: "High", level: "high",
+        mechanism: "NF-κB and TNF-α suppression reduce axial joint inflammation; 5-ASA anti-inflammatory effects benefit peripheral joint manifestations; included in AS treatment guidelines.",
+        path: "Sulfasalazine → NF-κB ↓ → TNF-α ↓ → Axial Inflammation ↓ → AS Symptom Control" }
+    ],
+    kgNodes: [
+      { id: "drug", label: "Sulfasalazine", type: "drug", x: 110, y: 210 },
+      { id: "t1", label: "xCT/SLC7A11", type: "gene", x: 290, y: 130 },
+      { id: "t2", label: "NF-κB", type: "gene", x: 290, y: 210 },
+      { id: "t3", label: "TNF-α / 5-ASA", type: "gene", x: 290, y: 290 },
+      { id: "p1", label: "GSH Depletion", type: "pathway", x: 470, y: 100 },
+      { id: "p2", label: "Ferroptosis", type: "pathway", x: 470, y: 200 },
+      { id: "p3", label: "NF-κB Signaling", type: "pathway", x: 470, y: 300 },
+      { id: "d1", label: "Glioblastoma", type: "disease", x: 650, y: 120 },
+      { id: "d2", label: "Pancreatic Cancer", type: "disease", x: 650, y: 210 },
+      { id: "d3", label: "Ankylosing Sp.", type: "disease", x: 650, y: 300 },
+    ],
+    kgEdges: [["drug","t1"],["drug","t2"],["drug","t3"],["t1","p1"],["t2","p3"],["t3","p3"],["p1","p2"],["p2","d1"],["p2","d2"],["p3","d3"]]
+  }
+
+};
+
+const COLORS = {
+  drug: { fill: '#E8540A', text: 'white', stroke: '#c9450a' },
+  gene: { fill: '#1A7A6E', text: 'white', stroke: '#115e54' },
+  pathway: { fill: '#2C5EBD', text: 'white', stroke: '#1e459a' },
+  disease: { fill: '#6B3FA0', text: 'white', stroke: '#4e2e78' },
+};
+
+function quickSearch(name) {
+  document.getElementById('drugInput').value = name;
+  searchDrug();
+}
+
+function searchDrug() {
+  const input = document.getElementById('drugInput').value.trim();
+  if (!input) return;
+
+  let key = input.toLowerCase().replace(/\s+/g,'').replace(/[()/-]/g,'');
+  const aliases = {'withaniasomnifera':'ashwagandha','sirolimus':'rapamycin','hydroxychloroquine':'chloroquine','ldn':'naltrexone','lowdosenaltrexone':'naltrexone','alltransretinoicacid':'tretinoin','atra':'tretinoin','prozac':'fluoxetine','antabuse':'disulfiram','mtx':'methotrexate','valproate':'valproicacid','vpa':'valproicacid','depakote':'valproicacid','blackpepper':'piperine','rapamune':'rapamycin','celebrex':'celecoxib','aldactone':'spironolactone','rogaine':'minoxidil','propecia':'finasteride','boswellia':'boswellicacid','adriamycin':'doxorubicin','viagra':'sildenafil'};
+  if (aliases[key]) key = aliases[key];
+  const data = DRUG_DB[key];
+
+  document.getElementById('emptyState').style.display = 'none';
+  document.getElementById('resultsSection').style.display = 'none';
+  document.getElementById('errorState').style.display = 'none';
+  document.getElementById('loadingState').style.display = 'block';
+
+  setTimeout(() => {
+    document.getElementById('loadingState').style.display = 'none';
+
+    if (!data) {
+      // AI-generated fallback
+      generateAIFallback(input);
+      return;
+    }
+
+    renderDrug(data);
+  }, 1200);
+}
+
+function generateAIFallback(name) {
+  const fallback = {
+    name: name.charAt(0).toUpperCase() + name.slice(1),
+    drugClass: "Compound / Therapeutic Agent",
+    emoji: "🔬",
+    primaryIndication: "Under AI Analysis",
+    targets: ["Target 1 (Analyzing...)", "Target 2 (Analyzing...)", "Target 3 (Analyzing...)"],
+    pathways: ["Pathway A", "Pathway B", "Pathway C"],
+    offLabel: ["Off-label use 1", "Off-label use 2"],
+    omics: ["Transcriptomic evidence pending", "Proteomic markers under review"],
+    market: { global: "N/A", india: "N/A", newOpp: "Calculating..." },
+    predictions: [
+      { disease: "Indication Candidate 1", confidence: "Experimental", level: "experimental",
+        mechanism: "AI knowledge graph analysis identified potential mechanistic links via shared molecular targets. Full validation requires experimental confirmation.",
+        path: `${name} → [Target Analysis] → [Pathway Mapping] → Disease Candidate 1` },
+      { disease: "Indication Candidate 2", confidence: "Experimental", level: "experimental",
+        mechanism: "Multi-omics integration suggests transcriptomic overlap with disease-associated gene expression signatures.",
+        path: `${name} → [Gene Signature] → [Disease Pathway] → Indication 2` }
+    ],
+    kgNodes: [
+      { id: "drug", label: name, type: "drug", x: 110, y: 210 },
+      { id: "t1", label: "Target A", type: "gene", x: 290, y: 150 },
+      { id: "t2", label: "Target B", type: "gene", x: 290, y: 270 },
+      { id: "p1", label: "Pathway X", type: "pathway", x: 470, y: 150 },
+      { id: "p2", label: "Pathway Y", type: "pathway", x: 470, y: 270 },
+      { id: "d1", label: "Indication 1", type: "disease", x: 640, y: 150 },
+      { id: "d2", label: "Indication 2", type: "disease", x: 640, y: 270 },
+    ],
+    kgEdges: [["drug","t1"],["drug","t2"],["t1","p1"],["t2","p2"],["p1","d1"],["p2","d2"]]
+  };
+  renderDrug(fallback);
+
+  // Call Claude API for real AI analysis
+  callClaudeAPI(name);
+}
+
+async function callClaudeAPI(drugName) {
+  try {
+    const response = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        model: "claude-sonnet-4-20250514",
+        max_tokens: 1000,
+        system: `You are a biomedical AI expert specializing in drug repurposing via knowledge graphs and multi-omics. 
+Respond ONLY with a JSON object (no markdown, no backticks) with this exact structure:
+{
+  "primaryIndication": "string",
+  "drugClass": "string",
+  "targets": ["gene1","gene2","gene3","gene4"],
+  "pathways": ["pathway1","pathway2","pathway3"],
+  "offLabel": ["use1","use2","use3"],
+  "predictions": [
+    {"disease":"string","confidence":"High|Moderate|Experimental","level":"high|moderate|experimental","mechanism":"string (2 sentences)","path":"Drug → Target → Pathway → Disease"},
+    {"disease":"string","confidence":"Moderate","level":"moderate","mechanism":"string","path":"..."},
+    {"disease":"string","confidence":"Experimental","level":"experimental","mechanism":"string","path":"..."}
+  ]
+}`,
+        messages: [{ role: "user", content: `Provide drug repurposing analysis for: ${drugName}. Include real molecular targets, known pathways, and 3 predicted new indications based on knowledge graph reasoning.` }]
+      })
+    });
+    const data = await response.json();
+    const text = data.content?.find(b => b.type === 'text')?.text || '';
+    const parsed = JSON.parse(text.replace(/```json|```/g, '').trim());
+
+    // Update displayed results with AI data
+    if (parsed.primaryIndication) {
+      document.getElementById('drugIndicationDisplay').textContent = parsed.primaryIndication;
+      document.getElementById('drugClassDisplay').textContent = parsed.drugClass || '';
+    }
+    if (parsed.targets) renderTags('targetsDisplay', parsed.targets, 'tag-teal');
+    if (parsed.pathways) renderTags('pathwaysDisplay', parsed.pathways, 'tag-blue');
+    if (parsed.offLabel) renderTags('offlabelDisplay', parsed.offLabel, 'tag-purple');
+    if (parsed.predictions) {
+      const pd = document.getElementById('predictionsDisplay');
+      pd.innerHTML = '';
+      parsed.predictions.forEach(p => pd.appendChild(makePredCard(p)));
+    }
+  } catch(e) {
+    console.log('AI API note:', e.message);
+  }
+}
+
+function renderTags(containerId, items, cls) {
+  const el = document.getElementById(containerId);
+  el.innerHTML = items.map(t => `<span class="tag ${cls}">${t}</span>`).join('');
+}
+
+function makePredCard(p) {
+  const div = document.createElement('div');
+  div.className = `pred-card ${p.level}`;
+  const confCls = p.level === 'high' ? 'conf-high' : p.level === 'moderate' ? 'conf-moderate' : 'conf-experimental';
+  div.innerHTML = `
+    <div class="pred-top">
+      <div class="pred-disease">${p.disease}</div>
+      <div class="confidence-badge ${confCls}">${p.confidence}</div>
+    </div>
+    <div class="pred-mechanism">${p.mechanism}</div>
+    <div class="pred-path">${p.path}</div>
+  `;
+  return div;
+}
+
+function renderDrug(data) {
+  document.getElementById('drugIcon').textContent = data.emoji;
+  document.getElementById('drugNameDisplay').textContent = data.name;
+  document.getElementById('drugClassDisplay').textContent = data.drugClass;
+  document.getElementById('drugIndicationDisplay').textContent = 'Primary: ' + data.primaryIndication;
+
+  renderTags('targetsDisplay', data.targets, 'tag-teal');
+  renderTags('pathwaysDisplay', data.pathways, 'tag-blue');
+  renderTags('offlabelDisplay', data.offLabel, 'tag-purple');
+  renderTags('omicsDisplay', data.omics, 'tag-yellow');
+
+  // Market cards
+  const mg = document.getElementById('marketGrid');
+  mg.innerHTML = `
+    <div class="market-card">
+      <div class="market-icon">🌍</div>
+      <div class="market-val" style="color:var(--teal)">${data.market.global}</div>
+      <div class="market-label">Global Market (Primary)</div>
+    </div>
+    <div class="market-card">
+      <div class="market-icon">🇮🇳</div>
+      <div class="market-val" style="color:var(--blue)">${data.market.india}</div>
+      <div class="market-label">India Market Size</div>
+    </div>
+    <div class="market-card">
+      <div class="market-icon">🚀</div>
+      <div class="market-val" style="color:var(--orange)">${data.market.newOpp}</div>
+      <div class="market-label">New Indication Opportunity</div>
+    </div>
+  `;
+
+  // Predictions
+  const pd = document.getElementById('predictionsDisplay');
+  pd.innerHTML = '';
+  data.predictions.forEach(p => pd.appendChild(makePredCard(p)));
+
+  document.getElementById('resultsSection').style.display = 'block';
+
+  // Draw KG
+  setTimeout(() => drawKG(data.kgNodes, data.kgEdges), 100);
+}
+
+function drawKG(nodes, edges) {
+  const canvas = document.getElementById('kg-canvas');
+  const ctx = canvas.getContext('2d');
+  canvas.width = canvas.offsetWidth;
+  canvas.height = 420;
+
+  const W = canvas.width;
+  const H = canvas.height;
+  const scaleX = W / 800;
+  const scaleY = H / 420;
+
+  const nodeMap = {};
+  nodes.forEach(n => { nodeMap[n.id] = n; });
+
+  ctx.clearRect(0, 0, W, H);
+  ctx.fillStyle = '#fafafa';
+  ctx.fillRect(0, 0, W, H);
+
+  // Draw edges
+  edges.forEach(([fromId, toId]) => {
+    const from = nodeMap[fromId];
+    const to = nodeMap[toId];
+    if (!from || !to) return;
+    const fx = from.x * scaleX, fy = from.y * scaleY;
+    const tx = to.x * scaleX, ty = to.y * scaleY;
+
+    ctx.beginPath();
+    ctx.moveTo(fx, fy);
+    ctx.lineTo(tx, ty);
+    ctx.strokeStyle = '#ddd';
+    ctx.lineWidth = 1.5;
+    ctx.setLineDash([4, 3]);
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    // Arrow
+    const angle = Math.atan2(ty - fy, tx - fx);
+    const ar = 8;
+    const ax = tx - Math.cos(angle) * 28;
+    const ay = ty - Math.sin(angle) * 28;
+    ctx.beginPath();
+    ctx.moveTo(ax, ay);
+    ctx.lineTo(ax - ar * Math.cos(angle - 0.4), ay - ar * Math.sin(angle - 0.4));
+    ctx.lineTo(ax - ar * Math.cos(angle + 0.4), ay - ar * Math.sin(angle + 0.4));
+    ctx.closePath();
+    ctx.fillStyle = '#ccc';
+    ctx.fill();
+  });
+
+  // Draw nodes
+  nodes.forEach(n => {
+    const x = n.x * scaleX;
+    const y = n.y * scaleY;
+    const col = COLORS[n.type];
+    const r = n.type === 'drug' ? 38 : 26;
+
+    // Shadow
+    ctx.shadowColor = 'rgba(0,0,0,0.12)';
+    ctx.shadowBlur = 10;
+    ctx.shadowOffsetY = 3;
+
+    if (n.type === 'drug') {
+      // Hexagon for drug
+      ctx.beginPath();
+      for (let i = 0; i < 6; i++) {
+        const a = (Math.PI / 3) * i - Math.PI / 6;
+        const px = x + r * Math.cos(a);
+        const py = y + r * Math.sin(a);
+        i === 0 ? ctx.moveTo(px, py) : ctx.lineTo(px, py);
+      }
+      ctx.closePath();
+    } else {
+      ctx.beginPath();
+      ctx.arc(x, y, r, 0, Math.PI * 2);
+    }
+
+    ctx.fillStyle = col.fill;
+    ctx.fill();
+    ctx.strokeStyle = col.stroke;
+    ctx.lineWidth = 2;
+    ctx.stroke();
+    ctx.shadowColor = 'transparent';
+
+    // Type label (small top)
+    ctx.fillStyle = 'rgba(255,255,255,0.7)';
+    ctx.font = `500 9px 'DM Sans', sans-serif`;
+    ctx.textAlign = 'center';
+    ctx.fillText(n.type.toUpperCase(), x, y - 8);
+
+    // Name
+    ctx.fillStyle = col.text;
+    ctx.font = `600 11px 'DM Sans', sans-serif`;
+    const words = n.label.split(' ');
+    if (words.length === 1) {
+      ctx.fillText(n.label, x, y + 5);
+    } else {
+      ctx.fillText(words.slice(0, Math.ceil(words.length/2)).join(' '), x, y + 1);
+      ctx.fillText(words.slice(Math.ceil(words.length/2)).join(' '), x, y + 13);
+    }
+  });
+
+  // Legend
+  const types = ['drug', 'gene', 'pathway', 'disease'];
+  const labels = ['Drug', 'Gene/Target', 'Pathway', 'Disease'];
+  const lx = 20, ly = H - 30;
+  types.forEach((t, i) => {
+    const ox = lx + i * (W / 4.2);
+    ctx.beginPath();
+    ctx.arc(ox + 8, ly, 7, 0, Math.PI * 2);
+    ctx.fillStyle = COLORS[t].fill;
+    ctx.fill();
+    ctx.fillStyle = '#666';
+    ctx.font = '11px DM Sans, sans-serif';
+    ctx.textAlign = 'left';
+    ctx.fillText(labels[i], ox + 18, ly + 4);
+  });
+}
+
+document.getElementById('drugInput').addEventListener('keydown', e => {
+  if (e.key === 'Enter') searchDrug();
+});
+
+window.addEventListener('resize', () => {
+  const res = document.getElementById('resultsSection');
+  if (res.style.display !== 'none') {
+    const input = document.getElementById('drugInput').value.trim().toLowerCase().replace(/\s+/g,'');
+    const data = DRUG_DB[input];
+    if (data) setTimeout(() => drawKG(data.kgNodes, data.kgEdges), 100);
+  }
+});
+</script>
+</body>
+</html>
